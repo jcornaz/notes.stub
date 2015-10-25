@@ -15,6 +15,7 @@ import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.Vector;
 
 /**
  * Units tests for {@link BaseStub} and test utilities for derived classes
@@ -146,5 +147,30 @@ public class BaseStubTest {
     @Test
     public void testRecycleObjectExceptionsRaised() {
         BaseStubTest.assertRecycledObjectExceptionsRaised(new BaseStub());
+    }
+
+    /**
+     * A list of Base object should be recycled by a call of {@link BaseStub#recycle(Vector)}
+     * @throws NotesException
+     */
+    @Test
+    public void testBulkRecycling() throws NotesException {
+        Vector<BaseStub> slaves = new Vector<BaseStub>();
+
+        for( int i = 0 ; i < 10 ; i ++ )
+        {
+            slaves.add(new BaseStub());
+        }
+
+        BaseStub master = new BaseStub();
+        master.recycle(slaves);
+
+        // The object that made the call shouldn't be recycled
+        Assert.assertFalse(master.isRecycled());
+
+        for (BaseStub slave : slaves)
+        {
+            Assert.assertTrue(slave.isRecycled());
+        }
     }
 }

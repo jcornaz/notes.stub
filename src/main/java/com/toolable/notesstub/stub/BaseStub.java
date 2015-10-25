@@ -2,6 +2,7 @@ package com.toolable.notesstub.stub;
 
 import com.toolable.notesstub.exceptions.RecycledObjectException;
 import lotus.domino.Base;
+import lotus.domino.NotesException;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.Vector;
@@ -52,7 +53,12 @@ public class BaseStub implements Base {
     }
 
     @Override
-    public void recycle(Vector vector) {
-        throw new NotImplementedException();
+    public void recycle(Vector vector) throws NotesException {
+        this.assertNotRecycled();
+        for (Object obj : vector) {
+            if (obj instanceof  Base) {
+                ((Base) obj).recycle();
+            }
+        }
     }
 }
