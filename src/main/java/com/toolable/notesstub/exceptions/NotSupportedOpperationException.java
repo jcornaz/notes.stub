@@ -1,6 +1,8 @@
 package com.toolable.notesstub.exceptions;
 
 /**
+ * An exception for not supported operations.<br />
+ * This means that the call of the method as no sense or is not currently supported by the application.
  * @author jonathan
  */
 public class NotSupportedOpperationException extends RuntimeException {

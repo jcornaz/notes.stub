@@ -1,6 +1,8 @@
 package com.toolable.notesstub.exceptions;
 
 /**
+ * An exception that should never been thrown in theory, because the method ensure it.<br />
+ * Therefore, in practical cases, it allow to understand what gone wrong.
  * @author jonathan
  */
 public class UnexpectedException extends RuntimeException{
@@ -37,7 +39,6 @@ public class UnexpectedException extends RuntimeException{
      *                {@link #getCause()} method).  (A <tt>null</tt> value is
      *                permitted, and indicates that the cause is nonexistent or
      *                unknown.)
-     * @since 1.4
      */
     public UnexpectedException(String message, Throwable cause) {
         super(message, cause);
@@ -54,7 +55,6 @@ public class UnexpectedException extends RuntimeException{
      *              {@link #getCause()} method).  (A <tt>null</tt> value is
      *              permitted, and indicates that the cause is nonexistent or
      *              unknown.)
-     * @since 1.4
      */
     public UnexpectedException(Throwable cause) {
         super(cause);

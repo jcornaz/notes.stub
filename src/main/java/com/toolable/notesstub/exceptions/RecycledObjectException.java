@@ -1,6 +1,13 @@
 package com.toolable.notesstub.exceptions;
 
+import com.toolable.notesstub.stub.BaseStub;
+import lotus.domino.Base;
+
 /**
+ * Exception raised when a Lotus Notes method as been called on a recycled object
+ * @see Base#recycle()
+ * @see BaseStub#setRecycled(boolean)
+ * @see BaseStub#isRecycled()
  * @author jonathan
  */
 public class RecycledObjectException extends RuntimeException {
@@ -16,7 +23,6 @@ public class RecycledObjectException extends RuntimeException {
      *              {@link #getCause()} method).  (A <tt>null</tt> value is
      *              permitted, and indicates that the cause is nonexistent or
      *              unknown.)
-     * @since 1.4
      */
     public RecycledObjectException(Throwable cause) {
         super(cause);
@@ -54,7 +60,6 @@ public class RecycledObjectException extends RuntimeException {
      *                {@link #getCause()} method).  (A <tt>null</tt> value is
      *                permitted, and indicates that the cause is nonexistent or
      *                unknown.)
-     * @since 1.4
      */
     public RecycledObjectException(String message, Throwable cause) {
         super(message, cause);
