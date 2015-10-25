@@ -1,6 +1,7 @@
 package com.toolable.notesstub.stub;
 
 import com.google.common.base.Preconditions;
+import com.toolable.notesstub.exceptions.NotImplementedException;
 import com.toolable.notesstub.exceptions.RecycledObjectException;
 import com.toolable.notesstub.exceptions.UnexpectedException;
 import lotus.domino.Base;
@@ -8,7 +9,6 @@ import lotus.domino.NotesException;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
