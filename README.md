@@ -1,5 +1,12 @@
-# NotesStub
-A minimalistic Lotus Notes behaviors reproduction for unit testing purpose in Java
+# Notes Stub
+A minimalistic Lotus Notes behaviors reproduction in java for unit testing purpose.
+
+## Tasks
+[![Stories in Backlog](https://badge.waffle.io/toolable/notes.stub.svg?label=backlog&title=Backlog)](http://waffle.io/toolable/notes.stub)
+[![Stories in Ready](https://badge.waffle.io/toolable/notes.stub.svg?label=ready&title=Ready)](http://waffle.io/toolable/notes.stub)
+[![Stories in In Progress](https://badge.waffle.io/toolable/notes.stub.svg?label=in%20progress&title=In%20Progress)](http://waffle.io/toolable/notes.stub)
+[![Stories in Done](https://badge.waffle.io/toolable/notes.stub.svg?label=done&title=Done)](http://waffle.io/toolable/notes.stub)
+
 
 ## Setup
 This project need the `Notes.jar` archive, that cannot be distributed.
