@@ -12,6 +12,7 @@ import org.mockito.Mockito;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -66,8 +67,16 @@ public class BaseStubTest {
             if (types[i].isPrimitive()) {
                 if (types[i].toString().equals("boolean")) {
                     parameters[i] = false;
+                } else if (types[i].toString().matches("^(byte|char|short|int|long)$")) {
+                    parameters[i] = 0;
                 } else {
-                    parameters[i] = types[i].cast(0);
+                    parameters[i] = 0f;
+                }
+            } else if (Modifier.isFinal(types[i].getModifiers())) {
+                try {
+                    parameters[i] = types[i].newInstance();
+                } catch (Exception e) {
+                    parameters[i] = null;
                 }
             } else {
                 parameters[i] = Mockito.mock(types[i]);
