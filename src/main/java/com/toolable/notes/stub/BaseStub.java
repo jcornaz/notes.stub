@@ -1,9 +1,8 @@
-package com.toolable.notesstub.stub;
+package com.toolable.notes.stub;
 
-import com.toolable.notesstub.exceptions.RecycledObjectException;
+import com.toolable.notes.stub.exceptions.RecycledObjectException;
 import lotus.domino.Base;
 import lotus.domino.NotesException;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.Vector;
 
