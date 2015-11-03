@@ -1,4 +1,4 @@
-package com.toolable.notesstub.exceptions;
+package com.toolable.notes.stub.exceptions;
 
 /**
  * An exceptions that mean a method is not currently implemented.

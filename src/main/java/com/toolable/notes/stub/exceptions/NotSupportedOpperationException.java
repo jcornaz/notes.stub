@@ -1,39 +1,18 @@
-package com.toolable.notesstub.exceptions;
-
-import com.toolable.notesstub.stub.BaseStub;
-import lotus.domino.Base;
+package com.toolable.notes.stub.exceptions;
 
 /**
- * Exception raised when a Lotus Notes method as been called on a recycled object
- * @see Base#recycle()
- * @see BaseStub#setRecycled(boolean)
- * @see BaseStub#isRecycled()
+ * An exception for not supported operations.<br />
+ * This means that the call of the method as no sense or is not currently supported by the application.
  * @author jonathan
  */
-public class RecycledObjectException extends RuntimeException {
-
-    /**
-     * Constructs a new runtime exception with the specified cause and a
-     * detail message of <tt>(cause==null ? null : cause.toString())</tt>
-     * (which typically contains the class and detail message of
-     * <tt>cause</tt>).  This constructor is useful for runtime exceptions
-     * that are little more than wrappers for other throwables.
-     *
-     * @param cause the cause (which is saved for later retrieval by the
-     *              {@link #getCause()} method).  (A <tt>null</tt> value is
-     *              permitted, and indicates that the cause is nonexistent or
-     *              unknown.)
-     */
-    public RecycledObjectException(Throwable cause) {
-        super(cause);
-    }
+public class NotSupportedOpperationException extends RuntimeException {
 
     /**
      * Constructs a new runtime exception with {@code null} as its
      * detail message.  The cause is not initialized, and may subsequently be
      * initialized by a call to {@link #initCause}.
      */
-    public RecycledObjectException() {
+    public NotSupportedOpperationException() {
     }
 
     /**
@@ -44,7 +23,7 @@ public class RecycledObjectException extends RuntimeException {
      * @param message the detail message. The detail message is saved for
      *                later retrieval by the {@link #getMessage()} method.
      */
-    public RecycledObjectException(String message) {
+    public NotSupportedOpperationException(String message) {
         super(message);
     }
 
@@ -60,8 +39,26 @@ public class RecycledObjectException extends RuntimeException {
      *                {@link #getCause()} method).  (A <tt>null</tt> value is
      *                permitted, and indicates that the cause is nonexistent or
      *                unknown.)
+     * @since 1.4
      */
-    public RecycledObjectException(String message, Throwable cause) {
+    public NotSupportedOpperationException(String message, Throwable cause) {
         super(message, cause);
+    }
+
+    /**
+     * Constructs a new runtime exception with the specified cause and a
+     * detail message of <tt>(cause==null ? null : cause.toString())</tt>
+     * (which typically contains the class and detail message of
+     * <tt>cause</tt>).  This constructor is useful for runtime exceptions
+     * that are little more than wrappers for other throwables.
+     *
+     * @param cause the cause (which is saved for later retrieval by the
+     *              {@link #getCause()} method).  (A <tt>null</tt> value is
+     *              permitted, and indicates that the cause is nonexistent or
+     *              unknown.)
+     * @since 1.4
+     */
+    public NotSupportedOpperationException(Throwable cause) {
+        super(cause);
     }
 }
