@@ -7,6 +7,7 @@ import lotus.domino.Session;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 
 /**
  * The stub for {@link DateTime}
@@ -38,13 +39,18 @@ public class DateTimeStub extends BaseStub implements DateTime {
     }
 
     @Override
+    public Session getParent() throws NotesException {
+        throw new NotImplementedException();
+    }
+
+    @Override
     public void adjustHour(int hours) throws NotesException {
         this.assertNotRecycled();
         this.value = this.value.plusHours(hours);
     }
 
     @Override
-    public void adjustHour(int hours, boolean b) throws NotesException {
+    public void adjustHour(int hours, boolean preserveLocalTime) throws NotesException {
         throw new NotImplementedException();
     }
 
@@ -55,7 +61,7 @@ public class DateTimeStub extends BaseStub implements DateTime {
     }
 
     @Override
-    public void adjustMinute(int minutes, boolean b) throws NotesException {
+    public void adjustMinute(int minutes, boolean preserveLocalTime) throws NotesException {
         throw new NotImplementedException();
     }
 
@@ -66,7 +72,7 @@ public class DateTimeStub extends BaseStub implements DateTime {
     }
 
     @Override
-    public void adjustSecond(int seconds, boolean b) throws NotesException {
+    public void adjustSecond(int seconds, boolean preserveLocalTime) throws NotesException {
         throw new NotImplementedException();
     }
 
@@ -77,7 +83,7 @@ public class DateTimeStub extends BaseStub implements DateTime {
     }
 
     @Override
-    public void adjustDay(int days, boolean b) throws NotesException {
+    public void adjustDay(int days, boolean preserveLocalTime) throws NotesException {
         throw new NotImplementedException();
     }
 
@@ -88,7 +94,7 @@ public class DateTimeStub extends BaseStub implements DateTime {
     }
 
     @Override
-    public void adjustMonth(int months, boolean b) throws NotesException {
+    public void adjustMonth(int months, boolean preserveLocalTime) throws NotesException {
         throw new NotImplementedException();
     }
 
@@ -99,7 +105,7 @@ public class DateTimeStub extends BaseStub implements DateTime {
     }
 
     @Override
-    public void adjustYear(int years, boolean b) throws NotesException {
+    public void adjustYear(int years, boolean preserveLocalTime) throws NotesException {
         throw new NotImplementedException();
     }
 
@@ -110,12 +116,16 @@ public class DateTimeStub extends BaseStub implements DateTime {
 
     @Override
     public void setAnyDate() throws NotesException {
-        throw new NotImplementedException();
+        this.assertNotRecycled();
+        org.joda.time.DateTime randomDate = new org.joda.time.DateTime(new Random().nextLong());
+        this.value = randomDate.withTime(this.value.getHourOfDay(), this.value.getMinuteOfHour(), this.value.getSecondOfMinute(), this.value.getMillisOfSecond());
     }
 
     @Override
     public void setAnyTime() throws NotesException {
-        throw new NotImplementedException();
+        this.assertNotRecycled();
+        org.joda.time.DateTime randomDate = new org.joda.time.DateTime(new Random().nextLong());
+        this.value = randomDate.withDate(this.value.getYear(), this.value.getMonthOfYear(), this.value.getDayOfMonth());
     }
 
     @Override
@@ -126,13 +136,13 @@ public class DateTimeStub extends BaseStub implements DateTime {
 
     @Override
     public int timeDifference(DateTime dateTime) throws NotesException {
-        this.assertNotRecycled();
-        return this.value.compareTo(new org.joda.time.DateTime(dateTime.toJavaDate()));
+        return (int) Math.round(this.timeDifferenceDouble(dateTime));
     }
 
     @Override
     public double timeDifferenceDouble(DateTime dateTime) throws NotesException {
-        throw new NotImplementedException();
+        this.assertNotRecycled();
+        return (this.value.getMillis() - new org.joda.time.DateTime(dateTime.toJavaDate()).getMillis()) / 1000d;
     }
 
     @Override
@@ -192,11 +202,6 @@ public class DateTimeStub extends BaseStub implements DateTime {
 
     @Override
     public String getDateOnly() throws NotesException {
-        throw new NotImplementedException();
-    }
-
-    @Override
-    public Session getParent() throws NotesException {
         throw new NotImplementedException();
     }
 
