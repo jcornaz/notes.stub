@@ -1,4 +1,4 @@
-package com.toolable.notes.stub.exceptions;
+package com.toolable.notes.stub.exception;
 
 /**
  * An exception for not supported operations.<br />

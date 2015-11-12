@@ -1,9 +1,9 @@
 package com.toolable.notes.stub;
 
 import com.google.common.base.Preconditions;
-import com.toolable.notes.stub.exceptions.NotImplementedException;
-import com.toolable.notes.stub.exceptions.RecycledObjectException;
-import com.toolable.notes.stub.exceptions.UnexpectedException;
+import com.toolable.notes.stub.exception.NotImplementedException;
+import com.toolable.notes.stub.exception.RecycledObjectException;
+import com.toolable.notes.stub.exception.UnexpectedException;
 import lotus.domino.Base;
 import lotus.domino.NotesException;
 import org.junit.Assert;
