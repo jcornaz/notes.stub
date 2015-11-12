@@ -1,0 +1,20 @@
+language: java
+
+branches:
+  only:
+    - master
+    - develop
+
+jdk:
+  - oraclejdk8
+  - oraclejdk7
+  - openjdk7
+  - openjdk6
+
+before_install:
+  - mkdir libs
+  - wget "$NOTES_JAR_LINK" -O ./libs/Notes.jar
+  - chmod +x gradlew
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
