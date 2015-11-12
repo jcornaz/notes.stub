@@ -1,4 +1,4 @@
-package com.toolable.notes.stub.exceptions;
+package com.toolable.notes.stub.exception;
 
 /**
  * An exception that should never been thrown in theory, because the method ensure it.<br />

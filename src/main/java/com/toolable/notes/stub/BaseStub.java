@@ -1,6 +1,6 @@
 package com.toolable.notes.stub;
 
-import com.toolable.notes.stub.exceptions.RecycledObjectException;
+import com.toolable.notes.stub.exception.RecycledObjectException;
 import lotus.domino.Base;
 import lotus.domino.NotesException;
 
