@@ -13,7 +13,7 @@ jdk:
 
 before_install:
   - mkdir libs
-  - wget "$NOTES_JAR_LINK" -O ./libs/Notes.jar
+  - wget "$NOTES_JAR_URL" -O ./libs/Notes.jar &> /dev/null
   - chmod +x gradlew
 
 after_success:
