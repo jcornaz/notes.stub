@@ -6,6 +6,8 @@ project.version = '1.0-develop'
 
 sourceCompatibility = 1.6
 
+javadoc.title = "Notes Stub " + project.version
+
 jar {
     manifest {
         attributes 'Implementation-Title': 'Notes Stub', 'Implementation-Version': project.version
@@ -54,4 +56,6 @@ jacocoTestReport {
     }
 }
 
+// Tasks to run at each check
 check.dependsOn jacocoTestReport
+check.dependsOn javadoc

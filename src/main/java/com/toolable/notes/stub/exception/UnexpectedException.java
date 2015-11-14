@@ -1,8 +1,8 @@
 package com.toolable.notes.stub.exception;
 
 /**
- * An exception that should never been thrown in theory, because the method ensure it.<br />
- * Therefore, in practical cases, it allow to understand what gone wrong.
+ * <p>An exception that should never been thrown in theory, because the method ensure it.</p>
+ * <p>Therefore, in practical cases, it allow to understand what gone wrong.</p>
  *
  * @author jonathan
  */
