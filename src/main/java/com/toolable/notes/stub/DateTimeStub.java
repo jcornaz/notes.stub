@@ -9,36 +9,60 @@ import org.joda.time.format.DateTimeFormat;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Formatter;
 import java.util.Random;
 
 /**
  * The stub for {@link DateTime}
  *
  * @author jonathan
+ * @see org.joda.time.DateTime
  */
 public class DateTimeStub extends BaseStub implements DateTime {
 
     private org.joda.time.DateTime value;
     private SessionStub parent;
 
+    /**
+     * Construct a {@link DateTimeStub} that represent the current instant
+     */
     public DateTimeStub() {
         this(org.joda.time.DateTime.now());
     }
 
-    public DateTimeStub(org.joda.time.DateTime value) {
-        this.value = value;
+    /**
+     * Construct a {@link DateTimeStub} that represent a given value
+     *
+     * @param dateTime DateTime value to represent
+     */
+    public DateTimeStub(org.joda.time.DateTime dateTime) {
+        this.value = dateTime;
     }
 
+    /**
+     * Construct a {@link DateTimeStub} that represent a given value
+     *
+     * @param session  Parent session
+     * @param dateTime DateTime to represent
+     */
     public DateTimeStub(SessionStub session, org.joda.time.DateTime dateTime) {
         this(dateTime);
         this.setParent(session);
     }
 
+    /**
+     * Get the {@link org.joda.time.DateTime} value represented by this instance
+     *
+     * @return DateTime value
+     */
     public org.joda.time.DateTime getValue() {
         return this.value;
     }
 
+    /**
+     * Get the {@link org.joda.time.DateTime} value to represent with this instance
+     *
+     * @param dateTime DateTime to represent
+     */
     public void setValue(org.joda.time.DateTime dateTime) {
         this.value = dateTime;
     }
@@ -53,6 +77,12 @@ public class DateTimeStub extends BaseStub implements DateTime {
         return this.parent;
     }
 
+    /**
+     * Set the parent session
+     *
+     * @param parent Parent session
+     * @see DateTimeStub#getParent()
+     */
     public void setParent(SessionStub parent) {
         this.parent = parent;
     }
@@ -221,7 +251,7 @@ public class DateTimeStub extends BaseStub implements DateTime {
     }
 
     @Override
-    public String getTimeOnly() throws RecycledObjectException{
+    public String getTimeOnly() throws RecycledObjectException {
         this.assertNotRecycled();
         return this.value.toString(DateTimeFormat.forPattern("HH:mm:ss"));
     }

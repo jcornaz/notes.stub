@@ -21,6 +21,12 @@ import java.util.Set;
  */
 public class DateTimeStubTest {
 
+    /**
+     * Create a random date
+     *
+     * @param excludes Date to exclude
+     * @return A random date that is not present in {@code excludes}
+     */
     public static DateTime createRandomDate(DateTime... excludes) {
 
         DateTime date;
@@ -37,7 +43,7 @@ public class DateTimeStubTest {
     private DateTime now;
 
     /**
-     * Moke the current time
+     * Mock the current time
      */
     @Before
     public void setUp() {
@@ -55,19 +61,25 @@ public class DateTimeStubTest {
     }
 
     /**
-     * all method of a {@link BaseStub} implemented from a Lotus Notes interface should raise a {@link RecycledObjectException} if the stub is recycled
+     * All method of a {@link BaseStub} implemented from a Lotus Notes interface should raise a {@link RecycledObjectException} if the stub is recycled
      */
     @Test
     public void testRecycleObjectExceptionsRaised() {
         BaseStubTest.assertExceptionsRaisedOnRecycledObject(new DateTimeStub());
     }
 
+    /**
+     * AThe default value should be {@link DateTime#now()}
+     */
     @Test
     public void testDefaultDate() {
         DateTimeStub stub = NotesStub.createDateTime();
         Assert.assertEquals(this.now, stub.getValue());
     }
 
+    /**
+     * Assert that the default
+     */
     @Test
     public void testFixedDate() {
         DateTimeStub stub = NotesStub.createDateTime(2016, 6, 21);
@@ -81,11 +93,19 @@ public class DateTimeStubTest {
         Assert.assertEquals(jodaTime, stub.getValue());
     }
 
+    /**
+     * The {@link DateTimeStub} should implement {@link lotus.domino.DateTime}
+     */
     @Test
     public void testDominoInterface() {
         BaseStubTest.assertNotesInterface(DateTimeStub.class, lotus.domino.DateTime.class);
     }
 
+    /**
+     * It should be possible to compute time differences
+     *
+     * @throws NotesException Unexpected exception
+     */
     @Test
     public void testTimeDifference() throws NotesException {
         DateTimeStub stub1 = NotesStub.createDateTime(2014, 12, 13, 11, 9, 3);
@@ -100,6 +120,9 @@ public class DateTimeStubTest {
         Assert.assertEquals(-delta, stub1.timeDifferenceDouble(stub2), 0d);
     }
 
+    /**
+     * It should be possible to set the date
+     */
     @Test
     public void testSetDate() {
         DateTimeStub stub1 = NotesStub.createDateTime();
@@ -112,6 +135,9 @@ public class DateTimeStubTest {
         Assert.assertEquals(randomDay, stub1.getValue());
     }
 
+    /**
+     * It shoult be possible to change the date for the current instant
+     */
     @Test
     public void testSetSetNow() {
         DateTimeStub stub = NotesStub.createDateTime(createRandomDate(this.now));
@@ -121,6 +147,9 @@ public class DateTimeStubTest {
         Assert.assertEquals(this.now, stub.getValue());
     }
 
+    /**
+     * It should be possible to set a date-time at any time without impact of the day
+     */
     @Test
     public void testSetAnyTime() {
         DateTime towelDay = new DateTime(2015, 5, 25, 0, 0, 0);
@@ -135,6 +164,9 @@ public class DateTimeStubTest {
         Assert.assertEquals(towelDay, stub.getValue().withTime(0, 0, 0, 0));
     }
 
+    /**
+     * It should be possible to set the date-time at any date without impact of the time
+     */
     @Test
     public void testSetAnyDate() {
         DateTime towelDay = new DateTime(2015, 5, 25, 0, 0, 0);
@@ -149,6 +181,9 @@ public class DateTimeStubTest {
         Assert.assertEquals(towelDay, stub.getValue().withDate(2015, 5, 25));
     }
 
+    /**
+     * It should be possible to add/remove time
+     */
     @Test
     public void testAdjustDate() {
         DateTime towelDay = new DateTime(2015, 5, 25, 0, 0, 0);
@@ -173,11 +208,17 @@ public class DateTimeStubTest {
         Assert.assertEquals(new DateTime(2016, 6, 29, 1, 2, 3), stub.getValue());
     }
 
+    /**
+     * The parent session should be accessible
+     */
     @Test
     public void testParent() {
         Assert.assertNotNull(NotesStub.createDateTime().getParent());
     }
 
+    /**
+     * It should be possible to create instance from a session
+     */
     @Test
     public void testCreateFromSession() {
         SessionStub session = NotesStub.createSession();
@@ -203,6 +244,9 @@ public class DateTimeStubTest {
         Assert.assertEquals(this.now, stub4.getValue());
     }
 
+    /**
+     * It should be possible to retrieve the date part
+     */
     @Test
     public void testDateOnly() {
         DateTimeStub stub = NotesStub.createDateTime(2015, 3, 14, 9, 26, 53);
@@ -210,6 +254,9 @@ public class DateTimeStubTest {
         Assert.assertEquals("09:26:53", stub.getTimeOnly());
     }
 
+    /**
+     * It should be possible to retrieve the time part
+     */
     @Test
     public void testToString() {
         Assert.assertEquals("DateTimeStub{value=" + this.now.toString() + "}", NotesStub.createDateTime().toString());

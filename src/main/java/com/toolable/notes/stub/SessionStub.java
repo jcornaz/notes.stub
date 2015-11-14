@@ -41,6 +41,11 @@ public class SessionStub extends BaseStub implements Session {
         return new DateTimeStub(this, new org.joda.time.DateTime(calendar.getTimeInMillis()));
     }
 
+    /**
+     * Create a date time representing the current instant
+     *
+     * @return DateTime object created
+     */
     public DateTimeStub createDateTime() {
         return new DateTimeStub(this, org.joda.time.DateTime.now());
     }
