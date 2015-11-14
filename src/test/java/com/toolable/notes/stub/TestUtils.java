@@ -4,6 +4,7 @@ import com.google.common.base.Preconditions;
 import com.toolable.notes.stub.exception.NotImplementedException;
 import com.toolable.notes.stub.exception.RecycledObjectException;
 import com.toolable.notes.stub.exception.UnexpectedException;
+import com.toolable.notes.stub.model.BaseStub;
 import lotus.domino.Base;
 import org.junit.Assert;
 import org.mockito.Mockito;

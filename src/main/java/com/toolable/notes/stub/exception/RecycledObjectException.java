@@ -1,6 +1,6 @@
 package com.toolable.notes.stub.exception;
 
-import com.toolable.notes.stub.BaseStub;
+import com.toolable.notes.stub.model.BaseStub;
 import lotus.domino.Base;
 
 /**

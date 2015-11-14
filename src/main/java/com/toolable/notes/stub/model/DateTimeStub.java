@@ -1,6 +1,7 @@
-package com.toolable.notes.stub;
+package com.toolable.notes.stub.model;
 
 import com.google.common.base.MoreObjects;
+import com.toolable.notes.stub.NotesStub;
 import com.toolable.notes.stub.exception.NotImplementedException;
 import com.toolable.notes.stub.exception.RecycledObjectException;
 import lotus.domino.DateTime;

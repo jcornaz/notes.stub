@@ -1,4 +1,4 @@
-package com.toolable.notes.stub;
+package com.toolable.notes.stub.model;
 
 import com.toolable.notes.stub.exception.RecycledObjectException;
 import lotus.domino.Base;

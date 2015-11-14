@@ -1,5 +1,6 @@
-package com.toolable.notes.stub;
+package com.toolable.notes.stub.model;
 
+import com.toolable.notes.stub.TestUtils;
 import com.toolable.notes.stub.exception.RecycledObjectException;
 import org.junit.Test;
 

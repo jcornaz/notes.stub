@@ -1,5 +1,8 @@
 package com.toolable.notes.stub;
 
+import com.toolable.notes.stub.model.BaseStub;
+import com.toolable.notes.stub.model.DateTimeStub;
+import com.toolable.notes.stub.model.SessionStub;
 import org.joda.time.DateTime;
 
 import java.util.Arrays;
