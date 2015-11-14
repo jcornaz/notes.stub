@@ -1,5 +1,7 @@
 package com.toolable.notes.stub;
 
+import org.joda.time.DateTime;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -55,6 +57,25 @@ public final class NotesStub {
                 throw new AssertionError();
     }
 
+    public static DateTimeStub createDateTime() {
+        return new DateTimeStub();
+    }
+
+    public static DateTimeStub createDateTime(int year, int monthOfYear, int dayOfMonth) {
+        return createDateTime(year, monthOfYear, dayOfMonth, 0, 0, 0);
+    }
+
+    public static DateTimeStub createDateTime(int year, int monthOfYear, int dayOfMonth, int hourOfDay, int minuteOfHour, int secondOfMinute) {
+        return createDateTime(new DateTime(year, monthOfYear, dayOfMonth, hourOfDay, minuteOfHour, secondOfMinute));
+    }
+
+    public static DateTimeStub createDateTime(DateTime dateTime) {
+        return new DateTimeStub(dateTime);
+    }
+
+    public static SessionStub createSession() {
+        return new SessionStub();
+    }
 
     /**
      * Private constructor

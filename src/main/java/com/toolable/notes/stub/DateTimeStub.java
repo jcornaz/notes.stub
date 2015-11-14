@@ -1,12 +1,15 @@
 package com.toolable.notes.stub;
 
+import com.google.common.base.MoreObjects;
 import com.toolable.notes.stub.exception.NotImplementedException;
+import com.toolable.notes.stub.exception.RecycledObjectException;
 import lotus.domino.DateTime;
 import lotus.domino.NotesException;
-import lotus.domino.Session;
+import org.joda.time.format.DateTimeFormat;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Formatter;
 import java.util.Random;
 
 /**
@@ -17,119 +20,130 @@ import java.util.Random;
 public class DateTimeStub extends BaseStub implements DateTime {
 
     private org.joda.time.DateTime value;
+    private SessionStub parent;
 
     public DateTimeStub() {
         this(org.joda.time.DateTime.now());
-    }
-
-    public DateTimeStub(int year, int month, int day) {
-        this(year, month, day, 0, 0, 0);
-    }
-
-    public DateTimeStub(int year, int month, int day, int hour, int minute, int second) {
-        this(new org.joda.time.DateTime(year, month, day, hour, minute, second));
-    }
-
-    public DateTimeStub(long millis) {
-        this(new org.joda.time.DateTime(millis));
     }
 
     public DateTimeStub(org.joda.time.DateTime value) {
         this.value = value;
     }
 
-    @Override
-    public Session getParent() throws NotesException {
-        throw new NotImplementedException();
+    public DateTimeStub(SessionStub session, org.joda.time.DateTime dateTime) {
+        this(dateTime);
+        this.setParent(session);
+    }
+
+    public org.joda.time.DateTime getValue() {
+        return this.value;
+    }
+
+    public void setValue(org.joda.time.DateTime dateTime) {
+        this.value = dateTime;
     }
 
     @Override
-    public void adjustHour(int hours) throws NotesException {
+    public SessionStub getParent() {
+        this.assertNotRecycled();
+
+        if (this.parent == null)
+            this.parent = NotesStub.createSession();
+
+        return this.parent;
+    }
+
+    public void setParent(SessionStub parent) {
+        this.parent = parent;
+    }
+
+    @Override
+    public void adjustHour(int hours) throws RecycledObjectException {
         this.assertNotRecycled();
         this.value = this.value.plusHours(hours);
     }
 
     @Override
-    public void adjustHour(int hours, boolean preserveLocalTime) throws NotesException {
+    public void adjustHour(int hours, boolean preserveLocalTime) throws NotImplementedException {
         throw new NotImplementedException();
     }
 
     @Override
-    public void adjustMinute(int minutes) throws NotesException {
+    public void adjustMinute(int minutes) throws RecycledObjectException {
         this.assertNotRecycled();
         this.value = this.value.plusMinutes(minutes);
     }
 
     @Override
-    public void adjustMinute(int minutes, boolean preserveLocalTime) throws NotesException {
+    public void adjustMinute(int minutes, boolean preserveLocalTime) throws NotImplementedException {
         throw new NotImplementedException();
     }
 
     @Override
-    public void adjustSecond(int seconds) throws NotesException {
+    public void adjustSecond(int seconds) throws RecycledObjectException {
         this.assertNotRecycled();
         this.value = this.value.plusSeconds(seconds);
     }
 
     @Override
-    public void adjustSecond(int seconds, boolean preserveLocalTime) throws NotesException {
+    public void adjustSecond(int seconds, boolean preserveLocalTime) throws NotImplementedException {
         throw new NotImplementedException();
     }
 
     @Override
-    public void adjustDay(int days) throws NotesException {
+    public void adjustDay(int days) throws RecycledObjectException {
         this.assertNotRecycled();
         this.value = this.value.plusDays(days);
     }
 
     @Override
-    public void adjustDay(int days, boolean preserveLocalTime) throws NotesException {
+    public void adjustDay(int days, boolean preserveLocalTime) throws NotImplementedException {
         throw new NotImplementedException();
     }
 
     @Override
-    public void adjustMonth(int months) throws NotesException {
+    public void adjustMonth(int months) throws RecycledObjectException {
         this.assertNotRecycled();
         this.value = this.value.plusMonths(months);
     }
 
     @Override
-    public void adjustMonth(int months, boolean preserveLocalTime) throws NotesException {
+    public void adjustMonth(int months, boolean preserveLocalTime) throws NotImplementedException {
         throw new NotImplementedException();
     }
 
     @Override
-    public void adjustYear(int years) throws NotesException {
+    public void adjustYear(int years) throws RecycledObjectException {
         this.assertNotRecycled();
         this.value = this.value.plusYears(years);
     }
 
     @Override
-    public void adjustYear(int years, boolean preserveLocalTime) throws NotesException {
+    public void adjustYear(int years, boolean preserveLocalTime) throws NotImplementedException {
         throw new NotImplementedException();
     }
 
     @Override
-    public void convertToZone(int i, boolean b) throws NotesException {
+    public void convertToZone(int i, boolean b) throws NotImplementedException {
         throw new NotImplementedException();
     }
 
     @Override
-    public void setAnyDate() throws NotesException {
+    public void setAnyDate() throws RecycledObjectException {
         this.assertNotRecycled();
         org.joda.time.DateTime randomDate = new org.joda.time.DateTime(new Random().nextLong());
         this.value = randomDate.withTime(this.value.getHourOfDay(), this.value.getMinuteOfHour(), this.value.getSecondOfMinute(), this.value.getMillisOfSecond());
     }
 
     @Override
-    public void setAnyTime() throws NotesException {
+    public void setAnyTime() throws RecycledObjectException {
         this.assertNotRecycled();
         org.joda.time.DateTime randomDate = new org.joda.time.DateTime(new Random().nextLong());
         this.value = randomDate.withDate(this.value.getYear(), this.value.getMonthOfYear(), this.value.getDayOfMonth());
     }
 
     @Override
-    public void setNow() throws NotesException {
+    public void setNow() throws RecycledObjectException {
         this.assertNotRecycled();
         this.value = org.joda.time.DateTime.now();
     }
@@ -146,73 +160,80 @@ public class DateTimeStub extends BaseStub implements DateTime {
     }
 
     @Override
-    public void setLocalDate(int i, int i1, int i2) throws NotesException {
+    public void setLocalDate(int i, int i1, int i2) throws NotImplementedException {
         throw new NotImplementedException();
     }
 
     @Override
-    public void setLocalDate(int i, int i1, int i2, boolean b) throws NotesException {
+    public void setLocalDate(int i, int i1, int i2, boolean b) throws NotImplementedException {
         throw new NotImplementedException();
     }
 
     @Override
-    public void setLocalTime(int i, int i1, int i2, int i3) throws NotesException {
+    public void setLocalTime(int i, int i1, int i2, int i3) throws NotImplementedException {
         throw new NotImplementedException();
     }
 
     @Override
-    public void setLocalTime(Date date) throws NotesException {
+    public void setLocalTime(Date date) throws NotImplementedException {
         throw new NotImplementedException();
     }
 
     @Override
-    public void setLocalTime(Calendar calendar) throws NotesException {
+    public void setLocalTime(Calendar calendar) throws NotImplementedException {
         throw new NotImplementedException();
     }
 
     @Override
-    public String getGMTTime() throws NotesException {
+    public String getGMTTime() throws NotImplementedException {
         throw new NotImplementedException();
     }
 
     @Override
-    public boolean isDST() throws NotesException {
+    public boolean isDST() throws NotImplementedException {
         throw new NotImplementedException();
     }
 
     @Override
-    public String getLocalTime() throws NotesException {
+    public String getLocalTime() throws NotImplementedException {
         throw new NotImplementedException();
     }
 
     @Override
-    public void setLocalTime(String s) throws NotesException {
+    public void setLocalTime(String s) throws NotImplementedException {
         throw new NotImplementedException();
     }
 
     @Override
-    public int getTimeZone() throws NotesException {
+    public int getTimeZone() throws NotImplementedException {
         throw new NotImplementedException();
     }
 
     @Override
-    public String getZoneTime() throws NotesException {
+    public String getZoneTime() throws NotImplementedException {
         throw new NotImplementedException();
     }
 
     @Override
-    public String getDateOnly() throws NotesException {
-        throw new NotImplementedException();
+    public String getDateOnly() throws RecycledObjectException {
+        this.assertNotRecycled();
+        return this.value.toString(DateTimeFormat.forPattern("MM/dd/yyyy"));
     }
 
     @Override
-    public String getTimeOnly() throws NotesException {
-        throw new NotImplementedException();
+    public String getTimeOnly() throws RecycledObjectException{
+        this.assertNotRecycled();
+        return this.value.toString(DateTimeFormat.forPattern("HH:mm:ss"));
     }
 
     @Override
-    public Date toJavaDate() throws NotesException {
+    public Date toJavaDate() throws NotImplementedException {
         this.assertNotRecycled();
         return this.value.toDate();
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this).add("value", this.value).toString();
     }
 }

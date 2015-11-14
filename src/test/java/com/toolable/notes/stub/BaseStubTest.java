@@ -107,6 +107,19 @@ public class BaseStubTest {
     }
 
     /**
+     * Assert that a stub implements a specific Lotus Notes interface
+     *
+     * @param stubClass   Stub class
+     * @param dominoClass Lotus Notes interface
+     */
+    public static void assertNotesInterface(Class<?> stubClass, Class<? extends Base> dominoClass) {
+        Preconditions.checkNotNull(stubClass);
+        Preconditions.checkNotNull(dominoClass);
+
+        Assert.assertTrue(dominoClass.isAssignableFrom(stubClass));
+    }
+
+    /**
      * Base object should be recyclables.<br />
      * A second recycle call should raise an {@link RecycledObjectException}
      *
