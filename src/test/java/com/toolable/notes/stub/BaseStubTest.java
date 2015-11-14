@@ -28,7 +28,7 @@ public class BaseStubTest {
     /**
      * Assert that all method that a stub implements from a Lotus Notes interface raise a {@link RecycledObjectException} if the stub is recycled
      *
-     * @param stub
+     * @param stub Stub to test
      */
     public static void assertExceptionsRaisedOnRecycledObject(final BaseStub stub) {
         Preconditions.checkNotNull(stub);

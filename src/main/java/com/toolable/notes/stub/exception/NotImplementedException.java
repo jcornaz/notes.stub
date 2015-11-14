@@ -2,6 +2,7 @@ package com.toolable.notes.stub.exception;
 
 /**
  * An exceptions that mean a method is not currently implemented.
+ *
  * @author jonathan
  */
 public class NotImplementedException extends RuntimeException {

@@ -3,9 +3,10 @@ package com.toolable.notes.stub.exception;
 /**
  * An exception that should never been thrown in theory, because the method ensure it.<br />
  * Therefore, in practical cases, it allow to understand what gone wrong.
+ *
  * @author jonathan
  */
-public class UnexpectedException extends RuntimeException{
+public class UnexpectedException extends RuntimeException {
 
     /**
      * Constructs a new runtime exception with {@code null} as its

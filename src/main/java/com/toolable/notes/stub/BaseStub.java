@@ -8,6 +8,7 @@ import java.util.Vector;
 
 /**
  * Base class of Lotus Notes stubs
+ *
  * @author jonathan
  */
 public class BaseStub implements Base {
@@ -17,6 +18,7 @@ public class BaseStub implements Base {
     /**
      * Get the recycling state of the stub.<br />
      * {@code true} means the stub is recycled and {@link RecycledObjectException} will be thrown on Lotus Notes methods calls.
+     *
      * @return Recycling state of the stub.
      */
     public boolean isRecycled() {
@@ -26,6 +28,7 @@ public class BaseStub implements Base {
     /**
      * Set the recycling state of the stub<br />
      * {@code true} means the stub is recycled and {@link RecycledObjectException} will be thrown on Lotus Notes methods calls.
+     *
      * @param recycled Recycling state of the stub.
      */
     public void setRecycled(boolean recycled) {
@@ -34,6 +37,7 @@ public class BaseStub implements Base {
 
     /**
      * Assert that the object is not recycled and raise an {@link RecycledObjectException} it's recycled
+     *
      * @throws RecycledObjectException The object is marked as recycled and is no longer usable
      */
     protected void assertNotRecycled() throws RecycledObjectException {
@@ -55,7 +59,7 @@ public class BaseStub implements Base {
     public void recycle(Vector vector) throws NotesException {
         this.assertNotRecycled();
         for (Object obj : vector) {
-            if (obj instanceof  Base) {
+            if (obj instanceof Base) {
                 ((Base) obj).recycle();
             }
         }

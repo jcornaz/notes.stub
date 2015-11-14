@@ -5,10 +5,11 @@ import lotus.domino.Base;
 
 /**
  * Exception raised when a Lotus Notes method as been called on a recycled object
+ *
+ * @author jonathan
  * @see Base#recycle()
  * @see BaseStub#setRecycled(boolean)
  * @see BaseStub#isRecycled()
- * @author jonathan
  */
 public class RecycledObjectException extends RuntimeException {
 
