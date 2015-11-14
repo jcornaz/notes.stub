@@ -65,7 +65,15 @@ public class DateTimeStubTest {
      */
     @Test
     public void testRecycleObjectExceptionsRaised() {
-        BaseStubTest.assertExceptionsRaisedOnRecycledObject(new DateTimeStub());
+        TestUtils.assertExceptionsRaisedOnRecycledObject(new DateTimeStub());
+    }
+
+    /**
+     * The {@link DateTimeStub} should implement {@link lotus.domino.DateTime}
+     */
+    @Test
+    public void testDominoInterface() {
+        TestUtils.assertNotesInterface(DateTimeStub.class, lotus.domino.DateTime.class);
     }
 
     /**
@@ -91,14 +99,6 @@ public class DateTimeStubTest {
         DateTime jodaTime = new DateTime(new Random().nextLong());
         stub = NotesStub.createDateTime(jodaTime);
         Assert.assertEquals(jodaTime, stub.getValue());
-    }
-
-    /**
-     * The {@link DateTimeStub} should implement {@link lotus.domino.DateTime}
-     */
-    @Test
-    public void testDominoInterface() {
-        BaseStubTest.assertNotesInterface(DateTimeStub.class, lotus.domino.DateTime.class);
     }
 
     /**

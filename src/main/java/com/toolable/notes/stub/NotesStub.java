@@ -116,6 +116,6 @@ public final class NotesStub {
      * Private constructor
      */
     private NotesStub() {
-        // Helper class
+        // Static utility class
     }
 }

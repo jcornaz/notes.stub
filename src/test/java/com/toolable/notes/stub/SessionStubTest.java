@@ -11,10 +11,18 @@ import org.junit.Test;
 public class SessionStubTest {
 
     /**
-     * all method of a {@link BaseStub} implemented from a Lotus Notes interface should raise a {@link RecycledObjectException} if the stub is recycled
+     * All method of a {@link BaseStub} implemented from a Lotus Notes interface should raise a {@link RecycledObjectException} if the stub is recycled
      */
     @Test
     public void testRecycleObjectExceptionsRaised() {
-        BaseStubTest.assertExceptionsRaisedOnRecycledObject(new SessionStub());
+        TestUtils.assertExceptionsRaisedOnRecycledObject(new SessionStub());
+    }
+
+    /**
+     * The {@link BaseStub} should implement {@link lotus.domino.Base}
+     */
+    @Test
+    public void testDominoInterface() {
+        TestUtils.assertNotesInterface(SessionStub.class, lotus.domino.Session.class);
     }
 }
