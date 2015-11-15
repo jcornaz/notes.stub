@@ -16,8 +16,8 @@ public class BaseStub implements Base {
     private boolean recycled;
 
     /**
-     * Get the recycling state of the stub.<br />
-     * {@code true} means the stub is recycled and {@link RecycledObjectException} will be thrown on Lotus Notes methods calls.
+     * <p>Get the recycling state of the stub.</p>
+     * <p>{@code true} means the stub is recycled and {@link RecycledObjectException} will be thrown on Lotus Notes methods calls.</p>
      *
      * @return Recycling state of the stub.
      */
@@ -26,8 +26,8 @@ public class BaseStub implements Base {
     }
 
     /**
-     * Set the recycling state of the stub<br />
-     * {@code true} means the stub is recycled and {@link RecycledObjectException} will be thrown on Lotus Notes methods calls.
+     * <p>Set the recycling state of the stub</p>
+     * <p>{@code true} means the stub is recycled and {@link RecycledObjectException} will be thrown on Lotus Notes methods calls.</p>
      *
      * @param recycled Recycling state of the stub.
      */
@@ -46,8 +46,8 @@ public class BaseStub implements Base {
     }
 
     /**
-     * Recycle the object.<br />
-     * After this method all Lotus Notes methods of this instance will raise {@link RecycledObjectException}
+     * <p>Recycle the object.</p>
+     * <p>After this method all Lotus Notes methods of this instance will raise {@link RecycledObjectException}</p>
      */
     @Override
     public void recycle() {

@@ -1,8 +1,8 @@
 package com.toolable.notes.stub.exception;
 
 /**
- * An exception for not supported operations.<br />
- * This means that the call of the method as no sense or is not currently supported by the application.
+ * <p>After this method all Lotus Notes methods of this instance will raise {@link RecycledObjectException}</p>
+ * <p>This means that the call of the method as no sense or is not currently supported by the application.</p>
  *
  * @author jonathan
  */
