@@ -2,7 +2,6 @@ package com.toolable.notes.stub.model
 
 import com.toolable.notes.stub.exception.NotImplementedException
 import com.toolable.notes.stub.exception.RecycledObjectException
-import com.toolable.notes.stub.utils.lazyChild
 import lotus.domino.DateTime
 import lotus.domino.Session
 import org.joda.time.format.DateTimeFormat
@@ -15,7 +14,7 @@ import java.util.*
  */
 class DateTimeStub(var value: org.joda.time.DateTime = org.joda.time.DateTime.now()) : BaseStub(), DateTime {
 
-    var parent: SessionStub by lazyChild(this) { SessionStub() }
+    var parent: SessionStub by lazyChildStub(this) { SessionStub() }
 
     constructor(session: SessionStub, dateTime: org.joda.time.DateTime) : this(dateTime) {
         parent = session
