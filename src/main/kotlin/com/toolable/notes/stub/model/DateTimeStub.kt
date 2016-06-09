@@ -16,9 +16,21 @@ class DateTimeStub(var value: org.joda.time.DateTime = org.joda.time.DateTime.no
 
     var parent: SessionStub by lazyChildStub(this) { SessionStub() }
 
-    constructor(session: SessionStub, dateTime: org.joda.time.DateTime) : this(dateTime) {
+    constructor(session: SessionStub, value: org.joda.time.DateTime) : this(value) {
         parent = session
     }
+
+    constructor(session: SessionStub, year: Int, month: Int, day: Int) : this(session, year, month, day, 0, 0, 0)
+
+    constructor(session: SessionStub, year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int) : this(session, org.joda.time.DateTime(year, month, day, hour, minute, second))
+
+    constructor(session: SessionStub, millis: Long) : this(session, org.joda.time.DateTime(millis))
+
+    constructor(year: Int, month: Int, day: Int) : this(year, month, day, 0, 0, 0)
+
+    constructor(year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int) : this(org.joda.time.DateTime(year, month, day, hour, minute, second))
+
+    constructor(millis: Long) : this(org.joda.time.DateTime(millis))
 
     override fun toString(): String {
         return "${javaClass.simpleName}{value=$value}"
