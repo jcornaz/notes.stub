@@ -124,16 +124,6 @@ class SessionStub : BaseStub(), Session {
         throw NotImplementedException()
     }
 
-    @Throws(NotesException::class)
-    override fun freeResourceSearch(dateTime: DateTime, dateTime1: DateTime, s: String, i: Int, i1: Int): Vector<Any> {
-        throw NotImplementedException()
-    }
-
-    @Throws(NotesException::class)
-    override fun freeResourceSearch(dateTime: DateTime, dateTime1: DateTime, s: String, i: Int, i1: Int, s1: String, i2: Int, s2: String, s3: String, i3: Int): Vector<Any> {
-        throw NotImplementedException()
-    }
-
     @Throws(NotImplementedException::class)
     override fun freeTimeSearch(dateRange: DateRange, i: Int, o: Any, b: Boolean): Vector<Any> {
         throw NotImplementedException()
@@ -391,11 +381,6 @@ class SessionStub : BaseStub(), Session {
 
     @Throws(NotImplementedException::class)
     override fun setAllowLoopBack(b: Boolean) {
-        throw NotImplementedException()
-    }
-
-    @Throws(NotesException::class)
-    override fun getCalendar(database: Database): NotesCalendar {
         throw NotImplementedException()
     }
 }
