@@ -1,5 +1,6 @@
 package com.toolable.notes.stub.model
 
+import com.toolable.notes.stub.model.Parent
 import com.toolable.notes.stub.exception.NotImplementedException
 import com.toolable.notes.stub.exception.RecycledObjectException
 import lotus.domino.*
@@ -10,7 +11,10 @@ import java.util.*
 
  * @author jonathan
  */
-class SessionStub : BaseStub(), Session {
+class SessionStub : BaseStub(), Session, Parent<BaseStub> {
+
+    var children: Collection<BaseStub> = listOf()
+        private set
 
     @Throws(RecycledObjectException::class)
     override fun createDateTime(date: Date): DateTimeStub {
@@ -32,6 +36,14 @@ class SessionStub : BaseStub(), Session {
     @Throws(RecycledObjectException::class)
     fun createDateTime(): DateTimeStub {
         return DateTimeStub(this, org.joda.time.DateTime.now())
+    }
+
+    override fun remove(child: BaseStub) {
+        this.children = this.children.minus(child)
+    }
+
+    override fun add(child: BaseStub) {
+        this.children = this.children.plus(child)
     }
 
     @Throws(NotImplementedException::class)
