@@ -12,36 +12,73 @@ import java.util.*
 
  * @author jonathan
  */
-class DateTimeStub(var value: org.joda.time.DateTime = org.joda.time.DateTime.now()) : BaseStub(), DateTime {
+class DateTimeStub(var value: org.joda.time.DateTime = org.joda.time.DateTime.now()) : BaseStub(), DateTime, Comparable<DateTime> {
 
-    var parent: SessionStub by lazyChildStub(this) { SessionStub() }
-
+    //region Secondary constructors
     constructor(session: SessionStub, value: org.joda.time.DateTime) : this(value) {
         parent = session
     }
 
-    constructor(session: SessionStub, year: Int, month: Int, day: Int) : this(session, year, month, day, 0, 0, 0)
-
-    constructor(session: SessionStub, year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int) : this(session, org.joda.time.DateTime(year, month, day, hour, minute, second))
+    @JvmOverloads
+    constructor(
+            session: SessionStub,
+            year: Int,
+            monthOfYear: Int,
+            dayOfMonth: Int,
+            hourOfDay: Int = 0,
+            minuteOfHour: Int = 0,
+            secondOfMinute: Int = 0,
+            millisOfSecond: Int = 0
+    ) : this(session, org.joda.time.DateTime(year, monthOfYear, dayOfMonth, hourOfDay, minuteOfHour, secondOfMinute, millisOfSecond))
 
     constructor(session: SessionStub, millis: Long) : this(session, org.joda.time.DateTime(millis))
 
-    constructor(year: Int, month: Int, day: Int) : this(year, month, day, 0, 0, 0)
-
-    constructor(year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int) : this(org.joda.time.DateTime(year, month, day, hour, minute, second))
+    @JvmOverloads
+    constructor(
+            year: Int,
+            monthOfYear: Int,
+            dayOfMonth: Int,
+            hourOfDay: Int = 0,
+            minuteOfHour: Int = 0,
+            secondOfMinute: Int = 0,
+            millisOfSecond: Int = 0
+    ) : this(org.joda.time.DateTime(year, monthOfYear, dayOfMonth, hourOfDay, minuteOfHour, secondOfMinute, millisOfSecond))
 
     constructor(millis: Long) : this(org.joda.time.DateTime(millis))
+    //endregion
 
+    //region toString(), hashCode() and equals()
     override fun toString(): String {
         return "${javaClass.simpleName}{value=$value}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other?.javaClass != javaClass) return false
+
+        other as DateTimeStub
+
+        if (value != other.value) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return value.hashCode()
+    }
+    //endregion
+
+    //region Parent
+    var parent: SessionStub by lazyChildStub(this) { SessionStub() }
 
     @Throws(RecycledObjectException::class)
     override fun getParent(): Session {
         this.assertNotRecycled()
         return parent
     }
+    //endregion
 
+    //region Adjust
     @Throws(RecycledObjectException::class)
     override fun adjustHour(hours: Int) {
         this.assertNotRecycled()
@@ -77,7 +114,9 @@ class DateTimeStub(var value: org.joda.time.DateTime = org.joda.time.DateTime.no
         this.assertNotRecycled()
         this.value = this.value.plusYears(years)
     }
+    //endregion
 
+    //region Set
     @Throws(RecycledObjectException::class)
     override fun setAnyDate() {
         this.assertNotRecycled()
@@ -97,19 +136,9 @@ class DateTimeStub(var value: org.joda.time.DateTime = org.joda.time.DateTime.no
         this.assertNotRecycled()
         this.value = org.joda.time.DateTime.now()
     }
+    //endregion
 
-    @Throws(RecycledObjectException::class)
-    override fun timeDifference(dateTime: DateTime): Int {
-        this.assertNotRecycled()
-        return Math.round(this.timeDifferenceDouble(dateTime)).toInt()
-    }
-
-    @Throws(RecycledObjectException::class)
-    override fun timeDifferenceDouble(dateTime: DateTime): Double {
-        this.assertNotRecycled()
-        return (this.value.millis - org.joda.time.DateTime(dateTime.toJavaDate()).millis) / 1000.0
-    }
-
+    //region Get
     @Throws(RecycledObjectException::class)
     override fun getDateOnly(): String {
         this.assertNotRecycled()
@@ -127,7 +156,25 @@ class DateTimeStub(var value: org.joda.time.DateTime = org.joda.time.DateTime.no
         this.assertNotRecycled()
         return this.value.toDate()
     }
+    //endregion
 
+    //region Difference
+    @Throws(RecycledObjectException::class)
+    override fun timeDifference(dateTime: DateTime): Int {
+        this.assertNotRecycled()
+        return Math.round(this.timeDifferenceDouble(dateTime)).toInt()
+    }
+
+    @Throws(RecycledObjectException::class)
+    override fun timeDifferenceDouble(dateTime: DateTime): Double {
+        this.assertNotRecycled()
+        return (this.value.millis - org.joda.time.DateTime(dateTime.toJavaDate()).millis) / 1000.0
+    }
+
+    override fun compareTo(other: DateTime) = timeDifference(other)
+    //endregion
+
+    //region Not implemented methods
     @Throws(NotImplementedException::class)
     override fun adjustDay(days: Int, preserveLocalTime: Boolean) {
         throw NotImplementedException()
@@ -217,4 +264,5 @@ class DateTimeStub(var value: org.joda.time.DateTime = org.joda.time.DateTime.no
     override fun getZoneTime(): String {
         throw NotImplementedException()
     }
+    //endregion
 }
