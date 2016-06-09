@@ -126,6 +126,18 @@ public class SessionStub extends BaseStub implements Session {
     }
 
     @Override
+    public Vector freeResourceSearch( DateTime dateTime, DateTime dateTime1, String s, int i, int i1 ) throws NotesException
+    {
+	throw new NotImplementedException();
+    }
+
+    @Override
+    public Vector freeResourceSearch( DateTime dateTime, DateTime dateTime1, String s, int i, int i1, String s1, int i2, String s2, String s3, int i3 ) throws NotesException
+    {
+	throw new NotImplementedException();
+    }
+
+    @Override
     public Vector freeTimeSearch(DateRange dateRange, int i, Object o, boolean b) throws NotImplementedException {
         throw new NotImplementedException();
     }
@@ -383,5 +395,11 @@ public class SessionStub extends BaseStub implements Session {
     @Override
     public void setAllowLoopBack(boolean b) throws NotImplementedException {
         throw new NotImplementedException();
+    }
+
+    @Override
+    public NotesCalendar getCalendar( Database database ) throws NotesException
+    {
+	throw new NotImplementedException();
     }
 }
