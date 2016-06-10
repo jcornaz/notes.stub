@@ -4,20 +4,17 @@ import com.toolable.notes.stub.model.BaseStub
 import java.util.*
 
 /**
- *
  * Main Class
  *
  * Can create and retrieve all the needed utilities
-
  * @author jonathan
  */
 object NotesStub {
 
     /**
      * Assert that notes objects are recycled
-
+     *
      * @param stubs [NotesStub] objects to check
-     * *
      * @throws AssertionError If one or more stubs are not recycled
      */
     @JvmStatic
@@ -28,9 +25,8 @@ object NotesStub {
 
     /**
      * Assert that notes objects are recycled
-
+     *
      * @param stubs [NotesStub] objects to check
-     * *
      * @throws AssertionError If one or more stubs are not recycled
      */
     @JvmStatic
@@ -41,9 +37,8 @@ object NotesStub {
 
     /**
      * Assert that notes objects are not recycled
-
+     *
      * @param stubs [NotesStub] objects to check
-     * *
      * @throws AssertionError If one or more stubs are recycled
      */
     @JvmStatic
@@ -54,9 +49,8 @@ object NotesStub {
 
     /**
      * Assert that notes objects are not recycled
-
+     *
      * @param stubs [NotesStub] objects to check
-     * *
      * @throws AssertionError If one or more stubs are recycled
      */
     @JvmStatic
@@ -64,6 +58,4 @@ object NotesStub {
     fun assertNotRecycled(stubs: List<BaseStub>) {
         stubs.forEach { if (it.isRecycled) throw AssertionError() }
     }
-
-
 }

@@ -7,25 +7,36 @@ import java.util.*
 
 /**
  * Base class of Lotus Notes stubs
-
+ *
  * @author jonathan
  */
 open class BaseStub : Base {
 
-    private var children: Collection<BaseStub> = listOf()
     var isRecycled: Boolean = false
 
+    private var children: Collection<BaseStub> = listOf()
+
+    /**
+     * Remove a child
+     *
+     * @param child Child to remove
+     */
     internal fun removeChild(child: BaseStub) {
-        children = this.children.minus(child)
+        children = children.minus(child)
     }
 
+    /**
+     * Add a child
+     *
+     * @param child Child to remove
+     */
     internal fun addChild(child: BaseStub) {
-        children = this.children.plus(child)
+        children = children.plus(child)
     }
 
     /**
      * Assert that the object is not recycled and raise an [RecycledObjectException] it's recycled
-
+     *
      * @throws RecycledObjectException The object is marked as recycled and is no longer usable
      */
     @Throws(RecycledObjectException::class)
@@ -34,15 +45,11 @@ open class BaseStub : Base {
             throw RecycledObjectException()
     }
 
-    /**
-     * Recycle the object.
-     *
-     * After this method all Lotus Notes methods of this instance will raise [RecycledObjectException]
-     */
+    //region Implemented methods
     override fun recycle() {
         assertNotRecycled()
 
-        this.children.forEach { it.recycle() }
+        children.forEach { it.recycle() }
 
         isRecycled = true
     }
@@ -52,8 +59,15 @@ open class BaseStub : Base {
 
         vector?.forEach { if (it is Base) it.recycle() }
     }
+    //endregion
 }
 
+/**
+ * Create a property delegate that is lazy, mutable and that inform the parent of the new attribution as a child
+ *
+ * @param child Child instance (to transmit to the parent)
+ * @param initializer Instantiation of a new Parent
+ */
 fun <ChildType : BaseStub, ParentType : BaseStub> lazyChildStub(child: ChildType, initializer: () -> ParentType) =
         MutableLazyDelegate<ChildType, ParentType>({
             val parent = initializer();

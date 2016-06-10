@@ -23,9 +23,8 @@ class UnexpectedException : RuntimeException {
      * call to [.initCause].
 
      * @param message the detail message. The detail message is saved for
-     * *                later retrieval by the [.getMessage] method.
+     *                later retrieval by the [.getMessage] method.
      */
-
     constructor(message: String) : super(message)
 
     /**
@@ -37,12 +36,12 @@ class UnexpectedException : RuntimeException {
      * this runtime exception's detail message.
 
      * @param message the detail message (which is saved for later retrieval
-     * *                by the [.getMessage] method).
-     * *
+     *                by the [.getMessage] method).
+     *
      * @param cause   the cause (which is saved for later retrieval by the
-     * *                [.getCause] method).  (A null value is
-     * *                permitted, and indicates that the cause is nonexistent or
-     * *                unknown.)
+     *                [.getCause] method).  (A null value is
+     *                permitted, and indicates that the cause is nonexistent or
+     *                unknown.)
      */
     constructor(message: String, cause: Throwable) : super(message, cause)
 
@@ -54,9 +53,9 @@ class UnexpectedException : RuntimeException {
      * that are little more than wrappers for other throwables.
 
      * @param cause the cause (which is saved for later retrieval by the
-     * *              [.getCause] method).  (A null value is
-     * *              permitted, and indicates that the cause is nonexistent or
-     * *              unknown.)
+     *              [.getCause] method).  (A null value is
+     *               permitted, and indicates that the cause is nonexistent or
+     *               unknown.)
      */
     constructor(cause: Throwable) : super(cause)
 }

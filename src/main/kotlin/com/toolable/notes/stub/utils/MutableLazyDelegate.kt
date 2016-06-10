@@ -3,7 +3,13 @@ package com.toolable.notes.stub.utils
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
-open class MutableLazyDelegate<O, T>(private val initializer: () -> T, private val updater: (oldValue: T?, newValue: T) -> Unit) : ReadWriteProperty<O, T> {
+/**
+ * Lazy delegate for a mutable property
+ *
+ * @param initializer Instantiation to call if the the value has not been set yet
+ * @param updater Listener called when the value is updated (do nothing by default)
+ */
+open class MutableLazyDelegate<O, T>(private val initializer: () -> T, private val updater: (oldValue: T?, newValue: T) -> Unit = { a, b -> /* do nothing */ }) : ReadWriteProperty<O, T> {
 
     private var value: T? = null
 

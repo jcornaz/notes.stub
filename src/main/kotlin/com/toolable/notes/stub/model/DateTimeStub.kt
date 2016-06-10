@@ -8,17 +8,40 @@ import org.joda.time.format.DateTimeFormat
 import java.util.*
 
 /**
- * The stub for [DateTime]
-
+ * Stub for [DateTime]
+ *
+ * @constructor Construct a new instance for an arbitrary date
+ * @param value Value (now by default)
  * @author jonathan
  */
 class DateTimeStub(var value: org.joda.time.DateTime = org.joda.time.DateTime.now()) : BaseStub(), DateTime, Comparable<DateTime> {
 
+    var parent: SessionStub by lazyChildStub(this) { SessionStub() }
+
     //region Secondary constructors
-    constructor(session: SessionStub, value: org.joda.time.DateTime) : this(value) {
+    /**
+     * Construct a new instance for a Session
+     *
+     * @param session Session
+     * @param value Value (now by default)
+     */
+    @JvmOverloads
+    constructor(session: SessionStub, value: org.joda.time.DateTime = org.joda.time.DateTime.now()) : this(value) {
         parent = session
     }
 
+    /**
+     * Construct a new instance for a session and a date defined by field values
+     *
+     * @param session Session
+     * @param year Year
+     * @param monthOfYear Month of year
+     * @param dayOfMonth Day of month
+     * @param hourOfDay Hour of day (0 by default)
+     * @param minuteOfHour Minute of hour (0 by default)
+     * @param secondOfMinute Second of second (0 by default)
+     * @param millisOfSecond Millisecond of second (0 by default)
+     */
     @JvmOverloads
     constructor(
             session: SessionStub,
@@ -31,8 +54,25 @@ class DateTimeStub(var value: org.joda.time.DateTime = org.joda.time.DateTime.no
             millisOfSecond: Int = 0
     ) : this(session, org.joda.time.DateTime(year, monthOfYear, dayOfMonth, hourOfDay, minuteOfHour, secondOfMinute, millisOfSecond))
 
+    /**
+     * Construct a new instance for a session and a date defined by milliseconds
+     *
+     * @param session Session
+     * @param millis Number of milliseconds from the 01.01.1970 at 00:00:00
+     */
     constructor(session: SessionStub, millis: Long) : this(session, org.joda.time.DateTime(millis))
 
+    /**
+     * Construct a new instance for date defined by field values
+     *
+     * @param year Year
+     * @param monthOfYear Month of year
+     * @param dayOfMonth Day of month
+     * @param hourOfDay Hour of day (0 by default)
+     * @param minuteOfHour Minute of hour (0 by default)
+     * @param secondOfMinute Second of second (0 by default)
+     * @param millisOfSecond Millisecond of second (0 by default)
+     */
     @JvmOverloads
     constructor(
             year: Int,
@@ -44,41 +84,23 @@ class DateTimeStub(var value: org.joda.time.DateTime = org.joda.time.DateTime.no
             millisOfSecond: Int = 0
     ) : this(org.joda.time.DateTime(year, monthOfYear, dayOfMonth, hourOfDay, minuteOfHour, secondOfMinute, millisOfSecond))
 
+    /**
+     * Construct a new instance for a session and a date defined by milliseconds
+     *
+     * @param millis Number of milliseconds from the 01.01.1970 at 00:00:00
+     */
     constructor(millis: Long) : this(org.joda.time.DateTime(millis))
     //endregion
 
-    //region toString(), hashCode() and equals()
-    override fun toString(): String {
-        return "${javaClass.simpleName}{value=$value}"
-    }
+    override fun compareTo(other: DateTime) = timeDifference(other)
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other?.javaClass != javaClass) return false
-
-        other as DateTimeStub
-
-        if (value != other.value) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        return value.hashCode()
-    }
-    //endregion
-
-    //region Parent
-    var parent: SessionStub by lazyChildStub(this) { SessionStub() }
-
+    //region Implemented methods
     @Throws(RecycledObjectException::class)
     override fun getParent(): Session {
         this.assertNotRecycled()
         return parent
     }
-    //endregion
 
-    //region Adjust
     @Throws(RecycledObjectException::class)
     override fun adjustHour(hours: Int) {
         this.assertNotRecycled()
@@ -114,9 +136,7 @@ class DateTimeStub(var value: org.joda.time.DateTime = org.joda.time.DateTime.no
         this.assertNotRecycled()
         this.value = this.value.plusYears(years)
     }
-    //endregion
 
-    //region Set
     @Throws(RecycledObjectException::class)
     override fun setAnyDate() {
         this.assertNotRecycled()
@@ -136,9 +156,7 @@ class DateTimeStub(var value: org.joda.time.DateTime = org.joda.time.DateTime.no
         this.assertNotRecycled()
         this.value = org.joda.time.DateTime.now()
     }
-    //endregion
 
-    //region Get
     @Throws(RecycledObjectException::class)
     override fun getDateOnly(): String {
         this.assertNotRecycled()
@@ -156,9 +174,7 @@ class DateTimeStub(var value: org.joda.time.DateTime = org.joda.time.DateTime.no
         this.assertNotRecycled()
         return this.value.toDate()
     }
-    //endregion
 
-    //region Difference
     @Throws(RecycledObjectException::class)
     override fun timeDifference(dateTime: DateTime): Int {
         this.assertNotRecycled()
@@ -170,8 +186,6 @@ class DateTimeStub(var value: org.joda.time.DateTime = org.joda.time.DateTime.no
         this.assertNotRecycled()
         return (this.value.millis - org.joda.time.DateTime(dateTime.toJavaDate()).millis) / 1000.0
     }
-
-    override fun compareTo(other: DateTime) = timeDifference(other)
     //endregion
 
     //region Not implemented methods
@@ -263,6 +277,28 @@ class DateTimeStub(var value: org.joda.time.DateTime = org.joda.time.DateTime.no
     @Throws(NotImplementedException::class)
     override fun getZoneTime(): String {
         throw NotImplementedException()
+    }
+    //endregion
+
+    //region toString(), hashCode() and equals()
+    override fun toString(): String {
+        return "${javaClass.simpleName}(value=$value)"
+    }
+
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other?.javaClass != javaClass) return false
+
+        other as DateTimeStub
+
+        if (value != other.value) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return value.hashCode()
     }
     //endregion
 }

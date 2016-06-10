@@ -21,7 +21,6 @@ class NotImplementedException : RuntimeException {
 
      * @param message the detail message. The detail message is saved for later retrieval by the [.getMessage] method.
      */
-
     constructor(message: String) : super(message)
 
     /**
@@ -33,13 +32,13 @@ class NotImplementedException : RuntimeException {
      * this runtime exception's detail message.
 
      * @param message the detail message (which is saved for later retrieval
-     * *                by the [.getMessage] method).
-     * *
+     *                by the [.getMessage] method).
+     *
      * @param cause   the cause (which is saved for later retrieval by the
-     * *                [.getCause] method).  (A null value is
-     * *                permitted, and indicates that the cause is nonexistent or
-     * *                unknown.)
-     * *
+     *                [.getCause] method).  (A null value is
+     *                permitted, and indicates that the cause is nonexistent or
+     *                unknown.)
+     *
      * @since 1.4
      */
     constructor(message: String, cause: Throwable) : super(message, cause)
@@ -52,10 +51,10 @@ class NotImplementedException : RuntimeException {
      * that are little more than wrappers for other throwables.
 
      * @param cause the cause (which is saved for later retrieval by the
-     * *              [.getCause] method).  (A null value is
-     * *              permitted, and indicates that the cause is nonexistent or
-     * *              unknown.)
-     * *
+     *              [.getCause] method).  (A null value is
+     *              permitted, and indicates that the cause is nonexistent or
+     *              unknown.)
+     *
      * @since 1.4
      */
     constructor(cause: Throwable) : super(cause)

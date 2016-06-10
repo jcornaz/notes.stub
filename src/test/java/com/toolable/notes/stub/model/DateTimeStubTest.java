@@ -1,6 +1,5 @@
 package com.toolable.notes.stub.model;
 
-import com.toolable.notes.stub.NotesStub;
 import com.toolable.notes.stub.TestUtils;
 import com.toolable.notes.stub.exception.RecycledObjectException;
 import lotus.domino.NotesException;
@@ -29,7 +28,7 @@ public class DateTimeStubTest {
      * @param excludes Date to exclude
      * @return A random date that is not present in {@code excludes}
      */
-    public static DateTime createRandomDate(DateTime... excludes) {
+    private static DateTime createRandomDate(DateTime... excludes) {
 
         DateTime date;
 
@@ -261,6 +260,6 @@ public class DateTimeStubTest {
      */
     @Test
     public void testToString() {
-        Assert.assertEquals("DateTimeStub{value=" + this.now.toString() + "}", new DateTimeStub().toString());
+        Assert.assertEquals("DateTimeStub(value=" + this.now.toString() + ")", new DateTimeStub().toString());
     }
 }

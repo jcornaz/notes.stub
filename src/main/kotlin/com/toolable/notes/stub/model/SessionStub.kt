@@ -6,12 +6,22 @@ import lotus.domino.*
 import java.util.*
 
 /**
- * The stub for [Session]
+ * Stub for [Session]
 
  * @author jonathan
  */
 class SessionStub : BaseStub(), Session {
 
+    /**
+     * Create a date time representing the current instant
+     *
+     * @return DateTime object created
+     */
+    fun createDateTime(): DateTimeStub {
+        return DateTimeStub(this, org.joda.time.DateTime.now())
+    }
+
+    //region Implemented methods
     @Throws(RecycledObjectException::class)
     override fun createDateTime(date: Date): DateTimeStub {
         this.assertNotRecycled()
@@ -23,17 +33,9 @@ class SessionStub : BaseStub(), Session {
         this.assertNotRecycled()
         return DateTimeStub(this, org.joda.time.DateTime(calendar.timeInMillis))
     }
+    //endregion
 
-    /**
-     * Create a date time representing the current instant
-
-     * @return DateTime object created
-     */
-    @Throws(RecycledObjectException::class)
-    fun createDateTime(): DateTimeStub {
-        return DateTimeStub(this, org.joda.time.DateTime.now())
-    }
-
+    //region Not implemented methods
     @Throws(NotImplementedException::class)
     override fun createDateRange(): DateRange {
         throw NotImplementedException()
@@ -383,4 +385,5 @@ class SessionStub : BaseStub(), Session {
     override fun setAllowLoopBack(b: Boolean) {
         throw NotImplementedException()
     }
+    //endregion
 }
