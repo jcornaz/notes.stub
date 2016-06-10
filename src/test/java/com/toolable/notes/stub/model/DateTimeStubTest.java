@@ -1,6 +1,5 @@
 package com.toolable.notes.stub.model;
 
-import com.toolable.notes.stub.NotesStub;
 import com.toolable.notes.stub.TestUtils;
 import com.toolable.notes.stub.exception.RecycledObjectException;
 import lotus.domino.NotesException;
@@ -29,7 +28,7 @@ public class DateTimeStubTest {
      * @param excludes Date to exclude
      * @return A random date that is not present in {@code excludes}
      */
-    public static DateTime createRandomDate(DateTime... excludes) {
+    private static DateTime createRandomDate(DateTime... excludes) {
 
         DateTime date;
 
@@ -83,7 +82,7 @@ public class DateTimeStubTest {
      */
     @Test
     public void testDefaultDate() {
-        DateTimeStub stub = NotesStub.createDateTime();
+        DateTimeStub stub = new DateTimeStub();
         Assert.assertEquals(this.now, stub.getValue());
     }
 
@@ -92,14 +91,14 @@ public class DateTimeStubTest {
      */
     @Test
     public void testFixedDate() {
-        DateTimeStub stub = NotesStub.createDateTime(2016, 6, 21);
+        DateTimeStub stub = new DateTimeStub(2016, 6, 21);
         Assert.assertEquals(new DateTime(2016, 6, 21, 0, 0, 0), stub.getValue());
 
-        stub = NotesStub.createDateTime(2016, 6, 21, 12, 0, 42);
+        stub = new DateTimeStub(2016, 6, 21, 12, 0, 42);
         Assert.assertEquals(new DateTime(2016, 6, 21, 12, 0, 42), stub.getValue());
 
         DateTime jodaTime = new DateTime(new Random().nextLong());
-        stub = NotesStub.createDateTime(jodaTime);
+        stub = new DateTimeStub(jodaTime);
         Assert.assertEquals(jodaTime, stub.getValue());
     }
 
@@ -110,8 +109,8 @@ public class DateTimeStubTest {
      */
     @Test
     public void testTimeDifference() throws NotesException {
-        DateTimeStub stub1 = NotesStub.createDateTime(2014, 12, 13, 11, 9, 3);
-        DateTimeStub stub2 = NotesStub.createDateTime(2015, 1, 14, 12, 10, 4);
+        DateTimeStub stub1 = new DateTimeStub(2014, 12, 13, 11, 9, 3);
+        DateTimeStub stub2 = new DateTimeStub(2015, 1, 14, 12, 10, 4);
 
         int delta = (31 * 24 * 60 * 60) + (24 * 60 * 60) + (60 * 60) + 60 + 1;
 
@@ -127,7 +126,7 @@ public class DateTimeStubTest {
      */
     @Test
     public void testSetDate() {
-        DateTimeStub stub1 = NotesStub.createDateTime();
+        DateTimeStub stub1 = new DateTimeStub();
         Assert.assertEquals(this.now, stub1.getValue());
 
         DateTime randomDay = createRandomDate(this.now);
@@ -142,7 +141,7 @@ public class DateTimeStubTest {
      */
     @Test
     public void testSetSetNow() {
-        DateTimeStub stub = NotesStub.createDateTime(createRandomDate(this.now));
+        DateTimeStub stub = new DateTimeStub(createRandomDate(this.now));
 
         Assert.assertNotEquals(this.now, stub.getValue());
         stub.setNow();
@@ -156,7 +155,7 @@ public class DateTimeStubTest {
     public void testSetAnyTime() {
         DateTime towelDay = new DateTime(2015, 5, 25, 0, 0, 0);
 
-        DateTimeStub stub = NotesStub.createDateTime(towelDay);
+        DateTimeStub stub = new DateTimeStub(towelDay);
 
         do {
             stub.setAnyTime();
@@ -173,7 +172,7 @@ public class DateTimeStubTest {
     public void testSetAnyDate() {
         DateTime towelDay = new DateTime(2015, 5, 25, 0, 0, 0);
 
-        DateTimeStub stub = NotesStub.createDateTime(towelDay);
+        DateTimeStub stub = new DateTimeStub(towelDay);
 
         do {
             stub.setAnyDate();
@@ -189,7 +188,7 @@ public class DateTimeStubTest {
     @Test
     public void testAdjustDate() {
         DateTime towelDay = new DateTime(2015, 5, 25, 0, 0, 0);
-        DateTimeStub stub = NotesStub.createDateTime(towelDay);
+        DateTimeStub stub = new DateTimeStub(towelDay);
 
         stub.adjustYear(3);
         stub.adjustMonth(3);
@@ -215,7 +214,7 @@ public class DateTimeStubTest {
      */
     @Test
     public void testParent() {
-        Assert.assertNotNull(NotesStub.createDateTime().getParent());
+        Assert.assertNotNull(new DateTimeStub().getParent());
     }
 
     /**
@@ -223,9 +222,9 @@ public class DateTimeStubTest {
      */
     @Test
     public void testCreateFromSession() {
-        SessionStub session = NotesStub.createSession();
+        SessionStub session = new SessionStub();
 
-        DateTimeStub stub1 = NotesStub.createDateTime();
+        DateTimeStub stub1 = new DateTimeStub();
         DateTimeStub stub2 = session.createDateTime();
         DateTimeStub stub3 = session.createDateTime(this.now.toDate());
         DateTimeStub stub4 = session.createDateTime(this.now.toCalendar(null));
@@ -251,7 +250,7 @@ public class DateTimeStubTest {
      */
     @Test
     public void testDateOnly() {
-        DateTimeStub stub = NotesStub.createDateTime(2015, 3, 14, 9, 26, 53);
+        DateTimeStub stub = new DateTimeStub(2015, 3, 14, 9, 26, 53);
         Assert.assertEquals("03/14/2015", stub.getDateOnly());
         Assert.assertEquals("09:26:53", stub.getTimeOnly());
     }
@@ -261,6 +260,6 @@ public class DateTimeStubTest {
      */
     @Test
     public void testToString() {
-        Assert.assertEquals("DateTimeStub{value=" + this.now.toString() + "}", NotesStub.createDateTime().toString());
+        Assert.assertEquals("DateTimeStub(value=" + this.now.toString() + ")", new DateTimeStub().toString());
     }
 }
