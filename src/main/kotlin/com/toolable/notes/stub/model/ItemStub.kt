@@ -184,6 +184,7 @@ class ItemStub : BaseStub(), Item {
     }
 
     override fun getParent(): Document {
+        this.assertNotRecycled()
         return parent
     }
 

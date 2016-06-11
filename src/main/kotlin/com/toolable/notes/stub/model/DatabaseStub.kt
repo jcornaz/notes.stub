@@ -512,6 +512,7 @@ class DatabaseStub : BaseStub(), Database {
     }
 
     override fun getParent(): Session {
+        this.assertNotRecycled()
         return parent
     }
 

@@ -259,6 +259,7 @@ class DocumentStub : BaseStub(), Document {
     }
 
     override fun getParentDatabase(): Database {
+        this.assertNotRecycled()
         return parent
     }
 
