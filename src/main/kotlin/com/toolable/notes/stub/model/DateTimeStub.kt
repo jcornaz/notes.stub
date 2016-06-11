@@ -91,9 +91,29 @@ class DateTimeStub(var value: org.joda.time.DateTime = org.joda.time.DateTime.no
     constructor(millis: Long) : this(org.joda.time.DateTime(millis))
     //endregion
 
+    //region toString(), hashCode() and equals()
+    override fun toString(): String {
+        return "${javaClass.simpleName}(value=$value)"
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other?.javaClass != javaClass) return false
+
+        other as DateTimeStub
+
+        if (value != other.value) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return value.hashCode()
+    }
+    //endregion
+
     override fun compareTo(other: DateTime) = timeDifference(other)
 
-    //region Implemented methods
     @Throws(RecycledObjectException::class)
     override fun getParent(): Session {
         this.assertNotRecycled()
@@ -185,9 +205,7 @@ class DateTimeStub(var value: org.joda.time.DateTime = org.joda.time.DateTime.no
         this.assertNotRecycled()
         return (this.value.millis - org.joda.time.DateTime(dateTime.toJavaDate()).millis) / 1000.0
     }
-    //endregion
 
-    //region Not implemented methods
     @Throws(UnsupportedOperationException::class)
     override fun adjustDay(days: Int, preserveLocalTime: Boolean) {
         throw UnsupportedOperationException()
@@ -277,27 +295,4 @@ class DateTimeStub(var value: org.joda.time.DateTime = org.joda.time.DateTime.no
     override fun getZoneTime(): String {
         throw UnsupportedOperationException()
     }
-    //endregion
-
-    //region toString(), hashCode() and equals()
-    override fun toString(): String {
-        return "${javaClass.simpleName}(value=$value)"
-    }
-
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other?.javaClass != javaClass) return false
-
-        other as DateTimeStub
-
-        if (value != other.value) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        return value.hashCode()
-    }
-    //endregion
 }

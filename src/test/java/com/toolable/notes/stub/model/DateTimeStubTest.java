@@ -210,11 +210,16 @@ public class DateTimeStubTest {
     }
 
     /**
-     * The parent session should be accessible
+     * A item stub should always have a parent. It could be set by code.
      */
     @Test
     public void testParent() {
         Assert.assertNotNull(new DateTimeStub().getParent());
+
+        SessionStub parent = new SessionStub();
+        DateTimeStub item = new DateTimeStub();
+        item.setParent(parent);
+        Assert.assertSame(parent, item.getParent());
     }
 
     /**

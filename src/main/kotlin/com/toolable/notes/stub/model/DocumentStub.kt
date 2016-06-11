@@ -6,9 +6,7 @@ import java.util.*
 
 
 class DocumentStub : BaseStub(), Document {
-    var parent: DatabaseStub by lazyChildStub(this) { DatabaseStub() }
-
-    private var fieldMap: Map<String, ItemStub> = mapOf()
+    var parentDatabase: DatabaseStub by lazyChildStub(this) { DatabaseStub() }
 
     override fun getFirstItem(p0: String?): Item? {
         throw UnsupportedOperationException()
@@ -260,7 +258,7 @@ class DocumentStub : BaseStub(), Document {
 
     override fun getParentDatabase(): Database {
         this.assertNotRecycled()
-        return parent
+        return parentDatabase
     }
 
     override fun getKey(): String? {
