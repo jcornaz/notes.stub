@@ -1,6 +1,5 @@
 package com.toolable.notes.stub.model
 
-import com.toolable.notes.stub.exception.NotImplementedException
 import com.toolable.notes.stub.exception.RecycledObjectException
 import lotus.domino.*
 import java.util.*
@@ -36,354 +35,354 @@ class SessionStub : BaseStub(), Session {
     //endregion
 
     //region Not implemented methods
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun createDateRange(): DateRange {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun createDateRange(dateTime: DateTime, dateTime1: DateTime): DateRange {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun createDateRange(date: Date, date1: Date): DateRange {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun createDateTime(string: String): DateTimeStub {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun createLog(s: String): Log {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun createName(s: String): Name {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun createName(s: String, s1: String): Name {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun createNewsletter(documentCollection: DocumentCollection): Newsletter {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun createRegistration(): Registration {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun createRichTextStyle(): RichTextStyle {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun createRichTextParagraphStyle(): RichTextParagraphStyle {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun createStream(): Stream {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun createDxlExporter(): DxlExporter {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun createDxlImporter(): DxlImporter {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun createColorObject(): ColorObject {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun createAdministrationProcess(s: String): AdministrationProcess {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun evaluate(s: String): Vector<Any> {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun evaluate(s: String, document: Document): Vector<Any> {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun freeTimeSearch(dateRange: DateRange, i: Int, o: Any, b: Boolean): Vector<Any> {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun getAddressBooks(): Vector<Any> {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun getAgentContext(): AgentContext {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun getCommonUserName(): String {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun isConvertMime(): Boolean {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun setConvertMime(b: Boolean) {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun isConvertMIME(): Boolean {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun setConvertMIME(b: Boolean) {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun getDatabase(s: String, s1: String): Database {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun getDatabase(s: String, s1: String, b: Boolean): Database {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun getDbDirectory(s: String): DbDirectory {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun getEnvironmentString(s: String): String {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun getEnvironmentString(s: String, b: Boolean): String {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun getEnvironmentValue(s: String): Any {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun getEnvironmentValue(s: String, b: Boolean): Any {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun setEnvironmentVar(s: String, o: Any) {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun setEnvironmentVar(s: String, o: Any, b: Boolean) {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun getInternational(): International {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun getNotesVersion(): String {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun getPlatform(): String {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun getServerName(): String {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun getURLDatabase(): Database {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun getUserName(): String {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun getEffectiveUserName(): String {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun getUserNameObject(): Name {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun isOnServer(): Boolean {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun resolve(s: String): Base {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun getUserNameList(): Vector<Any> {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun getURL(): String {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun getHttpURL(): String {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun getSessionToken(): String {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun getSessionToken(s: String): String {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun getCredentials(): Any {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun getOrgDirectoryPath(): String {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun getCurrentDatabase(): Database {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun isValid(): Boolean {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun getUserGroupNameList(): Vector<Any> {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun sendConsoleCommand(s: String, s1: String): String {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun getUserPolicySettings(s: String, s1: String, i: Int): Document {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun getUserPolicySettings(s: String, s1: String, i: Int, s2: String): Document {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun hashPassword(s: String): String {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun verifyPassword(s: String, s1: String): Boolean {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun getPropertyBroker(): PropertyBroker {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun getDirectory(): Directory {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun getDirectory(s: String): Directory {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun isTrustedSession(): Boolean {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun isRestricted(): Boolean {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun resetUserPassword(s: String, s1: String, s2: String): Boolean {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun resetUserPassword(s: String, s1: String, s2: String, i: Int): Boolean {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun isTrackMillisecInJavaDates(): Boolean {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun setTrackMillisecInJavaDates(b: Boolean) {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun setAllowLoopBack(b: Boolean) {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
     //endregion
 }

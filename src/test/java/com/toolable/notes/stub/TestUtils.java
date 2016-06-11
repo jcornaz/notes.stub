@@ -41,7 +41,7 @@ public final class TestUtils {
                 Class<? extends Throwable> causeClass = e.getCause().getClass();
 
                 // Expected exception
-                if (!causeClass.equals(NotImplementedException.class)) {
+                if (!causeClass.equals(UnsupportedOperationException.class)) {
                     Assert.assertEquals(RecycledObjectException.class, causeClass);
                 }
 

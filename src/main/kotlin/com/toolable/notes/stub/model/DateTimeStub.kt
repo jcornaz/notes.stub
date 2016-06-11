@@ -1,6 +1,5 @@
 package com.toolable.notes.stub.model
 
-import com.toolable.notes.stub.exception.NotImplementedException
 import com.toolable.notes.stub.exception.RecycledObjectException
 import lotus.domino.DateTime
 import lotus.domino.Session
@@ -169,7 +168,7 @@ class DateTimeStub(var value: org.joda.time.DateTime = org.joda.time.DateTime.no
         return this.value.toString(DateTimeFormat.forPattern("HH:mm:ss"))
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(RecycledObjectException::class)
     override fun toJavaDate(): Date {
         this.assertNotRecycled()
         return this.value.toDate()
@@ -189,94 +188,94 @@ class DateTimeStub(var value: org.joda.time.DateTime = org.joda.time.DateTime.no
     //endregion
 
     //region Not implemented methods
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun adjustDay(days: Int, preserveLocalTime: Boolean) {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun adjustMonth(months: Int, preserveLocalTime: Boolean) {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun adjustMinute(minutes: Int, preserveLocalTime: Boolean) {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun adjustSecond(seconds: Int, preserveLocalTime: Boolean) {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun adjustHour(hours: Int, preserveLocalTime: Boolean) {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun adjustYear(years: Int, preserveLocalTime: Boolean) {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun convertToZone(i: Int, b: Boolean) {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun setLocalDate(i: Int, i1: Int, i2: Int) {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun setLocalDate(i: Int, i1: Int, i2: Int, b: Boolean) {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun setLocalTime(i: Int, i1: Int, i2: Int, i3: Int) {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun setLocalTime(date: Date) {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun setLocalTime(calendar: Calendar) {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun getGMTTime(): String {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun isDST(): Boolean {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun getLocalTime(): String {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun setLocalTime(s: String) {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun getTimeZone(): Int {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
 
-    @Throws(NotImplementedException::class)
+    @Throws(UnsupportedOperationException::class)
     override fun getZoneTime(): String {
-        throw NotImplementedException()
+        throw UnsupportedOperationException()
     }
     //endregion
 
