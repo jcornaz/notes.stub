@@ -18,12 +18,4 @@ public class SessionStubTest {
     public void testRecycleObjectExceptionsRaised() {
         TestUtils.assertExceptionsRaisedOnRecycledObject(new SessionStub());
     }
-
-    /**
-     * The {@link BaseStub} should implement {@link lotus.domino.Base}
-     */
-    @Test
-    public void testDominoInterface() {
-        TestUtils.assertNotesInterface(SessionStub.class, lotus.domino.Session.class);
-    }
 }

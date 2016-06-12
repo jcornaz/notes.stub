@@ -21,17 +21,4 @@ public class DocumentStubTest {
     public void testRecycleObjectExceptionsRaised() {
         TestUtils.assertExceptionsRaisedOnRecycledObject(new DocumentStub());
     }
-
-    /**
-     * A document stub should always have a parent. It could be set by code.
-     */
-    @Test
-    public void testParent() {
-        Assert.assertNotNull(new DocumentStub().getParentDatabase());
-
-        DatabaseStub parent = new DatabaseStub();
-        DocumentStub item = new DocumentStub();
-        item.setParentDatabase(parent);
-        Assert.assertSame(parent, item.getParentDatabase());
-    }
 }
