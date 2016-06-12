@@ -8,6 +8,11 @@ import java.util.*
 
 class DocumentImpl(stub: DocumentStub) : BaseImpl<DocumentStub>(stub), Document {
 
+    override fun getParentDatabase(): Database {
+        stub.assertNotRecycled()
+        return stub.database.implementation
+    }
+
     override fun getFirstItem(p0: String?): Item? {
         throw UnsupportedOperationException()
     }
@@ -253,10 +258,6 @@ class DocumentImpl(stub: DocumentStub) : BaseImpl<DocumentStub>(stub), Document 
     }
 
     override fun hasEmbedded(): Boolean {
-        throw UnsupportedOperationException()
-    }
-
-    override fun getParentDatabase(): Database? {
         throw UnsupportedOperationException()
     }
 

@@ -9,6 +9,11 @@ import java.util.*
  */
 class DatabaseImpl(stub: DatabaseStub) : BaseImpl<DatabaseStub>(stub), Database {
 
+    override fun getParent(): Session {
+        stub.assertNotRecycled()
+        return stub.session.implementation
+    }
+
     override fun getView(p0: String?): View? {
         throw UnsupportedOperationException()
     }
@@ -510,10 +515,6 @@ class DatabaseImpl(stub: DatabaseStub) : BaseImpl<DatabaseStub>(stub), Database 
     }
 
     override fun getAllUnreadDocuments(): DocumentCollection? {
-        throw UnsupportedOperationException()
-    }
-
-    override fun getParent(): Session? {
         throw UnsupportedOperationException()
     }
 

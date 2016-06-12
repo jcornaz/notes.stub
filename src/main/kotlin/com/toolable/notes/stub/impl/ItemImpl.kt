@@ -12,6 +12,11 @@ import java.util.*
  */
 class ItemImpl(stub: ItemStub) : BaseImpl<ItemStub>(stub), Item {
 
+    override fun getParent(): Document {
+        stub.assertNotRecycled()
+        return stub.document.implementation
+    }
+
     override fun getText(): String? {
         throw UnsupportedOperationException()
     }
@@ -181,10 +186,6 @@ class ItemImpl(stub: ItemStub) : BaseImpl<ItemStub>(stub), Item {
     }
 
     override fun getInputStream(): InputStream? {
-        throw UnsupportedOperationException()
-    }
-
-    override fun getParent(): Document? {
         throw UnsupportedOperationException()
     }
 

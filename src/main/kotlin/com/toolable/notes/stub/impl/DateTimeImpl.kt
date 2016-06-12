@@ -15,7 +15,7 @@ class DateTimeImpl(stub: DateTimeStub) : BaseImpl<DateTimeStub>(stub), DateTime 
     @Throws(RecycledObjectException::class)
     override fun getParent(): Session {
         stub.assertNotRecycled()
-        return parent
+        return stub.session.implementation
     }
 
     @Throws(RecycledObjectException::class)

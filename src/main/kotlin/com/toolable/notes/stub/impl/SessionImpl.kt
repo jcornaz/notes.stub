@@ -1,5 +1,6 @@
 package com.toolable.notes.stub.impl
 
+import com.toolable.notes.stub.model.DateTimeStub
 import com.toolable.notes.stub.model.SessionStub
 import lotus.domino.*
 import java.util.*
@@ -8,6 +9,21 @@ import java.util.*
  * Implementation of [Session] with a stub
  */
 class SessionImpl(stub: SessionStub) : BaseImpl<SessionStub>(stub), Session {
+
+    override fun createDateTime(p0: Date?): DateTime? {
+        stub.assertNotRecycled()
+        return DateTimeStub(stub, org.joda.time.DateTime(p0)).implementation
+    }
+
+    override fun createDateTime(p0: Calendar): DateTime {
+        stub.assertNotRecycled()
+        return DateTimeStub(stub, org.joda.time.DateTime(p0)).implementation
+    }
+
+    override fun createDateTime(p0: String): DateTime {
+        stub.assertNotRecycled()
+        return DateTimeStub(stub, org.joda.time.DateTime.parse(p0)).implementation
+    }
 
     override fun isConvertMIME(): Boolean {
         throw UnsupportedOperationException()
@@ -74,18 +90,6 @@ class SessionImpl(stub: SessionStub) : BaseImpl<SessionStub>(stub), Session {
     }
 
     override fun setConvertMIME(p0: Boolean) {
-        throw UnsupportedOperationException()
-    }
-
-    override fun createDateTime(p0: Date?): DateTime? {
-        throw UnsupportedOperationException()
-    }
-
-    override fun createDateTime(p0: Calendar?): DateTime? {
-        throw UnsupportedOperationException()
-    }
-
-    override fun createDateTime(p0: String?): DateTime? {
         throw UnsupportedOperationException()
     }
 
