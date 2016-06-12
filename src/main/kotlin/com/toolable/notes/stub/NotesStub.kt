@@ -19,7 +19,7 @@ object NotesStub {
      */
     @JvmStatic
     @Throws(AssertionError::class)
-    fun assertRecycled(vararg stubs: BaseStub) {
+    fun assertRecycled(vararg stubs: BaseStub<*>) {
         assertRecycled(Arrays.asList(*stubs))
     }
 
@@ -31,7 +31,7 @@ object NotesStub {
      */
     @JvmStatic
     @Throws(AssertionError::class)
-    fun assertRecycled(stubs: List<BaseStub>) {
+    fun assertRecycled(stubs: List<BaseStub<*>>) {
         stubs.forEach { if (!it.isRecycled) throw AssertionError() }
     }
 
@@ -43,7 +43,7 @@ object NotesStub {
      */
     @JvmStatic
     @Throws(AssertionError::class)
-    fun assertNotRecycled(vararg stubs: BaseStub) {
+    fun assertNotRecycled(vararg stubs: BaseStub<*>) {
         assertNotRecycled(Arrays.asList(*stubs))
     }
 
@@ -55,7 +55,7 @@ object NotesStub {
      */
     @JvmStatic
     @Throws(AssertionError::class)
-    fun assertNotRecycled(stubs: List<BaseStub>) {
+    fun assertNotRecycled(stubs: List<BaseStub<*>>) {
         stubs.forEach { if (it.isRecycled) throw AssertionError() }
     }
 }

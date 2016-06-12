@@ -2,6 +2,7 @@ package com.toolable.notes.stub.model;
 
 import com.toolable.notes.stub.TestUtils;
 import com.toolable.notes.stub.exception.RecycledObjectException;
+import com.toolable.notes.stub.impl.DateTimeImpl;
 import lotus.domino.NotesException;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeUtils;
@@ -70,14 +71,6 @@ public class DateTimeStubTest {
     }
 
     /**
-     * The {@link DateTimeStub} should implement {@link lotus.domino.DateTime}
-     */
-    @Test
-    public void testDominoInterface() {
-        TestUtils.assertNotesInterface(DateTimeStub.class, lotus.domino.DateTime.class);
-    }
-
-    /**
      * AThe default value should be {@link DateTime#now()}
      */
     @Test
@@ -114,11 +107,11 @@ public class DateTimeStubTest {
 
         int delta = (31 * 24 * 60 * 60) + (24 * 60 * 60) + (60 * 60) + 60 + 1;
 
-        Assert.assertEquals(delta, stub2.timeDifference(stub1));
-        Assert.assertEquals(delta, stub2.timeDifferenceDouble(stub1), 0d);
+        Assert.assertEquals(delta, stub2.getImplementation().timeDifference(stub1.getImplementation()));
+        Assert.assertEquals(delta, stub2.getImplementation().timeDifferenceDouble(stub1.getImplementation()), 0d);
 
-        Assert.assertEquals(-delta, stub1.timeDifference(stub2));
-        Assert.assertEquals(-delta, stub1.timeDifferenceDouble(stub2), 0d);
+        Assert.assertEquals(-delta, stub1.getImplementation().timeDifference(stub2.getImplementation()));
+        Assert.assertEquals(-delta, stub1.getImplementation().timeDifferenceDouble(stub2.getImplementation()), 0d);
     }
 
     /**
@@ -144,7 +137,7 @@ public class DateTimeStubTest {
         DateTimeStub stub = new DateTimeStub(createRandomDate(this.now));
 
         Assert.assertNotEquals(this.now, stub.getValue());
-        stub.setNow();
+        stub.getImplementation().setNow();
         Assert.assertEquals(this.now, stub.getValue());
     }
 
@@ -158,7 +151,7 @@ public class DateTimeStubTest {
         DateTimeStub stub = new DateTimeStub(towelDay);
 
         do {
-            stub.setAnyTime();
+            stub.getImplementation().setAnyTime();
         } while (stub.getValue().getMillisOfDay() == 0);
 
         Assert.assertNotEquals(towelDay, stub.getValue());
@@ -175,7 +168,7 @@ public class DateTimeStubTest {
         DateTimeStub stub = new DateTimeStub(towelDay);
 
         do {
-            stub.setAnyDate();
+            stub.getImplementation().setAnyDate();
         } while (stub.getValue().getYear() == 2015);
 
         Assert.assertNotEquals(towelDay, stub.getValue());
@@ -190,64 +183,24 @@ public class DateTimeStubTest {
         DateTime towelDay = new DateTime(2015, 5, 25, 0, 0, 0);
         DateTimeStub stub = new DateTimeStub(towelDay);
 
-        stub.adjustYear(3);
-        stub.adjustMonth(3);
-        stub.adjustDay(7);
-        stub.adjustHour(6);
-        stub.adjustMinute(6);
-        stub.adjustSecond(6);
+        DateTimeImpl impl = stub.getImplementation();
+        impl.adjustYear(3);
+        impl.adjustMonth(3);
+        impl.adjustDay(7);
+        impl.adjustHour(6);
+        impl.adjustMinute(6);
+        impl.adjustSecond(6);
 
         Assert.assertEquals(new DateTime(2018, 9, 1, 6, 6, 6), stub.getValue());
 
-        stub.adjustYear(-2);
-        stub.adjustMonth(-2);
-        stub.adjustDay(-2);
-        stub.adjustHour(-5);
-        stub.adjustMinute(-4);
-        stub.adjustSecond(-3);
+        impl.adjustYear(-2);
+        impl.adjustMonth(-2);
+        impl.adjustDay(-2);
+        impl.adjustHour(-5);
+        impl.adjustMinute(-4);
+        impl.adjustSecond(-3);
 
         Assert.assertEquals(new DateTime(2016, 6, 29, 1, 2, 3), stub.getValue());
-    }
-
-    /**
-     * A item stub should always have a parent. It could be set by code.
-     */
-    @Test
-    public void testParent() {
-        Assert.assertNotNull(new DateTimeStub().getParent());
-
-        SessionStub parent = new SessionStub();
-        DateTimeStub item = new DateTimeStub();
-        item.setParent(parent);
-        Assert.assertSame(parent, item.getParent());
-    }
-
-    /**
-     * It should be possible to create instance from a session
-     */
-    @Test
-    public void testCreateFromSession() {
-        SessionStub session = new SessionStub();
-
-        DateTimeStub stub1 = new DateTimeStub();
-        DateTimeStub stub2 = session.createDateTime();
-        DateTimeStub stub3 = session.createDateTime(this.now.toDate());
-        DateTimeStub stub4 = session.createDateTime(this.now.toCalendar(null));
-
-        Assert.assertNotNull(stub1);
-        Assert.assertNotNull(stub2);
-        Assert.assertNotNull(stub3);
-        Assert.assertNotNull(stub4);
-
-        Assert.assertNotSame(session, stub1.getParent());
-        Assert.assertSame(session, stub2.getParent());
-        Assert.assertSame(session, stub3.getParent());
-        Assert.assertSame(session, stub4.getParent());
-
-        Assert.assertEquals(this.now, stub1.getValue());
-        Assert.assertEquals(this.now, stub2.getValue());
-        Assert.assertEquals(this.now, stub3.getValue());
-        Assert.assertEquals(this.now, stub4.getValue());
     }
 
     /**
@@ -256,8 +209,8 @@ public class DateTimeStubTest {
     @Test
     public void testDateOnly() {
         DateTimeStub stub = new DateTimeStub(2015, 3, 14, 9, 26, 53);
-        Assert.assertEquals("03/14/2015", stub.getDateOnly());
-        Assert.assertEquals("09:26:53", stub.getTimeOnly());
+        Assert.assertEquals("03/14/2015", stub.getImplementation().getDateOnly());
+        Assert.assertEquals("09:26:53", stub.getImplementation().getTimeOnly());
     }
 
     /**
