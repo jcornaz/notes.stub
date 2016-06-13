@@ -10,6 +10,10 @@ import com.toolable.notes.stub.utils.CustomDelegates
  */
 data class ItemStub(val name: String, var values: ItemValues) : BaseStub<ItemImpl> {
 
+    constructor(document: DocumentStub, name: String, values: ItemValues) : this(name, values) {
+        this.document = document
+    }
+
     override val implementation = ItemImpl(this)
     override var isRecycled = false
 
@@ -18,6 +22,7 @@ data class ItemStub(val name: String, var values: ItemValues) : BaseStub<ItemImp
     var isSummary = true
     var isEncrypted = false
     var isSigned = false
+    var isProtected = false
 
     var isAuthors = false
         set(value) {
@@ -45,4 +50,8 @@ data class ItemStub(val name: String, var values: ItemValues) : BaseStub<ItemImp
             }
             field = value
         }
+
+    fun copy(document: DocumentStub = this.document, name: String = this.name) = ItemStub(document, name, values)
+
+
 }
