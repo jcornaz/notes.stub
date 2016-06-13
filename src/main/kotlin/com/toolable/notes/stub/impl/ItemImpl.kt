@@ -147,8 +147,7 @@ class ItemImpl(stub: ItemStub) : BaseImpl<ItemStub>(stub), Item {
     //region Values Getters
     @Throws(RecycledObjectException::class)
     override fun getValueDateTimeArray(): Vector<*> {
-        assertNotRecycled()
-        return Vector(stub.values.filter { it is DateTime })
+        return values
     }
 
     @Throws(RecycledObjectException::class)
@@ -176,7 +175,7 @@ class ItemImpl(stub: ItemStub) : BaseImpl<ItemStub>(stub), Item {
     }
 
     @Throws(RecycledObjectException::class)
-    override fun getValues(): Vector<*>? {
+    override fun getValues(): Vector<*> {
         assertNotRecycled()
         return Vector(stub.values)
     }

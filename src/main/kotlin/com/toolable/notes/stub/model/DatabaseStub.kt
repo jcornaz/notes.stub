@@ -14,8 +14,8 @@ class DatabaseStub : BaseStub<DatabaseImpl> {
 
     var session by CustomDelegates.lazyParent<DatabaseStub, SessionStub>(
             { SessionStub() },
-            { databaes -= this@DatabaseStub },
-            { databaes += this@DatabaseStub }
+            { databases -= this@DatabaseStub },
+            { databases += this@DatabaseStub }
     )
 
     var documents = emptyMap<Unid, DocumentStub>()
@@ -23,4 +23,6 @@ class DatabaseStub : BaseStub<DatabaseImpl> {
 
     var collections = emptyList<DocumentCollectionStub>()
         internal set
+
+    operator fun get(unid: Unid) = documents[unid]
 }

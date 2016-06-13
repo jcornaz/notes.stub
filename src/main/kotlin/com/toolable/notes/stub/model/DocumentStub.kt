@@ -4,6 +4,7 @@ import com.toolable.notes.stub.impl.DocumentImpl
 import com.toolable.notes.stub.utils.CustomDelegates
 import com.toolable.notes.stub.utils.MutableLazyDelegate
 import com.toolable.notes.stub.utils.minus
+import lotus.domino.DateTime
 
 /**
  * Stub for [lotus.domino.Document]
@@ -22,6 +23,12 @@ class DocumentStub : BaseStub<DocumentImpl> {
         internal set
 
     var unid: Unid by MutableLazyDelegate({ Unid.generate() }, { old, new -> Unid.register(new) })
+
+    operator fun get(itemName: String) = if (itemName in items) items[itemName]!!.values else ItemValues()
+    operator fun set(itemName: String, values: ItemValues) = ItemStub(this, itemName, values)
+    operator fun set(itemName: String, value: String) = ItemStub(this, itemName, value)
+    operator fun set(itemName: String, value: Number) = ItemStub(this, itemName, value)
+    operator fun set(itemName: String, value: DateTime) = ItemStub(this, itemName, value)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

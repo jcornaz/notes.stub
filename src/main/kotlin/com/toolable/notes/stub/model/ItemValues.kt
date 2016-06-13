@@ -9,6 +9,7 @@ import lotus.domino.DateTime
  * @param list List of values. It should not contains forbidden types. It will not be checked
  */
 data class ItemValues private constructor(val list: List<Any>) : List<Any> by list {
+
     constructor() : this(emptyList())
 
     constructor(value: Number) : this(listOf(value))

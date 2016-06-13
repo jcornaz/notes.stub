@@ -5,7 +5,6 @@ import com.toolable.notes.stub.model.DocumentStub
 import com.toolable.notes.stub.model.ItemStub
 import com.toolable.notes.stub.model.ItemValues
 import com.toolable.notes.stub.model.Unid
-import com.toolable.notes.stub.utils.orZero
 import lotus.domino.*
 import java.io.Writer
 import java.util.*
@@ -46,27 +45,31 @@ class DocumentImpl(stub: DocumentStub) : BaseImpl<DocumentStub>(stub), Document 
 
     @Throws(RecycledObjectException::class)
     override fun getItemValueDateTimeArray(name: String): Vector<*> {
-        return Vector(getFirstItem(name)?.valueDateTimeArray.orEmpty())
+        return getItemValue(name)
     }
 
     @Throws(RecycledObjectException::class)
     override fun getItemValueDouble(name: String): Double {
-        return getFirstItem(name)?.valueDouble.orZero()
+        assertNotRecycled()
+        return stub[name].asDouble()
     }
 
     @Throws(RecycledObjectException::class)
     override fun getItemValueInteger(name: String): Int {
-        return getFirstItem(name)?.valueInteger.orZero()
+        assertNotRecycled()
+        return stub[name].asInt()
     }
 
     @Throws(RecycledObjectException::class)
     override fun getItemValueString(name: String): String {
-        return getFirstItem(name)?.valueString.orEmpty()
+        assertNotRecycled()
+        return stub[name].asString()
     }
 
     @Throws(RecycledObjectException::class)
     override fun getItemValue(name: String): Vector<*> {
-        return Vector(getFirstItem(name)?.values.orEmpty())
+        assertNotRecycled()
+        return Vector(stub[name])
     }
 
     @Throws(RecycledObjectException::class)
