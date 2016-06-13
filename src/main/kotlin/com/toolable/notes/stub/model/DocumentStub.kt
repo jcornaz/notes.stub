@@ -2,6 +2,7 @@ package com.toolable.notes.stub.model
 
 import com.toolable.notes.stub.impl.DocumentImpl
 import com.toolable.notes.stub.utils.CustomDelegates
+import com.toolable.notes.stub.utils.MutableLazyDelegate
 
 /**
  * Stub for [lotus.domino.Document]
@@ -10,12 +11,14 @@ import com.toolable.notes.stub.utils.CustomDelegates
  */
 class DocumentStub : BaseStub<DocumentImpl> {
     override val implementation = DocumentImpl(this)
-    override var isRecycled by CustomDelegates.cascadeRecyclingState { items }
+    override var isRecycled by CustomDelegates.cascadeRecyclingState { items.values }
 
     var database by CustomDelegates.lazyParent({ DatabaseStub() }, { documents -= this@DocumentStub }, { documents += this@DocumentStub })
 
     var parentDocument: DocumentStub? = null
 
-    var items = emptyList<ItemStub>()
+    var items = emptyMap<String, ItemStub>()
         internal set
+
+    var unid: Unid by MutableLazyDelegate({ Unid.generate() }, { old, new -> Unid.register(new) })
 }
