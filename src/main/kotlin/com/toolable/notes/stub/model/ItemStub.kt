@@ -2,6 +2,7 @@ package com.toolable.notes.stub.model
 
 import com.toolable.notes.stub.impl.ItemImpl
 import com.toolable.notes.stub.utils.CustomDelegates
+import com.toolable.notes.stub.utils.minus
 
 /**
  * Stub for [lotus.domino.Item]
@@ -10,14 +11,16 @@ import com.toolable.notes.stub.utils.CustomDelegates
  */
 data class ItemStub(val name: String, var values: ItemValues) : BaseStub<ItemImpl> {
 
-    constructor(document: DocumentStub, name: String, values: ItemValues) : this(name, values) {
-        this.document = document
+    @JvmOverloads
+    constructor(document: DocumentStub? = null, name: String, values: ItemValues = ItemValues()) : this(name, values) {
+        if (document != null)
+            this.document = document
     }
 
     override val implementation = ItemImpl(this)
     override var isRecycled = false
 
-    var document by CustomDelegates.lazyParent({ DocumentStub() }, { items -= this@ItemStub }, { items += this@ItemStub })
+    var document by CustomDelegates.lazyParent({ DocumentStub() }, { items -= name }, { items += name to this@ItemStub })
 
     var isSummary = true
     var isEncrypted = false

@@ -27,13 +27,13 @@ object CustomDelegates {
     fun <PropertyType, ChildType> cascade(
             initialValue: PropertyType,
             shouldCascade: (old: PropertyType, new: PropertyType) -> Boolean = { old, new -> true },
-            children: () -> List<ChildType>,
+            children: () -> Collection<ChildType>,
             cascade: ChildType.(value: PropertyType) -> Unit
     ) = Delegates.observable(initialValue) { prop, old, new ->
         if (shouldCascade(old, new))
             children().forEach { it.cascade(new) }
     }
 
-    fun cascadeRecyclingState(children: () -> List<BaseStub<*>>) =
+    fun cascadeRecyclingState(children: () -> Collection<BaseStub<*>>) =
             cascade(false, { old, new -> !old && new }, children, { isRecycled = it })
 }

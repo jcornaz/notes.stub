@@ -1,6 +1,11 @@
 package com.toolable.notes.stub.impl
 
+import com.toolable.notes.stub.exception.RecycledObjectException
 import com.toolable.notes.stub.model.DocumentStub
+import com.toolable.notes.stub.model.ItemStub
+import com.toolable.notes.stub.model.ItemValues
+import com.toolable.notes.stub.model.Unid
+import com.toolable.notes.stub.utils.orZero
 import lotus.domino.*
 import java.io.Writer
 import java.util.*
@@ -8,14 +13,74 @@ import java.util.*
 
 class DocumentImpl(stub: DocumentStub) : BaseImpl<DocumentStub>(stub), Document {
 
+    @Throws(RecycledObjectException::class)
+    override fun getUniversalID(): String {
+        assertNotRecycled()
+        return stub.unid.toString()
+    }
+
+    @Throws(RecycledObjectException::class)
+    override fun setUniversalID(value: String) {
+        assertNotRecycled()
+        stub.unid = Unid.parse(value)
+    }
+
+    @Throws(RecycledObjectException::class)
     override fun getParentDatabase(): Database {
-        stub.assertNotRecycled()
+        assertNotRecycled()
         return stub.database.implementation
     }
 
-    override fun getFirstItem(p0: String?): Item? {
-        throw UnsupportedOperationException()
+    @Throws(RecycledObjectException::class)
+    override fun getParentDocumentUNID(): String? {
+        assertNotRecycled()
+        return stub.parentDocument?.unid?.toString()
     }
+
+    //region Items
+    @Throws(RecycledObjectException::class)
+    override fun getFirstItem(name: String): ItemImpl? {
+        assertNotRecycled()
+        return stub.items[name]?.implementation
+    }
+
+    @Throws(RecycledObjectException::class)
+    override fun getItemValueDateTimeArray(name: String): Vector<*> {
+        return Vector(getFirstItem(name)?.valueDateTimeArray.orEmpty())
+    }
+
+    @Throws(RecycledObjectException::class)
+    override fun getItemValueDouble(name: String): Double {
+        return getFirstItem(name)?.valueDouble.orZero()
+    }
+
+    @Throws(RecycledObjectException::class)
+    override fun getItemValueInteger(name: String): Int {
+        return getFirstItem(name)?.valueInteger.orZero()
+    }
+
+    @Throws(RecycledObjectException::class)
+    override fun getItemValueString(name: String): String {
+        return getFirstItem(name)?.valueString.orEmpty()
+    }
+
+    @Throws(RecycledObjectException::class)
+    override fun getItemValue(name: String): Vector<*> {
+        return Vector(getFirstItem(name)?.values.orEmpty())
+    }
+
+    @Throws(RecycledObjectException::class)
+    override fun replaceItemValue(name: String, value: Any): ItemImpl {
+        assertNotRecycled()
+
+        val values = if (value is Vector<*>)
+            value.fold(ItemValues()) { v, elt -> if (elt == null) v else v + elt }
+        else
+            ItemValues() + value
+
+        return ItemStub(stub, name, values).implementation
+    }
+    //endregion
 
     override fun isNewNote(): Boolean {
         throw UnsupportedOperationException()
@@ -53,10 +118,6 @@ class DocumentImpl(stub: DocumentStub) : BaseImpl<DocumentStub>(stub), Document 
         throw UnsupportedOperationException()
     }
 
-    override fun getItemValue(p0: String?): Vector<*>? {
-        throw UnsupportedOperationException()
-    }
-
     override fun markRead() {
         throw UnsupportedOperationException()
     }
@@ -65,19 +126,11 @@ class DocumentImpl(stub: DocumentStub) : BaseImpl<DocumentStub>(stub), Document 
         throw UnsupportedOperationException()
     }
 
-    override fun replaceItemValue(p0: String?, p1: Any?): Item? {
-        throw UnsupportedOperationException()
-    }
-
     override fun createMIMEEntity(): MIMEEntity? {
         throw UnsupportedOperationException()
     }
 
     override fun createMIMEEntity(p0: String?): MIMEEntity? {
-        throw UnsupportedOperationException()
-    }
-
-    override fun getItemValueInteger(p0: String?): Int {
         throw UnsupportedOperationException()
     }
 
@@ -221,10 +274,6 @@ class DocumentImpl(stub: DocumentStub) : BaseImpl<DocumentStub>(stub), Document 
         throw UnsupportedOperationException()
     }
 
-    override fun getItemValueString(p0: String?): String? {
-        throw UnsupportedOperationException()
-    }
-
     override fun getResponses(): DocumentCollection? {
         throw UnsupportedOperationException()
     }
@@ -238,10 +287,6 @@ class DocumentImpl(stub: DocumentStub) : BaseImpl<DocumentStub>(stub), Document 
     }
 
     override fun getLockHolders(): Vector<*>? {
-        throw UnsupportedOperationException()
-    }
-
-    override fun getParentDocumentUNID(): String? {
         throw UnsupportedOperationException()
     }
 
@@ -325,10 +370,6 @@ class DocumentImpl(stub: DocumentStub) : BaseImpl<DocumentStub>(stub), Document 
         throw UnsupportedOperationException()
     }
 
-    override fun getUniversalID(): String? {
-        throw UnsupportedOperationException()
-    }
-
     override fun setEncryptOnSend(p0: Boolean) {
         throw UnsupportedOperationException()
     }
@@ -389,10 +430,6 @@ class DocumentImpl(stub: DocumentStub) : BaseImpl<DocumentStub>(stub), Document 
         throw UnsupportedOperationException()
     }
 
-    override fun getItemValueDouble(p0: String?): Double {
-        throw UnsupportedOperationException()
-    }
-
     override fun isEncrypted(): Boolean {
         throw UnsupportedOperationException()
     }
@@ -426,14 +463,6 @@ class DocumentImpl(stub: DocumentStub) : BaseImpl<DocumentStub>(stub), Document 
     }
 
     override fun getFolderReferences(): Vector<*>? {
-        throw UnsupportedOperationException()
-    }
-
-    override fun getItemValueDateTimeArray(p0: String?): Vector<*>? {
-        throw UnsupportedOperationException()
-    }
-
-    override fun setUniversalID(p0: String?) {
         throw UnsupportedOperationException()
     }
 

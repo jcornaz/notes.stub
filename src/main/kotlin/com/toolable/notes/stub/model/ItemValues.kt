@@ -43,16 +43,22 @@ data class ItemValues private constructor(val list: List<Any>) : List<Any> by li
     operator fun plus(element: Number) = ItemValues(list + element)
     operator fun plus(element: String) = ItemValues(list + element)
     operator fun plus(element: DateTime) = ItemValues(list + element)
-    operator fun plus(elements: List<Any>) = if (elements is ItemValues) ItemValues(list + elements.list) else elements.fold(this) { newList, element ->
-        if (element is Number)
-            return newList + element
-        else if (element is String)
-            return newList + element
-        else if (element is DateTime)
-            return newList + element
-        else
-            throw IllegalArgumentException("${element.javaClass.name} is not accepted as item value")
-    }
+    operator fun plus(element: Any) =
+            if (element is Number)
+                ItemValues(list + element)
+            else if (element is String)
+                ItemValues(list + element)
+            else if (element is DateTime)
+                ItemValues(list + element)
+            else
+                throw IllegalArgumentException("${element.javaClass.name} is not accepted as item value")
+
+
+    operator fun plus(elements: List<Any>) =
+            if (elements is ItemValues)
+                ItemValues(list + elements.list)
+            else
+                elements.fold(this) { newList, element -> newList + element }
 
     operator fun minus(element: Any) = ItemValues(list - element)
     operator fun minus(elements: List<Any>) = elements.fold(this) { newList, element -> newList - element }
