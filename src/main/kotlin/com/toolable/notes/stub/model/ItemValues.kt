@@ -17,6 +17,29 @@ data class ItemValues private constructor(val list: List<Any>) : List<Any> by li
 
     constructor(value: DateTime) : this(listOf(value))
 
+    val firstValue: Any?
+        get() = if (isEmpty()) null else list[0]
+
+    fun asInt(): Int {
+        val value = firstValue as? Number;
+        if (value == null)
+            return 0
+        else
+            return value.toInt()
+    }
+
+    fun asDouble(): Double {
+        val value = firstValue as? Number;
+        if (value == null)
+            return 0.0
+        else
+            return value.toDouble()
+    }
+
+    fun asString() = firstValue?.toString().orEmpty()
+
+    fun asDateTime() = firstValue as? DateTime
+
     operator fun plus(element: Number) = ItemValues(list + element)
     operator fun plus(element: String) = ItemValues(list + element)
     operator fun plus(element: DateTime) = ItemValues(list + element)

@@ -2,6 +2,7 @@ package com.toolable.notes.stub.impl
 
 import com.toolable.notes.stub.exception.RecycledObjectException
 import com.toolable.notes.stub.model.ItemStub
+import com.toolable.notes.stub.model.ItemValues
 import lotus.domino.*
 import org.xml.sax.InputSource
 import java.io.InputStream
@@ -19,13 +20,13 @@ class ItemImpl(stub: ItemStub) : BaseImpl<ItemStub>(stub), Item {
         return stub.document.implementation
     }
 
+    //region Attributes
     @Throws(RecycledObjectException::class)
     override fun getName(): String {
         stub.assertNotRecycled()
         return stub.name
     }
 
-    //region Attributes
     @Throws(RecycledObjectException::class)
     override fun setEncrypted(value: Boolean) {
         stub.assertNotRecycled()
@@ -99,8 +100,68 @@ class ItemImpl(stub: ItemStub) : BaseImpl<ItemStub>(stub), Item {
     }
     //endregion
 
-    //region Values
+    //region Values setters
+    @Throws(UnsupportedOperationException::class)
+    override fun setDateTimeValue(value: DateTime) {
+        stub.assertNotRecycled()
+        stub.values = ItemValues(value)
+    }
 
+    @Throws(UnsupportedOperationException::class)
+    override fun setValueDouble(value: Double) {
+        stub.assertNotRecycled()
+        stub.values = ItemValues(value)
+    }
+
+    @Throws(UnsupportedOperationException::class)
+    override fun setValueInteger(value: Int) {
+        stub.assertNotRecycled()
+        stub.values = ItemValues(value)
+    }
+
+    @Throws(UnsupportedOperationException::class)
+    override fun setValueString(value: String?) {
+        stub.assertNotRecycled()
+        stub.values = ItemValues(value.orEmpty())
+    }
+
+    @Throws(UnsupportedOperationException::class)
+    override fun setValues(value: Vector<*>) {
+        stub.assertNotRecycled()
+        stub.values = ItemValues() + value
+    }
+    //endregion
+
+    //region Values Getters
+    @Throws(UnsupportedOperationException::class)
+    override fun getDateTimeValue(): DateTime? {
+        stub.assertNotRecycled()
+        return stub.values.asDateTime()
+    }
+
+    @Throws(UnsupportedOperationException::class)
+    override fun getValueDouble(): Double {
+        stub.assertNotRecycled()
+        return stub.values.asDouble()
+    }
+
+    @Throws(UnsupportedOperationException::class)
+    override fun getValueInteger(): Int {
+        stub.assertNotRecycled()
+        return stub.values.asInt()
+    }
+
+    @Throws(UnsupportedOperationException::class)
+    override fun getValueString(): String {
+        stub.assertNotRecycled()
+        return stub.values.asString()
+    }
+
+    @Throws(UnsupportedOperationException::class)
+    override fun getValues(): Vector<*>? {
+        stub.assertNotRecycled()
+        return Vector(stub.values)
+    }
     //endregion
 
     @Throws(UnsupportedOperationException::class)
@@ -124,23 +185,7 @@ class ItemImpl(stub: ItemStub) : BaseImpl<ItemStub>(stub), Item {
     }
 
     @Throws(UnsupportedOperationException::class)
-    override fun setValueString(p0: String?) {
-        throw UnsupportedOperationException()
-    }
-
-
-    @Throws(UnsupportedOperationException::class)
-    override fun setDateTimeValue(p0: DateTime?) {
-        throw UnsupportedOperationException()
-    }
-
-    @Throws(UnsupportedOperationException::class)
     override fun getValueLength(): Int {
-        throw UnsupportedOperationException()
-    }
-
-    @Throws(UnsupportedOperationException::class)
-    override fun setValueInteger(p0: Int) {
         throw UnsupportedOperationException()
     }
 
@@ -165,22 +210,12 @@ class ItemImpl(stub: ItemStub) : BaseImpl<ItemStub>(stub), Item {
     }
 
     @Throws(UnsupportedOperationException::class)
-    override fun getValueInteger(): Int {
-        throw UnsupportedOperationException()
-    }
-
-    @Throws(UnsupportedOperationException::class)
     override fun getInputSource(): InputSource? {
         throw UnsupportedOperationException()
     }
 
     @Throws(UnsupportedOperationException::class)
     override fun getValueDateTimeArray(): Vector<*>? {
-        throw UnsupportedOperationException()
-    }
-
-    @Throws(UnsupportedOperationException::class)
-    override fun setValueDouble(p0: Double) {
         throw UnsupportedOperationException()
     }
 
@@ -206,16 +241,6 @@ class ItemImpl(stub: ItemStub) : BaseImpl<ItemStub>(stub), Item {
 
     @Throws(UnsupportedOperationException::class)
     override fun isSaveToDisk(): Boolean {
-        throw UnsupportedOperationException()
-    }
-
-    @Throws(UnsupportedOperationException::class)
-    override fun setValues(p0: Vector<*>?) {
-        throw UnsupportedOperationException()
-    }
-
-    @Throws(UnsupportedOperationException::class)
-    override fun getValueDouble(): Double {
         throw UnsupportedOperationException()
     }
 
@@ -260,11 +285,6 @@ class ItemImpl(stub: ItemStub) : BaseImpl<ItemStub>(stub), Item {
     }
 
     @Throws(UnsupportedOperationException::class)
-    override fun getDateTimeValue(): DateTime? {
-        throw UnsupportedOperationException()
-    }
-
-    @Throws(UnsupportedOperationException::class)
     override fun getType(): Int {
         throw UnsupportedOperationException()
     }
@@ -281,16 +301,6 @@ class ItemImpl(stub: ItemStub) : BaseImpl<ItemStub>(stub), Item {
 
     @Throws(UnsupportedOperationException::class)
     override fun setProtected(p0: Boolean) {
-        throw UnsupportedOperationException()
-    }
-
-    @Throws(UnsupportedOperationException::class)
-    override fun getValueString(): String? {
-        throw UnsupportedOperationException()
-    }
-
-    @Throws(UnsupportedOperationException::class)
-    override fun getValues(): Vector<*>? {
         throw UnsupportedOperationException()
     }
 
