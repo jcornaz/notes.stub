@@ -1,7 +1,7 @@
 package com.toolable.notes.stub.model
 
 import com.toolable.notes.stub.impl.DocumentImpl
-import com.toolable.notes.stub.utils.lazyParent
+import com.toolable.notes.stub.utils.CustomDelegates
 
 /**
  * Stub for [lotus.domino.Document]
@@ -10,9 +10,9 @@ import com.toolable.notes.stub.utils.lazyParent
  */
 class DocumentStub : BaseStub<DocumentImpl> {
     override val implementation = DocumentImpl(this)
-    override var isRecycled = false
+    override var isRecycled by CustomDelegates.cascadeRecyclingState { items }
 
-    var database: DatabaseStub by lazyParent({ DatabaseStub() }, { documents -= this@DocumentStub }, { documents += this@DocumentStub })
+    var database by CustomDelegates.lazyParent({ DatabaseStub() }, { documents -= this@DocumentStub }, { documents += this@DocumentStub })
 
     var parentDocument: DocumentStub? = null
 

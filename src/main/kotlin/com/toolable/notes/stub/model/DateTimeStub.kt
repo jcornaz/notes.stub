@@ -1,7 +1,7 @@
 package com.toolable.notes.stub.model
 
 import com.toolable.notes.stub.impl.DateTimeImpl
-import com.toolable.notes.stub.utils.lazyParent
+import com.toolable.notes.stub.utils.CustomDelegates
 import org.joda.time.DateTime
 
 /**
@@ -16,7 +16,7 @@ class DateTimeStub(var value: DateTime = DateTime.now()) : BaseStub<DateTimeImpl
     override val implementation = DateTimeImpl(this)
     override var isRecycled = false
 
-    var session: SessionStub by lazyParent({ SessionStub() }, { dates -= this@DateTimeStub }, { dates += this@DateTimeStub })
+    var session by CustomDelegates.lazyParent({ SessionStub() }, { dates -= this@DateTimeStub }, { dates += this@DateTimeStub })
 
     /**
      * Construct a new instance for date defined by field values

@@ -9,6 +9,8 @@ import java.util.*
  */
 open class BaseImpl<StubType : BaseStub<*>>(val stub: StubType) : Base {
 
+    fun assertNotRecycled() = stub.assertNotRecycled()
+
     override fun recycle() {
         stub.assertNotRecycled()
         stub.isRecycled = true
