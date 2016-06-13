@@ -20,4 +20,7 @@ class DatabaseStub : BaseStub<DatabaseImpl> {
 
     var documents = emptyMap<Unid, DocumentStub>()
         internal set
+
+    var collections = emptyList<DocumentCollectionStub>()
+        internal set
 }

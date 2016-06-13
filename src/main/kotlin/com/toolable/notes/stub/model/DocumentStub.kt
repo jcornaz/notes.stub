@@ -22,4 +22,19 @@ class DocumentStub : BaseStub<DocumentImpl> {
         internal set
 
     var unid: Unid by MutableLazyDelegate({ Unid.generate() }, { old, new -> Unid.register(new) })
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other?.javaClass != javaClass) return false
+
+        other as DocumentStub
+
+        if (unid != other.unid) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return unid.hashCode()
+    }
 }
