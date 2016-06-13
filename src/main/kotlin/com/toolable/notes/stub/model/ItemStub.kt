@@ -8,7 +8,7 @@ import com.toolable.notes.stub.utils.CustomDelegates
  *
  * @author jonathan
  */
-data class ItemStub(val name: String, var values: List<Any>) : BaseStub<ItemImpl> {
+data class ItemStub(val name: String, var values: ItemValues) : BaseStub<ItemImpl> {
 
     override val implementation = ItemImpl(this)
     override var isRecycled = false
