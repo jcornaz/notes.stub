@@ -10,7 +10,7 @@ import com.toolable.notes.stub.utils.CustomDelegates
  */
 class DatabaseStub : BaseStub<DatabaseImpl> {
     override val implementation = DatabaseImpl(this)
-    override var isRecycled by CustomDelegates.cascadeRecyclingState { documents }
+    override var isRecycled by CustomDelegates.cascadeRecyclingState { documents.values }
 
     var session by CustomDelegates.lazyParent<DatabaseStub, SessionStub>(
             { SessionStub() },
@@ -18,6 +18,6 @@ class DatabaseStub : BaseStub<DatabaseImpl> {
             { databaes += this@DatabaseStub }
     )
 
-    var documents = emptyList<DocumentStub>()
+    var documents = emptyMap<Unid, DocumentStub>()
         internal set
 }

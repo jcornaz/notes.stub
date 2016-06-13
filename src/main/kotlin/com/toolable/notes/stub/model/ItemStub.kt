@@ -20,7 +20,7 @@ data class ItemStub(val name: String, var values: ItemValues) : BaseStub<ItemImp
     override val implementation = ItemImpl(this)
     override var isRecycled = false
 
-    var document by CustomDelegates.lazyParent({ DocumentStub() }, { items - name }, { items += name to this@ItemStub })
+    var document by CustomDelegates.lazyParent({ DocumentStub() }, { items -= name }, { items += name to this@ItemStub })
 
     var isSummary = true
     var isEncrypted = false
