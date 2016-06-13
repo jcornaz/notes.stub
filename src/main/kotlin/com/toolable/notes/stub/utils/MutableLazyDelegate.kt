@@ -29,21 +29,3 @@ open class MutableLazyDelegate<O, T>(private val initializer: () -> T, private v
         return value!!
     }
 }
-
-/**
- * Create a delegate for a property parent of the owner class
- * The parent will be created if needed only
- * The parent children list will always be up-to-date
- *
- * @param init Will be invoked to create a new instance of the parent if needed
- * @param removeChild Will be invoked if the owner has to be removed from a parent
- * @param addChild Will be invoked if the owner has to be added to a parent
- */
-fun <ChildType, ParentType> lazyParent(
-        init: () -> ParentType,
-        removeChild: ParentType.() -> Unit,
-        addChild: ParentType.() -> Unit) =
-        MutableLazyDelegate<ChildType, ParentType>(init) { oldValue, newValue ->
-            oldValue?.removeChild()
-            newValue.addChild()
-        }
