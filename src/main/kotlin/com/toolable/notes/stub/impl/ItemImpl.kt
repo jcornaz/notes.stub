@@ -1,8 +1,10 @@
 package com.toolable.notes.stub.impl
 
 import com.toolable.notes.stub.exception.RecycledObjectException
-import com.toolable.notes.stub.model.ItemStub
-import com.toolable.notes.stub.model.ItemValues
+import com.toolable.notes.stub.model.*
+import com.toolable.notes.stub.model.toDateTimeStub
+import com.toolable.notes.stub.model.toDouble
+import com.toolable.notes.stub.model.toInt
 import lotus.domino.*
 import org.xml.sax.InputSource
 import java.io.InputStream
@@ -116,62 +118,63 @@ class ItemImpl(stub: ItemStub) : BaseImpl<ItemStub>(stub), Item {
     @Throws(RecycledObjectException::class)
     override fun setDateTimeValue(value: DateTime) {
         assertNotRecycled()
-        stub.values = ItemValues(value)
+        stub.dateTimes = listOf(if (value is DateTimeImpl) value.stub else DateTimeStub(stub.session, org.joda.time.DateTime(value.toJavaDate())))
     }
 
     @Throws(RecycledObjectException::class)
     override fun setValueDouble(value: Double) {
         assertNotRecycled()
-        stub.values = ItemValues(value)
+        stub.numbers = listOf(value)
     }
 
     @Throws(RecycledObjectException::class)
     override fun setValueInteger(value: Int) {
         assertNotRecycled()
-        stub.values = ItemValues(value)
+        stub.numbers = listOf(value)
     }
 
     @Throws(RecycledObjectException::class)
-    override fun setValueString(value: String?) {
+    override fun setValueString(value: String) {
         assertNotRecycled()
-        stub.values = ItemValues(value.orEmpty())
+        stub.strings = listOf(value)
     }
 
     @Throws(RecycledObjectException::class)
     override fun setValues(value: Vector<*>) {
         assertNotRecycled()
-        stub.values = ItemValues() + value
+        stub.values = value
     }
     //endregion
 
     //region Values Getters
     @Throws(RecycledObjectException::class)
     override fun getValueDateTimeArray(): Vector<*> {
-        return values
+        assertNotRecycled()
+        return Vector(stub.dateTimes.map { it.implementation })
     }
 
     @Throws(RecycledObjectException::class)
     override fun getDateTimeValue(): DateTime? {
         assertNotRecycled()
-        return stub.values.asDateTime()
+        return stub.toDateTimeStub()?.implementation
     }
 
     @Throws(RecycledObjectException::class)
     override fun getValueDouble(): Double {
         assertNotRecycled()
-        return stub.values.asDouble()
+        return stub.toDouble()
     }
 
     @Throws(RecycledObjectException::class)
     override fun getValueInteger(): Int {
         assertNotRecycled()
-        return stub.values.asInt()
+        return stub.toInt()
     }
 
     @Throws(RecycledObjectException::class)
     override fun getValueString(): String {
         assertNotRecycled()
-        return stub.values.asString()
+        return stub.toString()
     }
 
     @Throws(RecycledObjectException::class)

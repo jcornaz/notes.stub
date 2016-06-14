@@ -3,8 +3,9 @@ package com.toolable.notes.stub.impl
 import com.toolable.notes.stub.exception.RecycledObjectException
 import com.toolable.notes.stub.model.DocumentStub
 import com.toolable.notes.stub.model.ItemStub
-import com.toolable.notes.stub.model.ItemValues
 import com.toolable.notes.stub.model.Unid
+import com.toolable.notes.stub.model.toDouble
+import com.toolable.notes.stub.model.toInt
 import lotus.domino.*
 import java.io.Writer
 import java.util.*
@@ -45,43 +46,43 @@ class DocumentImpl(stub: DocumentStub) : BaseImpl<DocumentStub>(stub), Document 
 
     @Throws(RecycledObjectException::class)
     override fun getItemValueDateTimeArray(name: String): Vector<*> {
-        return getItemValue(name)
+        assertNotRecycled()
+        return Vector(stub[name]?.dateTimes?.map { it.implementation }.orEmpty())
     }
 
     @Throws(RecycledObjectException::class)
     override fun getItemValueDouble(name: String): Double {
         assertNotRecycled()
-        return stub[name].asDouble()
+        return stub[name].toDouble()
     }
 
     @Throws(RecycledObjectException::class)
     override fun getItemValueInteger(name: String): Int {
         assertNotRecycled()
-        return stub[name].asInt()
+        return stub[name].toInt()
     }
 
     @Throws(RecycledObjectException::class)
     override fun getItemValueString(name: String): String {
         assertNotRecycled()
-        return stub[name].asString()
+        return stub[name].toString()
     }
 
     @Throws(RecycledObjectException::class)
     override fun getItemValue(name: String): Vector<*> {
         assertNotRecycled()
-        return Vector(stub[name])
+        return Vector(stub[name]?.values.orEmpty())
     }
 
     @Throws(RecycledObjectException::class)
     override fun replaceItemValue(name: String, value: Any): ItemImpl {
         assertNotRecycled()
 
-        val values = if (value is Vector<*>)
-            value.fold(ItemValues()) { v, elt -> if (elt == null) v else v + elt }
-        else
-            ItemValues() + value
+        val item = ItemStub()
+        item.values = if (value is Vector<*>) value else listOf(value)
+        item.document = stub
 
-        return ItemStub(stub, name, values).implementation
+        return item.implementation
     }
     //endregion
 

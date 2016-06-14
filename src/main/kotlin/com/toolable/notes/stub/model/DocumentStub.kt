@@ -5,7 +5,7 @@ import com.toolable.notes.stub.utils.MutableLazyDelegate
 import com.toolable.notes.stub.utils.cascadeRecyclingState
 import com.toolable.notes.stub.utils.lazyParent
 import com.toolable.notes.stub.utils.minus
-import lotus.domino.DateTime
+import org.joda.time.DateTime
 
 /**
  * Stub for [lotus.domino.Document]
@@ -25,10 +25,14 @@ class DocumentStub : BaseStub<DocumentImpl> {
 
     var unid: Unid by MutableLazyDelegate({ Unid.generate() }, { old, new -> Unid.register(new) })
 
-    operator fun get(itemName: String) = if (itemName in items) items[itemName]!!.values else ItemValues()
-    operator fun set(itemName: String, values: ItemValues) = ItemStub(this, itemName, values)
+    operator fun get(itemName: String) = items[itemName]
+    operator fun set(itemName: String, values: List<Any>) {
+        ItemStub(this, itemName).values = values
+    }
+
     operator fun set(itemName: String, value: String) = ItemStub(this, itemName, value)
     operator fun set(itemName: String, value: Number) = ItemStub(this, itemName, value)
+    operator fun set(itemName: String, value: DateTimeStub) = ItemStub(this, itemName, value)
     operator fun set(itemName: String, value: DateTime) = ItemStub(this, itemName, value)
 
     override fun equals(other: Any?): Boolean {
