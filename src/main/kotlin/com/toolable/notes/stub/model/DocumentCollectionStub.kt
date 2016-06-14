@@ -7,5 +7,9 @@ data class DocumentCollectionStub(var documents: List<DocumentStub>) : BaseStub<
     override val implementation = DocumentCollectionImpl(this)
     override var isRecycled = false
 
-    var database by CustomDelegates.lazyParent({ DatabaseStub() }, { collections -= this@DocumentCollectionStub }, { collections += this@DocumentCollectionStub })
+    var database by CustomDelegates.lazyParent(
+            { DatabaseStub() },
+            { collections = collections.minusElement(this@DocumentCollectionStub) },
+            { collections = collections.minusElement(this@DocumentCollectionStub) }
+    )
 }
