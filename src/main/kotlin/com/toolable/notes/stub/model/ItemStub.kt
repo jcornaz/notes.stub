@@ -1,82 +1,187 @@
 package com.toolable.notes.stub.model
 
+import com.toolable.notes.stub.impl.DateTimeImpl
 import com.toolable.notes.stub.impl.ItemImpl
-import com.toolable.notes.stub.utils.CustomDelegates
+import com.toolable.notes.stub.utils.lazyParent
 import com.toolable.notes.stub.utils.minus
-import lotus.domino.DateTime
+import com.toolable.notes.stub.utils.toJodaTime
+import lotus.domino.Item
+import org.joda.time.DateTime
 
 /**
  * Stub for [lotus.domino.Item]
  *
  * @author jonathan
  */
-data class ItemStub(val name: String, var values: ItemValues) : BaseStub<ItemImpl> {
+class ItemStub(val name: String = "ItemName") : BaseStub<ItemImpl> {
+
+    var document by lazyParent({ DocumentStub() }, { items -= name }, { items += name to this@ItemStub })
 
     init {
         if (!"^\\w+$".toRegex().matches(name))
             throw IllegalArgumentException("Invalid item name : \"$name\"")
     }
 
-    constructor(document: DocumentStub, name: String, values: ItemValues) : this(name, values) {
-        this.document = document
-    }
-
-    @JvmOverloads
-    constructor(document: DocumentStub? = null, name: String, value: String = "") : this(name, ItemValues(value)) {
+    constructor(document: DocumentStub?, name: String) : this(name) {
         if (document != null)
             this.document = document
     }
 
-    @JvmOverloads
-    constructor(document: DocumentStub? = null, name: String, value: Number) : this(name, ItemValues(value)) {
-        if (document != null)
-            this.document = document
+    constructor(document: DocumentStub? = null, name: String, vararg values: String) : this(document, name) {
+        strings = values.asList()
     }
 
-    @JvmOverloads
-    constructor(document: DocumentStub? = null, name: String, value: DateTime) : this(name, ItemValues(value)) {
-        if (document != null)
-            this.document = document
+    constructor(document: DocumentStub? = null, name: String, vararg values: Number) : this(document, name) {
+        numbers = values.asList()
+    }
+
+    constructor(document: DocumentStub? = null, name: String, vararg values: DateTimeStub) : this(document, name) {
+        dateTimes = values.asList()
+    }
+
+    constructor(document: DocumentStub? = null, name: String, vararg values: DateTime) : this(document, name) {
+        dateTimes = values.map { DateTimeStub(session, it) }
     }
 
     override val implementation = ItemImpl(this)
     override var isRecycled = false
 
-    var document by CustomDelegates.lazyParent({ DocumentStub() }, { items -= name }, { items += name to this@ItemStub })
+    val session: SessionStub
+        get() = document.database.session
 
     var isSummary = true
     var isEncrypted = false
     var isSigned = false
     var isProtected = false
 
-    var isAuthors = false
+    var type = Item.TEXT
         set(value) {
-            if (value) {
-                if (isReaders) isReaders = false
-                if (isNames) isNames = false
-            }
             field = value
+
+            if ((value == Item.NUMBERS || value == Item.DATETIMES) && strings.isNotEmpty())
+                strings = emptyList()
+            else if (value != Item.NUMBERS && numbers.isNotEmpty())
+                numbers = emptyList()
+            else if (value != Item.DATETIMES && dateTimes.isNotEmpty())
+                dateTimes = emptyList()
         }
 
-    var isReaders = false
+    var strings = emptyList<String>()
+        get() =
+        if (type == Item.NUMBERS) numbers.map { it.toString() }
+        else if (type == Item.DATETIMES) dateTimes.map { it.toString() }
+        else field
         set(value) {
-            if (value) {
-                if (isAuthors) isAuthors = false
-                if (isNames) isNames = false
-            }
             field = value
+            if (value.isNotEmpty() && (type == Item.NUMBERS || type == Item.DATETIMES))
+                type = Item.TEXT
         }
 
-    var isNames = false
+    var numbers = emptyList<Number>()
         set(value) {
-            if (value) {
-                if (isAuthors) isAuthors = false
-                if (isReaders) isReaders = false
-            }
             field = value
+            if (value.isNotEmpty())
+                type = Item.NUMBERS
         }
 
-    fun copy(document: DocumentStub = this.document, name: String = this.name) = ItemStub(document, name, values)
+    var dateTimes = emptyList<DateTimeStub>()
+        get() =
+        if (type == Item.DATETIMES) field
+        else if (type == Item.NUMBERS) emptyList()
+        else strings.map { DateTimeStub(session, DateTime.parse(it)) }
+        set(value) {
+            field = value
+            if (value.isNotEmpty())
+                type = Item.DATETIMES
+        }
 
-    operator fun get(index: Int) = values[index]
+    var values: List<Any>
+        get() = if (type == Item.NUMBERS) numbers else if (type == Item.DATETIMES) dateTimes else strings
+        set(value) {
+            if (value.isEmpty())
+                clear()
+            else if (value[0] is String)
+                strings = value.filter { it is String }.map { it as String }
+            else if (value[0] is Number)
+                numbers = value.filter { it is Number }.map { it as Number }
+            else
+                dateTimes = value.filter { it is DateTimeStub || it is DateTime || it is lotus.domino.DateTime }.map {
+                    if (it is DateTimeStub) it
+                    else if (it is DateTimeImpl) it.stub
+                    else if (it is DateTime) DateTimeStub(session, it)
+                    else DateTimeStub(session, (it as lotus.domino.DateTime).toJodaTime())
+                }
+        }
+
+    val size: Int
+        get() = if (type == Item.DATETIMES) dateTimes.size else if (type == Item.NUMBERS) numbers.size else strings.size
+
+    val isEmpty: Boolean
+        get() = size == 0
+
+    val isNotEmpty: Boolean
+        get() = !isEmpty
+
+    var isAuthors: Boolean
+        get() = type == Item.AUTHORS
+        set(value) {
+            if (value)
+                type = Item.AUTHORS
+            else if (type == Item.AUTHORS)
+                type = Item.TEXT
+        }
+
+    var isReaders: Boolean
+        get() = type == Item.READERS
+        set(value) {
+            if (value)
+                type = Item.READERS
+            else if (type == Item.READERS)
+                type = Item.TEXT
+        }
+
+    var isNames: Boolean
+        get() = type == Item.NAMES
+        set(value) {
+            if (value)
+                type = Item.NAMES
+            else if (type == Item.NAMES)
+                type = Item.TEXT
+        }
+
+    var isDateTimes: Boolean
+        get() = type == Item.DATETIMES
+        set(value) {
+            if (value)
+                type = Item.DATETIMES
+            else if (type == Item.DATETIMES)
+                type = Item.TEXT
+        }
+
+    var isNumbers: Boolean
+        get() = type == Item.NUMBERS
+        set(value) {
+            if (value)
+                type = Item.NUMBERS
+            else if (type == Item.NUMBERS)
+                type = Item.TEXT
+        }
+
+    val isText: Boolean
+        get() = type == Item.TEXT
+
+    fun clear() {
+        type = Item.TEXT
+        strings = emptyList()
+    }
+
+    fun copy(document: DocumentStub, name: String = this.name) = ItemStub(document, name)
+
+    operator fun get(index: Int): Any? {
+        val list = if (type == Item.DATETIMES) dateTimes
+        else if (type == Item.NUMBERS) numbers
+        else strings
+
+        return if (list.isEmpty() && index == 0) null else list[index]
+    }
 }
