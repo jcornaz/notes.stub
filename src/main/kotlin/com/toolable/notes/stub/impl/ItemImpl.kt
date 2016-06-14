@@ -2,9 +2,7 @@ package com.toolable.notes.stub.impl
 
 import com.toolable.notes.stub.exception.RecycledObjectException
 import com.toolable.notes.stub.model.*
-import com.toolable.notes.stub.model.toDateTimeStub
-import com.toolable.notes.stub.model.toDouble
-import com.toolable.notes.stub.model.toInt
+import com.toolable.notes.stub.utils.toJodaTime
 import lotus.domino.*
 import org.xml.sax.InputSource
 import java.io.InputStream
@@ -118,7 +116,7 @@ class ItemImpl(stub: ItemStub) : BaseImpl<ItemStub>(stub), Item {
     @Throws(RecycledObjectException::class)
     override fun setDateTimeValue(value: DateTime) {
         assertNotRecycled()
-        stub.dateTimes = listOf(if (value is DateTimeImpl) value.stub else DateTimeStub(stub.session, org.joda.time.DateTime(value.toJavaDate())))
+        stub.dateTimes = listOf(value.toJodaTime())
     }
 
     @Throws(RecycledObjectException::class)
@@ -150,31 +148,31 @@ class ItemImpl(stub: ItemStub) : BaseImpl<ItemStub>(stub), Item {
     @Throws(RecycledObjectException::class)
     override fun getValueDateTimeArray(): Vector<*> {
         assertNotRecycled()
-        return Vector(stub.dateTimes.map { it.implementation })
+        return Vector(stub.dateTimeStubs.map { it.implementation })
     }
 
     @Throws(RecycledObjectException::class)
     override fun getDateTimeValue(): DateTime? {
         assertNotRecycled()
-        return stub.toDateTimeStub()?.implementation
+        return stub.asDateTimeStub()?.implementation
     }
 
     @Throws(RecycledObjectException::class)
     override fun getValueDouble(): Double {
         assertNotRecycled()
-        return stub.toDouble()
+        return stub.asDouble()
     }
 
     @Throws(RecycledObjectException::class)
     override fun getValueInteger(): Int {
         assertNotRecycled()
-        return stub.toInt()
+        return stub.asInt()
     }
 
     @Throws(RecycledObjectException::class)
     override fun getValueString(): String {
         assertNotRecycled()
-        return stub.toString()
+        return stub.asString()
     }
 
     @Throws(RecycledObjectException::class)
