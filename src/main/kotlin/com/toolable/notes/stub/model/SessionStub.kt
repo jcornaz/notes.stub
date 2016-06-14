@@ -10,9 +10,9 @@ import com.toolable.notes.stub.utils.CustomDelegates
  */
 class SessionStub : BaseStub<SessionImpl> {
     override val implementation = SessionImpl(this)
-    override var isRecycled by CustomDelegates.cascadeRecyclingState { databaes + dates }
+    override var isRecycled by CustomDelegates.cascadeRecyclingState { databases + dates }
 
-    var databaes = emptyList<DatabaseStub>()
+    var databases = emptyList<DatabaseStub>()
         internal set
 
     var dates = emptyList<DateTimeStub>()
