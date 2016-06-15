@@ -13,7 +13,7 @@ import org.junit.Test;
 public class DocumentStubTest {
 
     /**
-     * All method of a {@link DocumentStub} implemented from a Lotus Notes interface should raise a {@link RecycledObjectException} if the stub is recycled
+     * All method of a {@link com.toolable.notes.stub.impl.DocumentImpl} implemented from a Lotus Notes interface should raise a {@link RecycledObjectException} if the stub is recycled
      *
      * @see TestUtils#assertExceptionsRaisedOnRecycledObject(BaseStub)
      */

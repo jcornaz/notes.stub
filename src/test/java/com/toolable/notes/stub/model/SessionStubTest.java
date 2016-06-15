@@ -12,7 +12,7 @@ import org.junit.Test;
 public class SessionStubTest {
 
     /**
-     * All method of a {@link BaseStub} implemented from a Lotus Notes interface should raise a {@link RecycledObjectException} if the stub is recycled
+     * All method of a {@link com.toolable.notes.stub.impl.BaseImpl} implemented from a Lotus Notes interface should raise a {@link RecycledObjectException} if the stub is recycled
      */
     @Test
     public void testRecycleObjectExceptionsRaised() {
