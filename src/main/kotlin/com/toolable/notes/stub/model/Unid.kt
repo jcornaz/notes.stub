@@ -15,9 +15,9 @@ data class Unid private constructor(private val leftPart: Long, private val righ
 
         var random = Random()
 
-        var knownUnids = emptyList<Unid>()
-            private set
+        private val knownUnids = HashSet<Unid>()
 
+        @JvmStatic
         fun parse(value: String): Unid {
             Preconditions.checkArgument(REGEX.matches(value))
             val leftPart = value.substring(0..15).toLowerCase().toLongFromHexa()
@@ -25,6 +25,7 @@ data class Unid private constructor(private val leftPart: Long, private val righ
             return Unid(leftPart, rightPart)
         }
 
+        @JvmStatic
         fun generate(): Unid {
             var result = Unid(random.nextLong(), random.nextLong())
 
@@ -34,15 +35,13 @@ data class Unid private constructor(private val leftPart: Long, private val righ
             return result
         }
 
+        @JvmStatic
         fun register(unid: Unid): Boolean {
 
             var hasBeenRegistered = false
 
             synchronized(this) {
-                hasBeenRegistered = unid !in knownUnids
-
-                if (hasBeenRegistered)
-                    knownUnids += unid
+                hasBeenRegistered = knownUnids.add(unid)
             }
 
             return hasBeenRegistered
