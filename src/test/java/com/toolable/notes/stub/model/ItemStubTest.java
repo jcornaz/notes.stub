@@ -12,12 +12,12 @@ import org.junit.Test;
 public class ItemStubTest {
 
     /**
-     * All method of a {@link ItemStub} implemented from a Lotus Notes interface should raise a {@link RecycledObjectException} if the stub is recycled
+     * All method of a {@link com.toolable.notes.stub.impl.ItemImpl} implemented from a Lotus Notes interface should raise a {@link RecycledObjectException} if the stub is recycled
      *
      * @see TestUtils#assertExceptionsRaisedOnRecycledObject(BaseStub)
      */
     @Test
     public void testRecycleObjectExceptionsRaised() {
-        TestUtils.assertExceptionsRaisedOnRecycledObject(new ItemStub("fieldName"));
+        TestUtils.assertExceptionsRaisedOnRecycledObject(new ItemStub());
     }
 }
