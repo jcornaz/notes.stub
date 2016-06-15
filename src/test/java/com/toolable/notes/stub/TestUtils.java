@@ -1,7 +1,6 @@
 package com.toolable.notes.stub;
 
 import com.google.common.base.Preconditions;
-import com.toolable.notes.stub.exception.NotImplementedException;
 import com.toolable.notes.stub.exception.RecycledObjectException;
 import com.toolable.notes.stub.exception.UnexpectedException;
 import com.toolable.notes.stub.model.BaseStub;
@@ -29,19 +28,22 @@ public final class TestUtils {
      * @param stub Stub to test
      */
     public static void assertExceptionsRaisedOnRecycledObject(final BaseStub stub) {
-        Preconditions.checkNotNull(stub);
+        Base impl = stub.getImplementation();
 
+        Preconditions.checkNotNull(impl);
+
+        boolean oldRecycledState = stub.isRecycled();
         stub.setRecycled(true);
 
-        for (Method method : getNotesMethods(stub.getClass())) {
+        for (Method method : getNotesMethods(impl.getClass())) {
             try {
-                method.invoke(stub, mockArguments(method));
-                Assert.fail("The method \"" + method.getName() + "\" of the class \"" + stub.getClass().getSimpleName() + "\" should raise an exception if the object is recycled");
+                method.invoke(impl, mockArguments(method));
+                Assert.fail("The method \"" + method.getName() + "\" of the class \"" + impl.getClass().getSimpleName() + "\" should raise an exception if the object is recycled");
             } catch (InvocationTargetException e) {
                 Class<? extends Throwable> causeClass = e.getCause().getClass();
 
                 // Expected exception
-                if (!causeClass.equals(NotImplementedException.class)) {
+                if (!causeClass.equals(UnsupportedOperationException.class)) {
                     Assert.assertEquals(RecycledObjectException.class, causeClass);
                 }
 
@@ -49,6 +51,7 @@ public final class TestUtils {
                 throw new UnexpectedException(e);
             }
         }
+        stub.setRecycled(oldRecycledState);
     }
 
     /**
