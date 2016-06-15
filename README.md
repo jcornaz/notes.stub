@@ -8,7 +8,7 @@ A minimalistic Lotus Notes behaviors reproduction in java for unit testing purpo
 [![Code coverage](https://img.shields.io/codecov/c/github/toolable/notes.stub/develop.svg)](https://codecov.io/github/toolable/notes.stub/?branch=develop)
 
 ## Setup
-Please not this project need a `Notes.jar` archive, is property of IBM and cannot be distributed. Therefore, you need a licensed installation of Lotus Notes.
+This project need a `Notes.jar` archive, is property of IBM and cannot be distributed. Therefore, you need a licensed installation of Lotus Notes.
 
 To setup, create a folder "libs" at the root of the project and put there a copy the `Notes.jar` from your Lotus Notes installation.
 
