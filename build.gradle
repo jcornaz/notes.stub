@@ -56,6 +56,11 @@ test {
     }
 }
 
+jacocoTestReport.reports {
+        xml.enabled = true
+        html.enabled = true
+}
+
 task kotlinCoverageReport(dependsOn: 'jacocoTestReport') << {
     def reports = new File(project.buildDir, '/reports/jacoco/test/html')
     def index = new File(reports, 'index.html').getText('UTF-8')
