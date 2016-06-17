@@ -9,6 +9,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.Vector;
 
 /**
@@ -114,5 +116,56 @@ public class DocumentStubTest {
         Assert.assertEquals(0, impl.getItemValueDouble("empty_item_name"), 1e-10);
         Assert.assertTrue(impl.getItemValueDateTimeArray("empty_item_name").isEmpty());
         Assert.assertTrue(impl.getItemValue("empty_item_name").isEmpty());
+    }
+
+    @Test
+    public void testReplaceString() throws Exception {
+        impl.replaceItemValue("MyFieldName", "MyString");
+        ItemStub itemStub = stub.get("MyFieldName");
+        Assert.assertNotNull(itemStub);
+        Assert.assertSame(itemStub, stub.get("MYFIELDNAME"));
+        Assert.assertEquals("MyString", itemStub.get(0));
+    }
+
+    @Test
+    public void testReplaceDouble() throws Exception {
+        impl.replaceItemValue("MyFieldName", 3.1415);
+        ItemStub itemStub = stub.get("MyFieldName");
+        Assert.assertNotNull(itemStub);
+        Assert.assertSame(itemStub, stub.get("MYFIELDNAME"));
+        Assert.assertEquals(3.1415, itemStub.get(0));
+    }
+
+    @Test
+    public void testReplaceInteger() throws Exception {
+        impl.replaceItemValue("MyFieldName", 42);
+        ItemStub itemStub = stub.get("MyFieldName");
+        Assert.assertNotNull(itemStub);
+        Assert.assertSame(itemStub, stub.get("MYFIELDNAME"));
+        Assert.assertEquals(42.0, itemStub.get(0));
+    }
+
+    @Test
+    public void testReplaceDateTime() throws Exception {
+        DateTime now = DateTime.now();
+        impl.replaceItemValue("MyFieldName", new DateTimeStub(now).getImplementation());
+        ItemStub itemStub = stub.get("MyFieldName");
+        Assert.assertNotNull(itemStub);
+        Assert.assertSame(itemStub, stub.get("MYFIELDNAME"));
+        Assert.assertEquals(now, itemStub.get(0));
+    }
+
+    @Test
+    public void testReplaceVector() throws Exception {
+        impl.replaceItemValue("MyFieldName", new Vector<Object>(Arrays.asList(1, 2, 3)));
+        ItemStub itemStub = stub.get("MyFieldName");
+
+        Assert.assertNotNull(itemStub);
+        Assert.assertEquals(Arrays.asList(1, 2, 3), itemStub.getIntegers());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testReplaceNotVector() throws Exception {
+        impl.replaceItemValue("MyFieldName", new LinkedList<Object>(Arrays.asList(1, 2, 3)));
     }
 }

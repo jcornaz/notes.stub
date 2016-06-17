@@ -57,8 +57,14 @@ class ItemStub(val name: String = "ItemName") : BaseStub<ItemImpl> {
 
     var numbers: List<Number>
         get() = doubles
-        set(value) {
-            doubles = value.map { it.toDouble() }
+        set(values) {
+            doubles = values.map { it.toDouble() }
+        }
+
+    var integers: List<Int>
+        get() = doubles.map { it.toInt() }
+        set(values) {
+            doubles = values.map { it.toDouble() }
         }
 
     var dateTimes = emptyList<DateTime>()
