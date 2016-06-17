@@ -80,7 +80,6 @@ class DocumentImpl(stub: DocumentStub) : BaseImpl<DocumentStub>(stub), Document 
 
         val item = stub[name] ?: ItemStub(stub, name)
         item.values = if (value is Vector<*>) value else listOf(value)
-        item.document = stub
 
         return item.implementation
     }

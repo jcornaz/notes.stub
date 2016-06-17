@@ -19,6 +19,14 @@ class DocumentStub() : BaseStub<DocumentImpl> {
     var database by lazyParent({ DatabaseStub() }, { documents -= unid }, { documents += unid to this@DocumentStub })
 
     var parentDocument: DocumentStub? = null
+        set(value) {
+            if (value == null) {
+                this["\$ref"]?.document = DocumentStub()
+            } else {
+                this["\$ref"] = value.unid.toString()
+            }
+            field = value
+        }
 
     var items = emptyMap<String, ItemStub>()
         internal set
@@ -34,10 +42,21 @@ class DocumentStub() : BaseStub<DocumentImpl> {
         ItemStub(this, itemName).values = values
     }
 
-    operator fun set(itemName: String, value: String) = ItemStub(this, itemName, value)
-    operator fun set(itemName: String, value: Number) = ItemStub(this, itemName, value)
-    operator fun set(itemName: String, value: DateTimeStub) = ItemStub(this, itemName, value)
-    operator fun set(itemName: String, value: DateTime) = ItemStub(this, itemName, value)
+    operator fun set(itemName: String, value: String) {
+        (this[itemName] ?: ItemStub(this, itemName)).strings = listOf(value)
+    }
+
+    operator fun set(itemName: String, value: Number) {
+        (this[itemName] ?: ItemStub(this, itemName)).doubles = listOf(value.toDouble())
+    }
+
+    operator fun set(itemName: String, value: DateTimeStub) {
+        (this[itemName] ?: ItemStub(this, itemName)).dateTimeStubs = listOf(value)
+    }
+
+    operator fun set(itemName: String, value: DateTime) {
+        (this[itemName] ?: ItemStub(this, itemName)).dateTimes = listOf(value)
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

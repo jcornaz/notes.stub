@@ -2,15 +2,12 @@ package com.toolable.notes.stub.model
 
 import com.toolable.notes.stub.impl.DateTimeImpl
 import com.toolable.notes.stub.impl.ItemImpl
-import com.toolable.notes.stub.utils.lazyParent
-import com.toolable.notes.stub.utils.minus
-import com.toolable.notes.stub.utils.toJodaTime
-import com.toolable.notes.stub.utils.toStub
+import com.toolable.notes.stub.utils.*
 import lotus.domino.Item
 import org.joda.time.DateTime
 
 /**
- * Stub for [lotus.domino.Item]
+ * Stub for [Item]
  *
  * @author jonathan
  */
@@ -35,7 +32,7 @@ class ItemStub(val name: String = "ItemName") : BaseStub<ItemImpl> {
 
             if ((value == Item.NUMBERS || value == Item.DATETIMES) && strings.isNotEmpty())
                 strings = emptyList()
-            else if (value != Item.NUMBERS && numbers.isNotEmpty())
+            else if (value != Item.NUMBERS && doubles.isNotEmpty())
                 doubles = emptyList()
             else if (value != Item.DATETIMES && dateTimes.isNotEmpty())
                 dateTimes = emptyList()
@@ -53,12 +50,6 @@ class ItemStub(val name: String = "ItemName") : BaseStub<ItemImpl> {
             field = values
             if (values.isNotEmpty())
                 type = Item.NUMBERS
-        }
-
-    var numbers: List<Number>
-        get() = doubles
-        set(values) {
-            doubles = values.map { it.toDouble() }
         }
 
     var integers: List<Int>
@@ -81,14 +72,14 @@ class ItemStub(val name: String = "ItemName") : BaseStub<ItemImpl> {
         }
 
     var values: List<Any>
-        get() = if (type == Item.NUMBERS) numbers else if (type == Item.DATETIMES) dateTimes else strings
+        get() = if (type == Item.NUMBERS) doubles else if (type == Item.DATETIMES) dateTimes else strings
         set(values) {
             if (values.isEmpty())
                 clear()
             else if (values[0] is String)
                 strings = values.map { it as? String ?: throw IllegalArgumentException() }
             else if (values[0] is Number)
-                numbers = values.map { it as? Number ?: throw IllegalArgumentException() }
+                doubles = values.map { (it as? Number ?: throw IllegalArgumentException()).toDouble() }
             else
                 dateTimes = values.map {
                     if (it is DateTimeStub) it.value
@@ -100,7 +91,7 @@ class ItemStub(val name: String = "ItemName") : BaseStub<ItemImpl> {
         }
 
     val size: Int
-        get() = if (type == Item.DATETIMES) dateTimes.size else if (type == Item.NUMBERS) numbers.size else strings.size
+        get() = if (type == Item.DATETIMES) dateTimes.size else if (type == Item.NUMBERS) doubles.size else strings.size
 
     val isEmpty: Boolean
         get() = size == 0
@@ -158,7 +149,7 @@ class ItemStub(val name: String = "ItemName") : BaseStub<ItemImpl> {
 
 
     init {
-        if (!"^\\w+$".toRegex().matches(name))
+        if (!"^\\$?\\w+$".toRegex().matches(name))
             throw IllegalArgumentException("Invalid item name : \"$name\"")
     }
 
@@ -172,7 +163,7 @@ class ItemStub(val name: String = "ItemName") : BaseStub<ItemImpl> {
     }
 
     constructor(document: DocumentStub? = null, name: String, vararg values: Number) : this(document, name) {
-        numbers = values.asList()
+        doubles = values.map { it.toDouble() }
     }
 
     constructor(document: DocumentStub? = null, name: String, vararg values: DateTimeStub) : this(document, name) {
@@ -198,4 +189,9 @@ class ItemStub(val name: String = "ItemName") : BaseStub<ItemImpl> {
 
         return if (list.isEmpty() && index == 0) null else list[index]
     }
+
+    fun getInt(index: Int) = (get(index) as? Double)?.toInt().orZero()
+    fun getDouble(index: Int) = (get(index) as? Double).orZero()
+    fun getString(index: Int) = get(index) as? String
+    fun getDateTime(index: Int) = get(index) as? DateTime
 }

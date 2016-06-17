@@ -122,13 +122,13 @@ class ItemImpl(stub: ItemStub) : BaseImpl<ItemStub>(stub), Item {
     @Throws(RecycledObjectException::class)
     override fun setValueDouble(value: Double) {
         assertNotRecycled()
-        stub.numbers = listOf(value)
+        stub.doubles = listOf(value)
     }
 
     @Throws(RecycledObjectException::class)
     override fun setValueInteger(value: Int) {
         assertNotRecycled()
-        stub.numbers = listOf(value)
+        stub.integers = listOf(value)
     }
 
     @Throws(RecycledObjectException::class)
