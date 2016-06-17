@@ -9,9 +9,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Vector;
+import java.util.*;
 
 /**
  * Unit tests of {@link DocumentStub}
@@ -167,5 +165,31 @@ public class DocumentStubTest {
     @Test(expected = IllegalArgumentException.class)
     public void testReplaceNotVector() throws Exception {
         impl.replaceItemValue("MyFieldName", new LinkedList<Object>(Arrays.asList(1, 2, 3)));
+    }
+
+    @Test
+    public void testUnid() {
+        Set<String> unids = new HashSet<String>();
+        for (int i = 0; i < 1000; i++) {
+            String unid = new DocumentStub().getImplementation().getUniversalID();
+            Assert.assertNotNull(unid);
+            Assert.assertTrue(unid.matches("^[A-F0-9]{32}$"));
+            Assert.assertTrue(unids.add(unid));
+        }
+    }
+
+    @Test
+    public void testParentDatabase() throws Exception {
+        Assert.assertNotNull(impl.getParentDatabase());
+    }
+
+    @Test
+    public void testParentDocumentUNID() throws Exception {
+        DocumentStub parentStub = new DocumentStub(stub.getDatabase());
+        stub.setParentDocument(parentStub);
+
+        String unidParent = impl.getParentDocumentUNID();
+        Assert.assertNotNull(unidParent);
+        Assert.assertEquals(parentStub.getUnid().toString(), unidParent);
     }
 }

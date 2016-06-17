@@ -12,7 +12,7 @@ import org.joda.time.DateTime
  *
  * @author jonathan
  */
-class DocumentStub : BaseStub<DocumentImpl> {
+class DocumentStub() : BaseStub<DocumentImpl> {
     override val implementation = DocumentImpl(this)
     override var isRecycled by cascadeRecyclingState { items.values }
 
@@ -24,6 +24,10 @@ class DocumentStub : BaseStub<DocumentImpl> {
         internal set
 
     var unid: Unid by MutableLazyDelegate({ Unid.generate() }, { old, new -> Unid.register(new) })
+
+    constructor(database: DatabaseStub) : this() {
+        this.database = database
+    }
 
     operator fun get(itemName: String) = items[itemName.toLowerCase()]
     operator fun set(itemName: String, values: List<Any>) {
