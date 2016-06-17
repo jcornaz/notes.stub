@@ -11,7 +11,7 @@ import org.joda.time.DateTime
  * @param value Value (now by default)
  * @author jonathan
  */
-class DateTimeStub(var value: DateTime = DateTime.now()) : BaseStub<DateTimeImpl> {
+data class DateTimeStub(var value: DateTime = DateTime.now()) : BaseStub<DateTimeImpl> {
 
     override val implementation = DateTimeImpl(this)
     override var isRecycled = false

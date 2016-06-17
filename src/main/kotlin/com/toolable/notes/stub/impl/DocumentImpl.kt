@@ -59,15 +59,19 @@ class DocumentImpl(stub: DocumentStub) : BaseImpl<DocumentStub>(stub), Document 
     }
 
     @Throws(RecycledObjectException::class)
-    override fun getItemValueString(name: String): String {
+    override fun getItemValueString(name: String): String? {
         assertNotRecycled()
-        return stub[name].toString()
+        return stub[name].asString()
     }
 
     @Throws(RecycledObjectException::class)
     override fun getItemValue(name: String): Vector<*> {
         assertNotRecycled()
-        return Vector(stub[name]?.values.orEmpty())
+
+        return Vector(stub[name]?.let { item ->
+            if (item.type == Item.DATETIMES) item.dateTimeStubs.map { it.implementation }
+            else item.values
+        }.orEmpty())
     }
 
     @Throws(RecycledObjectException::class)

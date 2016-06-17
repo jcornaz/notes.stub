@@ -170,7 +170,7 @@ class ItemImpl(stub: ItemStub) : BaseImpl<ItemStub>(stub), Item {
     }
 
     @Throws(RecycledObjectException::class)
-    override fun getValueString(): String {
+    override fun getValueString(): String? {
         assertNotRecycled()
         return stub.asString()
     }
@@ -178,7 +178,7 @@ class ItemImpl(stub: ItemStub) : BaseImpl<ItemStub>(stub), Item {
     @Throws(RecycledObjectException::class)
     override fun getValues(): Vector<*> {
         assertNotRecycled()
-        return Vector(stub.values)
+        return Vector(if (stub.type == Item.DATETIMES) stub.dateTimeStubs.map { it.implementation } else stub.values)
     }
     //endregion
 

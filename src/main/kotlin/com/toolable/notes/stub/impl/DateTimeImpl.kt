@@ -193,4 +193,12 @@ class DateTimeImpl(stub: DateTimeStub) : BaseImpl<DateTimeStub>(stub), DateTime 
     override fun getZoneTime(): String {
         throw UnsupportedOperationException()
     }
+
+    override fun equals(other: Any?): Boolean {
+        return super.equals(other) || stub.equals((other as? DateTimeImpl)?.stub)
+    }
+
+    override fun hashCode(): Int {
+        return stub.hashCode()
+    }
 }

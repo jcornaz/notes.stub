@@ -9,7 +9,8 @@ fun DateTime.toStub() = DateTimeStub(this)
 fun DateTime.toStub(session: SessionStub) = DateTimeStub(session, this)
 
 fun Date.toJodaTime() = DateTime(this)
-fun String.toJodaTime() = DateTime.parse(this)
+fun String.toJodaTime() = try { DateTime.parse(this) } catch (e: IllegalArgumentException) { null }
+
 fun lotus.domino.DateTime.toJodaTime() = DateTime(this.toJavaDate())
 
 fun Date.toStub() = toJodaTime().toStub()

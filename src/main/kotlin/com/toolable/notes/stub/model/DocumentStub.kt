@@ -25,7 +25,7 @@ class DocumentStub : BaseStub<DocumentImpl> {
 
     var unid: Unid by MutableLazyDelegate({ Unid.generate() }, { old, new -> Unid.register(new) })
 
-    operator fun get(itemName: String) = items[itemName]
+    operator fun get(itemName: String) = items[itemName.toLowerCase()]
     operator fun set(itemName: String, values: List<Any>) {
         ItemStub(this, itemName).values = values
     }

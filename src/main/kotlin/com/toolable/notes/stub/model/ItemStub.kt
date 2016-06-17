@@ -16,7 +16,7 @@ import org.joda.time.DateTime
  */
 class ItemStub(val name: String = "ItemName") : BaseStub<ItemImpl> {
 
-    var document by lazyParent({ DocumentStub() }, { items -= name }, { items += name to this@ItemStub })
+    var document by lazyParent({ DocumentStub() }, { items -= name }, { items += name.toLowerCase() to this@ItemStub })
 
     override val implementation = ItemImpl(this)
     override var isRecycled = false
@@ -36,34 +36,32 @@ class ItemStub(val name: String = "ItemName") : BaseStub<ItemImpl> {
             if ((value == Item.NUMBERS || value == Item.DATETIMES) && strings.isNotEmpty())
                 strings = emptyList()
             else if (value != Item.NUMBERS && numbers.isNotEmpty())
-                numbers = emptyList()
+                doubles = emptyList()
             else if (value != Item.DATETIMES && dateTimes.isNotEmpty())
                 dateTimes = emptyList()
         }
 
     var strings = emptyList<String>()
-        get() =
-        if (type == Item.NUMBERS) numbers.map { it.toString() }
-        else if (type == Item.DATETIMES) dateTimes.map { it.toString() }
-        else field
         set(values) {
             field = values
             if (values.isNotEmpty() && (type == Item.NUMBERS || type == Item.DATETIMES))
                 type = Item.TEXT
         }
 
-    var numbers = emptyList<Number>()
+    var doubles = emptyList<Double>()
         set(values) {
             field = values
             if (values.isNotEmpty())
                 type = Item.NUMBERS
         }
 
+    var numbers: List<Number>
+        get() = doubles
+        set(value) {
+            doubles = value.map { it.toDouble() }
+        }
+
     var dateTimes = emptyList<DateTime>()
-        get() =
-        if (type == Item.DATETIMES) field
-        else if (type == Item.NUMBERS) emptyList()
-        else strings.map { it.toJodaTime() }
         set(values) {
             field = values
             if (values.isNotEmpty())
@@ -82,15 +80,16 @@ class ItemStub(val name: String = "ItemName") : BaseStub<ItemImpl> {
             if (values.isEmpty())
                 clear()
             else if (values[0] is String)
-                strings = values.filter { it is String }.map { it as String }
+                strings = values.map { it as? String ?: throw IllegalArgumentException() }
             else if (values[0] is Number)
-                numbers = values.filter { it is Number }.map { it as Number }
+                numbers = values.map { it as? Number ?: throw IllegalArgumentException() }
             else
-                dateTimes = values.filter { it is DateTimeStub || it is DateTime || it is lotus.domino.DateTime }.map {
+                dateTimes = values.map {
                     if (it is DateTimeStub) it.value
                     else if (it is DateTimeImpl) it.stub.value
                     else if (it is DateTime) DateTime(it)
-                    else (it as lotus.domino.DateTime).toJodaTime()
+                    else if (it is lotus.domino.DateTime) it.toJodaTime()
+                    else throw IllegalArgumentException()
                 }
         }
 
@@ -177,17 +176,18 @@ class ItemStub(val name: String = "ItemName") : BaseStub<ItemImpl> {
     constructor(document: DocumentStub? = null, name: String, vararg values: DateTime) : this(document, name) {
         dateTimes = values.asList()
     }
-    
+
     fun clear() {
-        type = Item.TEXT
         strings = emptyList()
+        doubles = emptyList()
+        dateTimes = emptyList()
     }
 
     fun copy(document: DocumentStub, name: String = this.name) = ItemStub(document, name)
 
     operator fun get(index: Int): Any? {
         val list = if (type == Item.DATETIMES) dateTimes
-        else if (type == Item.NUMBERS) numbers
+        else if (type == Item.NUMBERS) doubles
         else strings
 
         return if (list.isEmpty() && index == 0) null else list[index]
