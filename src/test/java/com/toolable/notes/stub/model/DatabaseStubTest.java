@@ -1,8 +1,13 @@
 package com.toolable.notes.stub.model;
 
 import com.toolable.notes.stub.TestUtils;
+import com.toolable.notes.stub.exception.NonExistantDocumentException;
 import com.toolable.notes.stub.exception.RecycledObjectException;
+import com.toolable.notes.stub.impl.DatabaseImpl;
+import com.toolable.notes.stub.impl.DocumentImpl;
+import lotus.domino.Document;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -12,6 +17,9 @@ import org.junit.Test;
  */
 public class DatabaseStubTest {
 
+    private DatabaseStub stub;
+    private DatabaseImpl impl;
+
     /**
      * All method of a {@link com.toolable.notes.stub.impl.DatabaseImpl} implemented from a Lotus Notes interface should raise a {@link RecycledObjectException} if the stub is recycled
      *
@@ -20,5 +28,36 @@ public class DatabaseStubTest {
     @Test
     public void testRecycleObjectExceptionsRaised() {
         TestUtils.assertExceptionsRaisedOnRecycledObject(new DatabaseStub());
+    }
+
+    /**
+     * Create a stub ready to test
+     */
+    @Before
+    public void setUp() {
+        stub = new DatabaseStub();
+        impl = stub.getImplementation();
+    }
+
+    /**
+     * Test to get a document by UNID
+     */
+    @Test
+    public void testGetDocumentByUNID() {
+        DocumentStub docStub = new DocumentStub(stub);
+        docStub.setUnid(Unid.parse("DEADBEEFDEADBEEFDEADBEEFDEADBEEF"));
+
+        Document docImpl = impl.getDocumentByUNID("DEADBEEFDEADBEEFDEADBEEFDEADBEEF");
+        Assert.assertNotNull(docImpl);
+        Assert.assertTrue(docImpl instanceof DocumentImpl);
+        Assert.assertSame(docStub, ((DocumentImpl) docImpl).getStub());
+    }
+
+    /**
+     * Test to get a document by UNID that does not exist
+     */
+    @Test(expected = NonExistantDocumentException.class)
+    public void testGetNonExistantDocumentByUNID() {
+        impl.getDocumentByUNID("DEADBEEFDEADBEEFDEADBEEFDEADBEEF");
     }
 }

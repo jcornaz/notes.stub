@@ -22,7 +22,9 @@ data class Unid private constructor(private val leftPart: Long, private val righ
             Preconditions.checkArgument(REGEX.matches(value))
             val leftPart = value.substring(0..15).toLowerCase().toLongFromHexa()
             val rightPart = value.substring(16..31).toLowerCase().toLongFromHexa()
-            return Unid(leftPart, rightPart)
+            val unid = Unid(leftPart, rightPart)
+            register(unid)
+            return unid
         }
 
         @JvmStatic
