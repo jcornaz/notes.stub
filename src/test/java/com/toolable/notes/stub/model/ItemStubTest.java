@@ -40,6 +40,39 @@ public class ItemStubTest {
     }
 
     @Test
+    public void testCreateStub() throws Exception {
+        DocumentStub docStub = new DocumentStub();
+
+        ItemStub itemStub = new ItemStub(docStub, "ItemName");
+        Assert.assertTrue(itemStub.isEmpty());
+        Assert.assertEquals("ItemName", itemStub.getName());
+        Assert.assertSame(docStub, itemStub.getDocument());
+        Assert.assertSame(itemStub, docStub.get("ItemName"));
+
+        itemStub = new ItemStub(docStub, "ItemName", "Value");
+        Assert.assertFalse(itemStub.isEmpty());
+        Assert.assertEquals("Value", itemStub.getString(0));
+        Assert.assertEquals("ItemName", itemStub.getName());
+        Assert.assertSame(docStub, itemStub.getDocument());
+        Assert.assertSame(itemStub, docStub.get("ItemName"));
+
+        itemStub = new ItemStub(docStub, "ItemName", 42);
+        Assert.assertFalse(itemStub.isEmpty());
+        Assert.assertEquals(42, itemStub.getInt(0));
+        Assert.assertEquals("ItemName", itemStub.getName());
+        Assert.assertSame(docStub, itemStub.getDocument());
+        Assert.assertSame(itemStub, docStub.get("ItemName"));
+
+        DateTime date = DateTime.now();
+        itemStub = new ItemStub(docStub, "ItemName", date);
+        Assert.assertFalse(itemStub.isEmpty());
+        Assert.assertEquals(date, itemStub.getDateTime(0));
+        Assert.assertEquals("ItemName", itemStub.getName());
+        Assert.assertSame(docStub, itemStub.getDocument());
+        Assert.assertSame(itemStub, docStub.get("ItemName"));
+    }
+
+    @Test
     public void testGetType() {
         Assert.assertTrue(stub.isEmpty());
 

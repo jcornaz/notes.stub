@@ -170,10 +170,6 @@ class ItemStub(val name: String = "ItemName") : BaseStub<ItemImpl> {
         doubles = values.map { it.toDouble() }
     }
 
-    constructor(document: DocumentStub? = null, name: String, vararg values: DateTimeStub) : this(document, name) {
-        dateTimes = values.map { it.value }
-    }
-
     constructor(document: DocumentStub? = null, name: String, vararg values: DateTime) : this(document, name) {
         dateTimes = values.asList()
     }
