@@ -31,7 +31,10 @@ class DocumentStub() : BaseStub<DocumentImpl> {
     var items = emptyMap<String, ItemStub>()
         internal set
 
-    var unid: Unid by MutableLazyDelegate({ Unid.generate() }, { old, new -> Unid.register(new) })
+    var unid: Unid by MutableLazyDelegate({ Unid.generate() }, { old, new ->
+        old?.let { database.documents -= it }
+        database.documents += new to this
+    })
 
     constructor(database: DatabaseStub) : this() {
         this.database = database
