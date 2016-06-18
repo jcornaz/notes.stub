@@ -18,6 +18,7 @@ data class Unid private constructor(private val leftPart: Long, private val righ
         private val knownUnids = HashSet<Unid>()
 
         @JvmStatic
+        @Throws(IllegalArgumentException::class)
         fun parse(value: String): Unid {
             Preconditions.checkArgument(REGEX.matches(value))
             val leftPart = value.substring(0..15).toLowerCase().toLongFromHexa()
