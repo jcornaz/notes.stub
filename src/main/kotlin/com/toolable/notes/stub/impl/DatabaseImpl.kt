@@ -1,6 +1,6 @@
 package com.toolable.notes.stub.impl
 
-import com.toolable.notes.stub.exception.InexistantDocument
+import com.toolable.notes.stub.exception.NonExistantDocumentException
 import com.toolable.notes.stub.exception.RecycledObjectException
 import com.toolable.notes.stub.model.DatabaseStub
 import com.toolable.notes.stub.utils.toUnid
@@ -21,7 +21,7 @@ class DatabaseImpl(stub: DatabaseStub) : BaseImpl<DatabaseStub>(stub), Database 
     @Throws(RecycledObjectException::class)
     override fun getDocumentByUNID(unid: String): Document {
         assertNotRecycled()
-        return stub.documents[unid.toUnid()]?.implementation ?: throw InexistantDocument()
+        return stub.documents[unid.toUnid()]?.implementation ?: throw NonExistantDocumentException()
     }
 
     override fun getView(p0: String?): View? {

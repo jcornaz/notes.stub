@@ -9,4 +9,4 @@ package com.toolable.notes.stub.exception
  * @see BaseStub.setRecycled
  * @see BaseStub.isRecycled
  */
-class InexistantDocument : Exception()
+class NonExistantDocumentException : Exception()
