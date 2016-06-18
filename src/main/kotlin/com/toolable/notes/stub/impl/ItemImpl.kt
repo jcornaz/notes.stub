@@ -118,30 +118,35 @@ class ItemImpl(stub: ItemStub) : BaseImpl<ItemStub>(stub), Item {
     override fun setDateTimeValue(value: DateTime) {
         assertNotRecycled()
         stub.dateTimes = listOf(value.toJodaTime())
+        stub.document.isSaved = false
     }
 
     @Throws(RecycledObjectException::class)
     override fun setValueDouble(value: Double) {
         assertNotRecycled()
         stub.double = value
+        stub.document.isSaved = false
     }
 
     @Throws(RecycledObjectException::class)
     override fun setValueInteger(value: Int) {
         assertNotRecycled()
         stub.integer = value
+        stub.document.isSaved = false
     }
 
     @Throws(RecycledObjectException::class)
     override fun setValueString(value: String) {
         assertNotRecycled()
         stub.string = value
+        stub.document.isSaved = false
     }
 
     @Throws(RecycledObjectException::class)
     override fun setValues(value: Vector<*>) {
         assertNotRecycled()
         stub.values = value
+        stub.document.isSaved = false
     }
     //endregion
 

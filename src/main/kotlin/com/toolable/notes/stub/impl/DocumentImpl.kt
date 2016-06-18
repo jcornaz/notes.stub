@@ -73,8 +73,24 @@ class DocumentImpl(stub: DocumentStub) : BaseImpl<DocumentStub>(stub), Document 
         val item = stub[name] ?: ItemStub(stub, name)
         item.values = if (value is Vector<*>) value else listOf(value)
 
+        stub.isSaved = false
+
         return item.implementation
     }
+    //endregion
+
+    //region Save
+    override fun save(p0: Boolean, p1: Boolean, p2: Boolean): Boolean {
+        assertNotRecycled()
+        stub.isSaved = true
+        return true
+    }
+
+    override fun save(p0: Boolean, p1: Boolean) = save(p0, p1, false)
+
+    override fun save(p0: Boolean) = save(p0, false, false)
+
+    override fun save() = save(false, false, false)
     //endregion
 
     override fun isNewNote(): Boolean {
@@ -342,22 +358,6 @@ class DocumentImpl(stub: DocumentStub) : BaseImpl<DocumentStub>(stub), Document 
     }
 
     override fun createRichTextItem(p0: String?): RichTextItem? {
-        throw UnsupportedOperationException()
-    }
-
-    override fun save(p0: Boolean, p1: Boolean, p2: Boolean): Boolean {
-        throw UnsupportedOperationException()
-    }
-
-    override fun save(p0: Boolean, p1: Boolean): Boolean {
-        throw UnsupportedOperationException()
-    }
-
-    override fun save(p0: Boolean): Boolean {
-        throw UnsupportedOperationException()
-    }
-
-    override fun save(): Boolean {
         throw UnsupportedOperationException()
     }
 

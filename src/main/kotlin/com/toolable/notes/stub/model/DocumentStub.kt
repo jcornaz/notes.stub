@@ -36,6 +36,8 @@ class DocumentStub() : BaseStub<DocumentImpl> {
         database.documents += new to this
     })
 
+    var isSaved = true
+
     constructor(database: DatabaseStub) : this() {
         this.database = database
     }
