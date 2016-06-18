@@ -3,6 +3,7 @@ package com.toolable.notes.stub.impl
 import com.toolable.notes.stub.exception.RecycledObjectException
 import com.toolable.notes.stub.model.*
 import com.toolable.notes.stub.utils.toJodaTime
+import com.toolable.notes.stub.utils.toStub
 import lotus.domino.*
 import org.xml.sax.InputSource
 import java.io.InputStream
@@ -122,19 +123,19 @@ class ItemImpl(stub: ItemStub) : BaseImpl<ItemStub>(stub), Item {
     @Throws(RecycledObjectException::class)
     override fun setValueDouble(value: Double) {
         assertNotRecycled()
-        stub.doubles = listOf(value)
+        stub.double = value
     }
 
     @Throws(RecycledObjectException::class)
     override fun setValueInteger(value: Int) {
         assertNotRecycled()
-        stub.integers = listOf(value)
+        stub.integer = value
     }
 
     @Throws(RecycledObjectException::class)
     override fun setValueString(value: String) {
         assertNotRecycled()
-        stub.strings = listOf(value)
+        stub.string = value
     }
 
     @Throws(RecycledObjectException::class)
@@ -146,6 +147,12 @@ class ItemImpl(stub: ItemStub) : BaseImpl<ItemStub>(stub), Item {
 
     //region Values Getters
     @Throws(RecycledObjectException::class)
+    override fun getType(): Int {
+        assertNotRecycled()
+        return stub.type
+    }
+
+    @Throws(RecycledObjectException::class)
     override fun getValueDateTimeArray(): Vector<*> {
         assertNotRecycled()
         return Vector(stub.dateTimeStubs.map { it.implementation })
@@ -154,25 +161,25 @@ class ItemImpl(stub: ItemStub) : BaseImpl<ItemStub>(stub), Item {
     @Throws(RecycledObjectException::class)
     override fun getDateTimeValue(): DateTime? {
         assertNotRecycled()
-        return stub.asDateTimeStub()?.implementation
+        return stub.dateTime?.toStub(stub.session)?.implementation
     }
 
     @Throws(RecycledObjectException::class)
     override fun getValueDouble(): Double {
         assertNotRecycled()
-        return stub.asDouble()
+        return stub.double
     }
 
     @Throws(RecycledObjectException::class)
     override fun getValueInteger(): Int {
         assertNotRecycled()
-        return stub.asInt()
+        return stub.integer
     }
 
     @Throws(RecycledObjectException::class)
     override fun getValueString(): String? {
         assertNotRecycled()
-        return stub.asString()
+        return stub.string
     }
 
     @Throws(RecycledObjectException::class)
@@ -301,11 +308,6 @@ class ItemImpl(stub: ItemStub) : BaseImpl<ItemStub>(stub), Item {
 
     @Throws(UnsupportedOperationException::class)
     override fun getInputStream(): InputStream? {
-        throw UnsupportedOperationException()
-    }
-
-    @Throws(UnsupportedOperationException::class)
-    override fun getType(): Int {
         throw UnsupportedOperationException()
     }
 

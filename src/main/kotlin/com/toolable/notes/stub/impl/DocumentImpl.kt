@@ -2,6 +2,7 @@ package com.toolable.notes.stub.impl
 
 import com.toolable.notes.stub.exception.RecycledObjectException
 import com.toolable.notes.stub.model.*
+import com.toolable.notes.stub.utils.orZero
 import lotus.domino.*
 import java.io.Writer
 import java.util.*
@@ -42,36 +43,27 @@ class DocumentImpl(stub: DocumentStub) : BaseImpl<DocumentStub>(stub), Document 
 
     @Throws(RecycledObjectException::class)
     override fun getItemValueDateTimeArray(name: String): Vector<*> {
-        assertNotRecycled()
-        return Vector(stub[name]?.dateTimeStubs?.map { it.implementation }.orEmpty())
+        return getFirstItem(name)?.valueDateTimeArray ?: Vector<Any>()
     }
 
     @Throws(RecycledObjectException::class)
     override fun getItemValueDouble(name: String): Double {
-        assertNotRecycled()
-        return stub[name].asDouble()
+       return getFirstItem(name)?.valueDouble.orZero()
     }
 
     @Throws(RecycledObjectException::class)
     override fun getItemValueInteger(name: String): Int {
-        assertNotRecycled()
-        return stub[name].asInt()
+        return getFirstItem(name)?.valueInteger.orZero()
     }
 
     @Throws(RecycledObjectException::class)
     override fun getItemValueString(name: String): String? {
-        assertNotRecycled()
-        return stub[name].asString()
+        return getFirstItem(name)?.valueString
     }
 
     @Throws(RecycledObjectException::class)
     override fun getItemValue(name: String): Vector<*> {
-        assertNotRecycled()
-
-        return Vector(stub[name]?.let { item ->
-            if (item.type == Item.DATETIMES) item.dateTimeStubs.map { it.implementation }
-            else item.values
-        }.orEmpty())
+        return getFirstItem(name)?.values ?: Vector<Any>()
     }
 
     @Throws(RecycledObjectException::class)
