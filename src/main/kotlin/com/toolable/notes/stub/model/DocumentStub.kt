@@ -50,26 +50,7 @@ class DocumentStub() : BaseStub<DocumentImpl> {
         (this[itemName] ?: ItemStub(this, itemName)).doubles = listOf(value.toDouble())
     }
 
-    operator fun set(itemName: String, value: DateTimeStub) {
-        (this[itemName] ?: ItemStub(this, itemName)).dateTimeStubs = listOf(value)
-    }
-
     operator fun set(itemName: String, value: DateTime) {
         (this[itemName] ?: ItemStub(this, itemName)).dateTimes = listOf(value)
-    }
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other?.javaClass != javaClass) return false
-
-        other as DocumentStub
-
-        if (unid != other.unid) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        return unid.hashCode()
     }
 }

@@ -37,7 +37,7 @@ class DocumentImpl(stub: DocumentStub) : BaseImpl<DocumentStub>(stub), Document 
     @Throws(RecycledObjectException::class)
     override fun getFirstItem(name: String): ItemImpl? {
         assertNotRecycled()
-        return stub.items[name]?.implementation
+        return stub[name]?.implementation
     }
 
     @Throws(RecycledObjectException::class)

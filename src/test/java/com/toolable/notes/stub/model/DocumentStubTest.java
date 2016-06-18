@@ -5,6 +5,7 @@ import com.toolable.notes.stub.exception.RecycledObjectException;
 import com.toolable.notes.stub.impl.DateTimeImpl;
 import com.toolable.notes.stub.impl.DocumentImpl;
 import lotus.domino.Document;
+import lotus.domino.Item;
 import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Before;
@@ -43,6 +44,14 @@ public class DocumentStubTest {
     @Test
     public void testRecycleObjectExceptionsRaised() {
         TestUtils.assertExceptionsRaisedOnRecycledObject(new DocumentStub());
+    }
+
+    @Test
+    public void testGetFirstItem() throws Exception {
+        stub.set("MyFirstItem", "StringValue");
+        Item item = impl.getFirstItem("MyFirstItem");
+        Assert.assertNotNull(item);
+        Assert.assertEquals("StringValue", item.getValueString());
     }
 
     /**
@@ -132,6 +141,7 @@ public class DocumentStubTest {
      */
     @Test
     public void testNonExistentItem() {
+        Assert.assertNull(impl.getFirstItem("non_existent_item_name"));
         Assert.assertNull(impl.getItemValueString("non_existent_item_name"));
         Assert.assertEquals(0, impl.getItemValueInteger("non_existent_item_name"));
         Assert.assertEquals(0, impl.getItemValueDouble("non_existent_item_name"), 1e-10);
@@ -220,6 +230,22 @@ public class DocumentStubTest {
             Assert.assertTrue(unid.matches("^[A-F0-9]{32}$"));
             Assert.assertTrue(unids.add(unid));
         }
+    }
+
+    /**
+     * Test we can define the UniversalID
+     */
+    @Test
+    public void testSetUnid() {
+        String unid1 = "DEADBEEF1234567890123456DEADBEEF";
+        String unid2 = "1234567890DEADBEEF12345678901234";
+
+        stub.setUnid(Unid.parse(unid1));
+        Assert.assertEquals(unid1, impl.getUniversalID());
+
+        impl.setUniversalID(unid2);
+        Assert.assertEquals(stub.getUnid().toString(), unid2);
+        Assert.assertEquals(unid2, impl.getUniversalID());
     }
 
     /**
