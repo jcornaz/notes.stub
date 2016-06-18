@@ -96,7 +96,7 @@ public class ItemStubTest {
     }
 
     @Test
-    public void testSetText()  {
+    public void testSetText() {
         stub.setDateTimes(Collections.singletonList(DateTime.now()));
         Assert.assertFalse(stub.isEmpty());
         Assert.assertFalse(stub.isText());
@@ -111,12 +111,112 @@ public class ItemStubTest {
     }
 
     @Test
-    public void testClear() throws Exception {
+    public void testClear() {
         stub.setStrings(Arrays.asList("Bonan matenon", "Bonan tagon", "Bonan vesperon"));
         Assert.assertFalse(stub.isEmpty());
 
         stub.clear();
         Assert.assertTrue(stub.isEmpty());
         Assert.assertEquals(Collections.emptyList(), stub.getStrings());
+    }
+
+    @Test
+    public void testReader() {
+        stub.setReaders(true);
+        Assert.assertTrue(impl.isReaders());
+        Assert.assertFalse(impl.isAuthors());
+        Assert.assertFalse(impl.isNames());
+
+        stub.setReaders(false);
+        Assert.assertFalse(impl.isReaders());
+        Assert.assertFalse(impl.isAuthors());
+        Assert.assertFalse(impl.isNames());
+
+        impl.setReaders(true);
+        Assert.assertTrue(stub.isReaders());
+    }
+
+    @Test
+    public void testAuthors() {
+        stub.setAuthors(true);
+        Assert.assertFalse(impl.isReaders());
+        Assert.assertTrue(impl.isAuthors());
+        Assert.assertFalse(impl.isNames());
+
+        stub.setAuthors(false);
+        Assert.assertFalse(impl.isReaders());
+        Assert.assertFalse(impl.isAuthors());
+        Assert.assertFalse(impl.isNames());
+
+        impl.setAuthors(true);
+        Assert.assertTrue(stub.isAuthors());
+    }
+
+    @Test
+    public void testNames() {
+        stub.setNames(true);
+        Assert.assertFalse(impl.isReaders());
+        Assert.assertFalse(impl.isAuthors());
+        Assert.assertTrue(impl.isNames());
+
+        stub.setNames(false);
+        Assert.assertFalse(impl.isReaders());
+        Assert.assertFalse(impl.isAuthors());
+        Assert.assertFalse(impl.isNames());
+
+        impl.setNames(true);
+        Assert.assertTrue(stub.isNames());
+    }
+
+    @Test
+    public void testSummary() {
+        Assert.assertTrue(stub.isSummary());
+        Assert.assertTrue(impl.isSummary());
+
+        stub.setSummary(false);
+        Assert.assertFalse(stub.isSummary());
+        Assert.assertFalse(impl.isSummary());
+
+        impl.setSummary(true);
+        Assert.assertTrue(stub.isSummary());
+    }
+
+    @Test
+    public void testProtected() {
+        Assert.assertFalse(stub.isProtected());
+        Assert.assertFalse(impl.isProtected());
+
+        stub.setProtected(true);
+        Assert.assertTrue(stub.isProtected());
+        Assert.assertTrue(impl.isProtected());
+
+        impl.setProtected(false);
+        Assert.assertFalse(stub.isProtected());
+    }
+
+    @Test
+    public void testSigned() {
+        Assert.assertFalse(stub.isSigned());
+        Assert.assertFalse(impl.isSigned());
+
+        stub.setSigned(true);
+        Assert.assertTrue(stub.isSigned());
+        Assert.assertTrue(impl.isSigned());
+
+        impl.setSigned(false);
+        Assert.assertFalse(stub.isSigned());
+    }
+
+    @Test
+    public void testEncrypted() {
+        Assert.assertFalse(stub.isEncrypted());
+        Assert.assertFalse(impl.isEncrypted());
+
+        stub.setEncrypted(true);
+        Assert.assertTrue(stub.isEncrypted());
+        Assert.assertTrue(impl.isEncrypted());
+
+        impl.setEncrypted(false);
+        Assert.assertFalse(stub.isEncrypted());
     }
 }
