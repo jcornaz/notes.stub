@@ -45,11 +45,23 @@ class ItemStub(val name: String = "ItemName") : BaseStub<ItemImpl> {
                 type = Item.TEXT
         }
 
+    var string: String?
+        get() = strings.firstOrNull()
+        set(value) {
+            strings = value?.let { listOf(it) } ?: emptyList()
+        }
+
     var doubles = emptyList<Double>()
         set(values) {
             field = values
             if (values.isNotEmpty())
                 type = Item.NUMBERS
+        }
+
+    var double: Double
+        get() = doubles.firstOrNull().orZero()
+        set(value) {
+            doubles = listOf(value)
         }
 
     var integers: List<Int>
@@ -58,11 +70,23 @@ class ItemStub(val name: String = "ItemName") : BaseStub<ItemImpl> {
             doubles = values.map { it.toDouble() }
         }
 
+    var integer: Int
+        get() = integers.firstOrNull().orZero()
+        set(value) {
+            integers = listOf(value)
+        }
+
     var dateTimes = emptyList<DateTime>()
         set(values) {
             field = values
             if (values.isNotEmpty())
                 type = Item.DATETIMES
+        }
+
+    var dateTime: DateTime?
+        get() = dateTimes.firstOrNull()
+        set(value) {
+            dateTimes = value?.let { listOf(it) } ?: emptyList()
         }
 
     var dateTimeStubs: List<DateTimeStub>
@@ -126,7 +150,7 @@ class ItemStub(val name: String = "ItemName") : BaseStub<ItemImpl> {
                 type = Item.TEXT
         }
 
-    var isDateTimes: Boolean
+    var isDateTime: Boolean
         get() = type == Item.DATETIMES
         set(value) {
             if (value)
@@ -135,7 +159,7 @@ class ItemStub(val name: String = "ItemName") : BaseStub<ItemImpl> {
                 type = Item.TEXT
         }
 
-    var isNumbers: Boolean
+    var isNumeric: Boolean
         get() = type == Item.NUMBERS
         set(value) {
             if (value)
@@ -146,11 +170,6 @@ class ItemStub(val name: String = "ItemName") : BaseStub<ItemImpl> {
 
     val isText: Boolean
         get() = type == Item.TEXT
-
-    fun setText() {
-        isNumbers = false
-        isDateTimes = false
-    }
 
     init {
         if (!"^\\$?\\w+$".toRegex().matches(name))
@@ -174,6 +193,11 @@ class ItemStub(val name: String = "ItemName") : BaseStub<ItemImpl> {
         dateTimes = values.asList()
     }
 
+    fun setText() {
+        isNumeric = false
+        isDateTime = false
+    }
+
     fun clear() {
         strings = emptyList()
         doubles = emptyList()
@@ -183,15 +207,11 @@ class ItemStub(val name: String = "ItemName") : BaseStub<ItemImpl> {
     fun copy(document: DocumentStub, name: String = this.name) = ItemStub(document, name)
 
     operator fun get(index: Int): Any? {
+
         val list = if (type == Item.DATETIMES) dateTimes
         else if (type == Item.NUMBERS) doubles
         else strings
 
         return if (list.isEmpty() && index == 0) null else list[index]
     }
-
-    fun getInt(index: Int) = (get(index) as? Double)?.toInt().orZero()
-    fun getDouble(index: Int) = (get(index) as? Double).orZero()
-    fun getString(index: Int) = get(index) as? String
-    fun getDateTime(index: Int) = get(index) as? DateTime
 }

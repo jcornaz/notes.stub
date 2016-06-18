@@ -2,6 +2,7 @@ package com.toolable.notes.stub.model;
 
 import com.toolable.notes.stub.TestUtils;
 import com.toolable.notes.stub.exception.RecycledObjectException;
+import com.toolable.notes.stub.impl.DateTimeImpl;
 import com.toolable.notes.stub.impl.ItemImpl;
 import lotus.domino.Item;
 import org.joda.time.DateTime;
@@ -51,14 +52,14 @@ public class ItemStubTest {
 
         itemStub = new ItemStub(docStub, "ItemName", "Value");
         Assert.assertFalse(itemStub.isEmpty());
-        Assert.assertEquals("Value", itemStub.getString(0));
+        Assert.assertEquals("Value", itemStub.getString());
         Assert.assertEquals("ItemName", itemStub.getName());
         Assert.assertSame(docStub, itemStub.getDocument());
         Assert.assertSame(itemStub, docStub.get("ItemName"));
 
         itemStub = new ItemStub(docStub, "ItemName", 42);
         Assert.assertFalse(itemStub.isEmpty());
-        Assert.assertEquals(42, itemStub.getInt(0));
+        Assert.assertEquals(42, itemStub.getInteger());
         Assert.assertEquals("ItemName", itemStub.getName());
         Assert.assertSame(docStub, itemStub.getDocument());
         Assert.assertSame(itemStub, docStub.get("ItemName"));
@@ -66,7 +67,7 @@ public class ItemStubTest {
         DateTime date = DateTime.now();
         itemStub = new ItemStub(docStub, "ItemName", date);
         Assert.assertFalse(itemStub.isEmpty());
-        Assert.assertEquals(date, itemStub.getDateTime(0));
+        Assert.assertEquals(date, itemStub.getDateTime());
         Assert.assertEquals("ItemName", itemStub.getName());
         Assert.assertSame(docStub, itemStub.getDocument());
         Assert.assertSame(itemStub, docStub.get("ItemName"));
@@ -79,22 +80,22 @@ public class ItemStubTest {
         stub.setValues(Arrays.asList("Monday", "Tuesday", "TowelDay"));
         Assert.assertFalse(stub.isEmpty());
         Assert.assertTrue(stub.isText());
-        Assert.assertFalse(stub.isNumbers());
-        Assert.assertFalse(stub.isDateTimes());
+        Assert.assertFalse(stub.isNumeric());
+        Assert.assertFalse(stub.isDateTime());
         Assert.assertEquals(Item.TEXT, impl.getType());
 
         stub.setValues(Arrays.asList(1, 2, 3, 4, 5));
         Assert.assertFalse(stub.isEmpty());
         Assert.assertFalse(stub.isText());
-        Assert.assertTrue(stub.isNumbers());
-        Assert.assertFalse(stub.isDateTimes());
+        Assert.assertTrue(stub.isNumeric());
+        Assert.assertFalse(stub.isDateTime());
         Assert.assertEquals(Item.NUMBERS, impl.getType());
 
         stub.setValues(Collections.singletonList(DateTime.now()));
         Assert.assertFalse(stub.isEmpty());
         Assert.assertFalse(stub.isText());
-        Assert.assertFalse(stub.isNumbers());
-        Assert.assertTrue(stub.isDateTimes());
+        Assert.assertFalse(stub.isNumeric());
+        Assert.assertTrue(stub.isDateTime());
         Assert.assertEquals(Item.DATETIMES, impl.getType());
     }
 
@@ -103,14 +104,14 @@ public class ItemStubTest {
         stub.setStrings(Arrays.asList("Saluton", "Gxis la revido"));
         Assert.assertFalse(stub.isEmpty());
         Assert.assertTrue(stub.isText());
-        Assert.assertFalse(stub.isNumbers());
-        Assert.assertFalse(stub.isDateTimes());
+        Assert.assertFalse(stub.isNumeric());
+        Assert.assertFalse(stub.isDateTime());
 
-        stub.setNumbers(true);
+        stub.setNumeric(true);
         Assert.assertTrue(stub.isEmpty());
         Assert.assertFalse(stub.isText());
-        Assert.assertTrue(stub.isNumbers());
-        Assert.assertFalse(stub.isDateTimes());
+        Assert.assertTrue(stub.isNumeric());
+        Assert.assertFalse(stub.isDateTime());
     }
 
     @Test
@@ -118,14 +119,14 @@ public class ItemStubTest {
         stub.setIntegers(Arrays.asList(1, 2, 3, 4));
         Assert.assertFalse(stub.isEmpty());
         Assert.assertFalse(stub.isText());
-        Assert.assertTrue(stub.isNumbers());
-        Assert.assertFalse(stub.isDateTimes());
+        Assert.assertTrue(stub.isNumeric());
+        Assert.assertFalse(stub.isDateTime());
 
-        stub.setDateTimes(true);
+        stub.setDateTime(true);
         Assert.assertTrue(stub.isEmpty());
         Assert.assertFalse(stub.isText());
-        Assert.assertFalse(stub.isNumbers());
-        Assert.assertTrue(stub.isDateTimes());
+        Assert.assertFalse(stub.isNumeric());
+        Assert.assertTrue(stub.isDateTime());
     }
 
     @Test
@@ -133,23 +134,25 @@ public class ItemStubTest {
         stub.setDateTimes(Collections.singletonList(DateTime.now()));
         Assert.assertFalse(stub.isEmpty());
         Assert.assertFalse(stub.isText());
-        Assert.assertFalse(stub.isNumbers());
-        Assert.assertTrue(stub.isDateTimes());
+        Assert.assertFalse(stub.isNumeric());
+        Assert.assertTrue(stub.isDateTime());
 
         stub.setText();
         Assert.assertTrue(stub.isEmpty());
         Assert.assertTrue(stub.isText());
-        Assert.assertFalse(stub.isNumbers());
-        Assert.assertFalse(stub.isDateTimes());
+        Assert.assertFalse(stub.isNumeric());
+        Assert.assertFalse(stub.isDateTime());
     }
 
     @Test
     public void testClear() {
         stub.setStrings(Arrays.asList("Bonan matenon", "Bonan tagon", "Bonan vesperon"));
         Assert.assertFalse(stub.isEmpty());
+        Assert.assertTrue(stub.isNotEmpty());
 
         stub.clear();
         Assert.assertTrue(stub.isEmpty());
+        Assert.assertFalse(stub.isNotEmpty());
         Assert.assertEquals(Collections.emptyList(), stub.getStrings());
     }
 
@@ -251,5 +254,45 @@ public class ItemStubTest {
 
         impl.setEncrypted(false);
         Assert.assertFalse(stub.isEncrypted());
+    }
+
+    @Test
+    public void testSetValueString() {
+        impl.setValueString("Kafo");
+        Assert.assertTrue(stub.isText());
+        Assert.assertEquals("Kafo", stub.getString());
+    }
+
+    @Test
+    public void testSetValueDouble() {
+        impl.setValueDouble(3.1415);
+        Assert.assertTrue(stub.isNumeric());
+        Assert.assertEquals(3.1415, stub.getDouble(), 1e-10);
+    }
+
+    @Test
+    public void testSetValueInteger() {
+        impl.setValueInteger(42);
+        Assert.assertTrue(stub.isNumeric());
+        Assert.assertEquals(42, stub.getInteger());
+    }
+
+    @Test
+    public void testSetValueDateTime() {
+        DateTime date = DateTime.now();
+        impl.setDateTimeValue(new DateTimeStub(date).getImplementation());
+        Assert.assertTrue(stub.isDateTime());
+        Assert.assertEquals(date, stub.getDateTime());
+    }
+
+    @Test
+    public void testGetDateTimeValue() {
+        DateTime date = DateTime.now();
+        stub.setDateTime(date);
+
+        lotus.domino.DateTime dateTimeImpl = impl.getDateTimeValue();
+        Assert.assertNotNull(dateTimeImpl);
+        Assert.assertTrue(dateTimeImpl instanceof DateTimeImpl);
+        Assert.assertEquals(date, ((DateTimeImpl) dateTimeImpl).getStub().getValue());
     }
 }
