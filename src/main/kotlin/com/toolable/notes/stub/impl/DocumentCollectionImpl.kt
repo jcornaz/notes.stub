@@ -45,6 +45,7 @@ class DocumentCollectionImpl(stub: DocumentCollectionStub) : BaseImpl<DocumentCo
     @Throws(RecycledObjectException::class)
     override fun getFirstDocument(): Document? {
         assertNotRecycled()
+        index = 0
         if (stub.isEmpty())
             return null
         else
@@ -54,6 +55,7 @@ class DocumentCollectionImpl(stub: DocumentCollectionStub) : BaseImpl<DocumentCo
     @Throws(RecycledObjectException::class)
     override fun getLastDocument(): Document? {
         assertNotRecycled()
+        index = stub.size - 1
         if (stub.isEmpty())
             return null
         else
@@ -63,6 +65,7 @@ class DocumentCollectionImpl(stub: DocumentCollectionStub) : BaseImpl<DocumentCo
     @Throws(RecycledObjectException::class)
     override fun getNthDocument(index: Int): Document {
         assertNotRecycled()
+        this.index = index
         return stub[index].implementation
     }
 
