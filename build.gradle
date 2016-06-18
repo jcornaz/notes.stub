@@ -1,25 +1,32 @@
+buildscript {
+    ext.kotlin_version = '1.0.2'
+    ext.dokka_version = '0.9.8'
+
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.dokka:dokka-gradle-plugin:$dokka_version"
+
+    }
+}
+
 apply plugin: 'java'
 apply plugin: 'kotlin'
 apply plugin: 'jacoco'
+apply plugin: 'org.jetbrains.dokka'
 
 project.group = 'com.toolable'
 project.version = '1.0-develop'
 
 sourceCompatibility = 1.6
+targetCompatibility = 1.6
 
 javadoc.title = "Notes Stub " + project.version
 
-buildscript {
-    ext.kotlin_version = '1.0.2'
-
-    repositories {
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
-}
 
 jar {
     manifest {
@@ -37,23 +44,11 @@ dependencies {
     compile files('libs/Notes.jar')
 
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile 'com.google.guava:guava:18.0'
+    compile 'com.google.guava:guava:19.0'
     compile 'joda-time:joda-time:2.9.+'
 
-    testCompile 'junit:junit:4.+'
+    testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-all:1.10.+'
-}
-
-test {
-    testLogging.showStandardStreams = true
-
-    beforeTest { descriptor ->
-        logger.lifecycle("Running test: $descriptor")
-    }
-
-    onOutput { descriptor, event ->
-        logger.lifecycle("Test: $descriptor produced : $event.message")
-    }
 }
 
 jacocoTestReport.reports {
@@ -83,4 +78,5 @@ task kotlinCoverageReport(dependsOn: 'jacocoTestReport') << {
     println("open $output.path")
 }
 
+check.dependsOn dokka
 check.dependsOn kotlinCoverageReport
