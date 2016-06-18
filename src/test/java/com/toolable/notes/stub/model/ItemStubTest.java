@@ -7,6 +7,7 @@ import com.toolable.notes.stub.impl.DocumentImpl;
 import com.toolable.notes.stub.impl.ItemImpl;
 import lotus.domino.Document;
 import lotus.domino.Item;
+import lotus.domino.NotesException;
 import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Before;
@@ -35,15 +36,21 @@ public class ItemStubTest {
         TestUtils.assertExceptionsRaisedOnRecycledObject(new ItemStub());
     }
 
+    /**
+     * Create a stub ready to test
+     */
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         stub = new ItemStub();
         impl = stub.getImplementation();
         Assert.assertNotNull(impl);
     }
 
+    /**
+     * Test the different ways to create a stub
+     */
     @Test
-    public void testCreateStub() throws Exception {
+    public void testCreateStub() {
         DocumentStub docStub = new DocumentStub();
 
         ItemStub itemStub = new ItemStub(docStub, "ItemName");
@@ -75,28 +82,40 @@ public class ItemStubTest {
         Assert.assertSame(itemStub, docStub.get("ItemName"));
     }
 
+    /**
+     * Test that all item stub have a name by default
+     */
     @Test
-    public void testDefaultName() throws Exception {
-        String name = impl.getName();
+    public void testDefaultName() {
+        String name = new ItemStub().getImplementation().getName();
         Assert.assertNotNull(name);
         Assert.assertFalse(name.isEmpty());
     }
 
+    /**
+     * Test that the name is the right one
+     */
     @Test
-    public void testName() throws Exception {
+    public void testName() {
         stub = new ItemStub("FieldName");
         impl = stub.getImplementation();
 
         Assert.assertEquals("FieldName", impl.getName());
     }
 
+    /**
+     * Test that the stub have a parent by default
+     */
     @Test
-    public void testDefaultParent() throws Exception {
+    public void testDefaultParent() {
         Assert.assertNotNull(impl.getParent());
     }
 
+    /**
+     * Test that the parent is the right one
+     */
     @Test
-    public void testParent() throws Exception {
+    public void testParent() {
         DocumentStub docStub = new DocumentStub();
         stub.setDocument(docStub);
         Document docImpl = impl.getParent();
@@ -105,6 +124,9 @@ public class ItemStubTest {
         Assert.assertSame(docStub, ((DocumentImpl) docImpl).getStub());
     }
 
+    /**
+     * Test {@link Item#getType()}
+     */
     @Test
     public void testGetType() {
         Assert.assertTrue(stub.isEmpty());
@@ -131,6 +153,9 @@ public class ItemStubTest {
         Assert.assertEquals(Item.DATETIMES, impl.getType());
     }
 
+    /**
+     * Test the result of changing the type of a stub to number
+     */
     @Test
     public void testSetNumber() {
         stub.setStrings(Arrays.asList("Saluton", "Gxis la revido"));
@@ -146,6 +171,9 @@ public class ItemStubTest {
         Assert.assertFalse(stub.isDateTime());
     }
 
+    /**
+     * Test the result of changing the type of a stub to date-time
+     */
     @Test
     public void testSetDateTime() {
         stub.setIntegers(Arrays.asList(1, 2, 3, 4));
@@ -161,6 +189,9 @@ public class ItemStubTest {
         Assert.assertTrue(stub.isDateTime());
     }
 
+    /**
+     * Test the result of changing the type of a stub to text
+     */
     @Test
     public void testSetText() {
         stub.setDateTimes(Collections.singletonList(DateTime.now()));
@@ -176,6 +207,9 @@ public class ItemStubTest {
         Assert.assertFalse(stub.isDateTime());
     }
 
+    /**
+     * Test to clear the stub
+     */
     @Test
     public void testClear() {
         stub.setStrings(Arrays.asList("Bonan matenon", "Bonan tagon", "Bonan vesperon"));
@@ -188,6 +222,9 @@ public class ItemStubTest {
         Assert.assertEquals(Collections.emptyList(), stub.getStrings());
     }
 
+    /**
+     * Test make the item readers
+     */
     @Test
     public void testReader() {
         stub.setReaders(true);
@@ -204,6 +241,9 @@ public class ItemStubTest {
         Assert.assertTrue(stub.isReaders());
     }
 
+    /**
+     * Test make the item authors
+     */
     @Test
     public void testAuthors() {
         stub.setAuthors(true);
@@ -220,6 +260,9 @@ public class ItemStubTest {
         Assert.assertTrue(stub.isAuthors());
     }
 
+    /**
+     * Test make the item names
+     */
     @Test
     public void testNames() {
         stub.setNames(true);
@@ -236,6 +279,9 @@ public class ItemStubTest {
         Assert.assertTrue(stub.isNames());
     }
 
+    /**
+     * Test make the item summary
+     */
     @Test
     public void testSummary() {
         Assert.assertTrue(stub.isSummary());
@@ -249,6 +295,9 @@ public class ItemStubTest {
         Assert.assertTrue(stub.isSummary());
     }
 
+    /**
+     * Test make the item protected
+     */
     @Test
     public void testProtected() {
         Assert.assertFalse(stub.isProtected());
@@ -262,6 +311,9 @@ public class ItemStubTest {
         Assert.assertFalse(stub.isProtected());
     }
 
+    /**
+     * Test make the item signed
+     */
     @Test
     public void testSigned() {
         Assert.assertFalse(stub.isSigned());
@@ -275,6 +327,9 @@ public class ItemStubTest {
         Assert.assertFalse(stub.isSigned());
     }
 
+    /**
+     * Test make the item encrypted
+     */
     @Test
     public void testEncrypted() {
         Assert.assertFalse(stub.isEncrypted());
@@ -288,6 +343,9 @@ public class ItemStubTest {
         Assert.assertFalse(stub.isEncrypted());
     }
 
+    /**
+     * Test {@link Item#setValueString(String)}
+     */
     @Test
     public void testSetValueString() {
         impl.setValueString("Kafo");
@@ -295,6 +353,9 @@ public class ItemStubTest {
         Assert.assertEquals("Kafo", stub.getString());
     }
 
+    /**
+     * Test {@link Item#setValueDouble(double)}
+     */
     @Test
     public void testSetValueDouble() {
         impl.setValueDouble(3.1415);
@@ -302,6 +363,9 @@ public class ItemStubTest {
         Assert.assertEquals(3.1415, stub.getDouble(), 1e-10);
     }
 
+    /**
+     * Test {@link Item#setValueInteger(int)}
+     */
     @Test
     public void testSetValueInteger() {
         impl.setValueInteger(42);
@@ -309,6 +373,9 @@ public class ItemStubTest {
         Assert.assertEquals(42, stub.getInteger());
     }
 
+    /**
+     * Test {@link Item#setDateTimeValue(lotus.domino.DateTime)}
+     */
     @Test
     public void testSetValueDateTime() {
         DateTime date = DateTime.now();
@@ -317,6 +384,9 @@ public class ItemStubTest {
         Assert.assertEquals(date, stub.getDateTime());
     }
 
+    /**
+     * Test {@link Item#getDateTimeValue()}
+     */
     @Test
     public void testGetDateTimeValue() {
         DateTime date = DateTime.now();
@@ -328,8 +398,13 @@ public class ItemStubTest {
         Assert.assertEquals(date, ((DateTimeImpl) dateTimeImpl).getStub().getValue());
     }
 
+    /**
+     * Test {@link Item#copyItemToDocument(Document)}
+     *
+     * @throws NotesException unexpected exception
+     */
     @Test
-    public void testCopy() throws Exception {
+    public void testCopy() throws NotesException {
         DocumentStub doc1 = new DocumentStub();
         DocumentStub doc2 = new DocumentStub();
 
@@ -342,8 +417,13 @@ public class ItemStubTest {
         Assert.assertEquals(stub.getName(), itemCreated.getName());
     }
 
+    /**
+     * Test {@link Item#copyItemToDocument(Document, String)}
+     *
+     * @throws NotesException unexpected exception
+     */
     @Test
-    public void testCopyAndChangeName() throws Exception {
+    public void testCopyAndChangeName() throws NotesException {
         Assert.assertNotEquals("NewName", stub.getName());
 
         DocumentStub doc1 = new DocumentStub();
