@@ -272,4 +272,19 @@ public class DocumentStubTest {
 
         Assert.assertEquals(unidParent, impl.getItemValueString("$Ref"));
     }
+
+    /**
+     * Test document save
+     */
+    @Test
+    public void testSave() {
+        stub.set("FieldName1", "test");
+        Assert.assertTrue(stub.isSaved());
+
+        impl.replaceItemValue("FieldName1", "otherValue");
+        Assert.assertFalse(stub.isSaved());
+
+        impl.save();
+        Assert.assertTrue(stub.isSaved());
+    }
 }
