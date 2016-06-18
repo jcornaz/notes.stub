@@ -13,8 +13,9 @@ import java.util.*
 class DatabaseImpl(stub: DatabaseStub) : BaseImpl<DatabaseStub>(stub), Database {
 
     /**
-     * Get the parent session
+     * Return the parent session
      *
+     * @return The parent session
      * @throws RecycledObjectException The database is recycled
      */
     @Throws(RecycledObjectException::class)
@@ -24,9 +25,10 @@ class DatabaseImpl(stub: DatabaseStub) : BaseImpl<DatabaseStub>(stub), Database 
     }
 
     /**
-     * Get a document by it universal id
+     * Return a document by it universal id
      *
      * @param unid Unid of the desired document
+     * @return The document in this database that have the specified unid
      * @throws RecycledObjectException The database is recycled
      * @throws NonExistantDocumentException There is no document with this unid in the database
      * @throws IllegalArgumentException If the argument is not a valid unid
