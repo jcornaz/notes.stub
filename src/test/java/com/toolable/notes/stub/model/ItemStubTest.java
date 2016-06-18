@@ -327,4 +327,35 @@ public class ItemStubTest {
         Assert.assertTrue(dateTimeImpl instanceof DateTimeImpl);
         Assert.assertEquals(date, ((DateTimeImpl) dateTimeImpl).getStub().getValue());
     }
+
+    @Test
+    public void testCopy() throws Exception {
+        DocumentStub doc1 = new DocumentStub();
+        DocumentStub doc2 = new DocumentStub();
+
+        stub.setDocument(doc1);
+
+        Item itemCreated = impl.copyItemToDocument(doc2.getImplementation());
+        Assert.assertNotNull(itemCreated);
+        Assert.assertTrue(itemCreated instanceof ItemImpl);
+        Assert.assertNotSame(impl, itemCreated);
+        Assert.assertEquals(stub.getName(), itemCreated.getName());
+    }
+
+    @Test
+    public void testCopyAndChangeName() throws Exception {
+        Assert.assertNotEquals("NewName", stub.getName());
+
+        DocumentStub doc1 = new DocumentStub();
+        DocumentStub doc2 = new DocumentStub();
+
+        stub.setDocument(doc1);
+
+        Item itemCreated = impl.copyItemToDocument(doc2.getImplementation(), "NewName");
+        Assert.assertNotNull(itemCreated);
+        Assert.assertTrue(itemCreated instanceof ItemImpl);
+        Assert.assertNotSame(impl, itemCreated);
+        Assert.assertNotEquals(stub.getName(), itemCreated.getName());
+        Assert.assertEquals("NewName", itemCreated.getName());
+    }
 }
