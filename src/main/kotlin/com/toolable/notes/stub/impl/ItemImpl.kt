@@ -146,6 +146,12 @@ class ItemImpl(stub: ItemStub) : BaseImpl<ItemStub>(stub), Item {
 
     //region Values Getters
     @Throws(RecycledObjectException::class)
+    override fun getType(): Int {
+        assertNotRecycled()
+        return stub.type
+    }
+
+    @Throws(RecycledObjectException::class)
     override fun getValueDateTimeArray(): Vector<*> {
         assertNotRecycled()
         return Vector(stub.dateTimeStubs.map { it.implementation })
@@ -301,11 +307,6 @@ class ItemImpl(stub: ItemStub) : BaseImpl<ItemStub>(stub), Item {
 
     @Throws(UnsupportedOperationException::class)
     override fun getInputStream(): InputStream? {
-        throw UnsupportedOperationException()
-    }
-
-    @Throws(UnsupportedOperationException::class)
-    override fun getType(): Int {
         throw UnsupportedOperationException()
     }
 

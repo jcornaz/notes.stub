@@ -2,7 +2,15 @@ package com.toolable.notes.stub.model;
 
 import com.toolable.notes.stub.TestUtils;
 import com.toolable.notes.stub.exception.RecycledObjectException;
+import com.toolable.notes.stub.impl.ItemImpl;
+import lotus.domino.Item;
+import org.joda.time.DateTime;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
+
+import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * Unit tests of {@link ItemStub}
@@ -10,6 +18,9 @@ import org.junit.Test;
  * @author jonathan
  */
 public class ItemStubTest {
+
+    private ItemStub stub;
+    private ItemImpl impl;
 
     /**
      * All method of a {@link com.toolable.notes.stub.impl.ItemImpl} implemented from a Lotus Notes interface should raise a {@link RecycledObjectException} if the stub is recycled
@@ -19,5 +30,93 @@ public class ItemStubTest {
     @Test
     public void testRecycleObjectExceptionsRaised() {
         TestUtils.assertExceptionsRaisedOnRecycledObject(new ItemStub());
+    }
+
+    @Before
+    public void setUp() throws Exception {
+        stub = new ItemStub();
+        impl = stub.getImplementation();
+        Assert.assertNotNull(impl);
+    }
+
+    @Test
+    public void testGetType() {
+        Assert.assertTrue(stub.isEmpty());
+
+        stub.setValues(Arrays.asList("Monday", "Tuesday", "TowelDay"));
+        Assert.assertFalse(stub.isEmpty());
+        Assert.assertTrue(stub.isText());
+        Assert.assertFalse(stub.isNumbers());
+        Assert.assertFalse(stub.isDateTimes());
+        Assert.assertEquals(Item.TEXT, impl.getType());
+
+        stub.setValues(Arrays.asList(1, 2, 3, 4, 5));
+        Assert.assertFalse(stub.isEmpty());
+        Assert.assertFalse(stub.isText());
+        Assert.assertTrue(stub.isNumbers());
+        Assert.assertFalse(stub.isDateTimes());
+        Assert.assertEquals(Item.NUMBERS, impl.getType());
+
+        stub.setValues(Collections.singletonList(DateTime.now()));
+        Assert.assertFalse(stub.isEmpty());
+        Assert.assertFalse(stub.isText());
+        Assert.assertFalse(stub.isNumbers());
+        Assert.assertTrue(stub.isDateTimes());
+        Assert.assertEquals(Item.DATETIMES, impl.getType());
+    }
+
+    @Test
+    public void testSetNumber() {
+        stub.setStrings(Arrays.asList("Saluton", "Gxis la revido"));
+        Assert.assertFalse(stub.isEmpty());
+        Assert.assertTrue(stub.isText());
+        Assert.assertFalse(stub.isNumbers());
+        Assert.assertFalse(stub.isDateTimes());
+
+        stub.setNumbers(true);
+        Assert.assertTrue(stub.isEmpty());
+        Assert.assertFalse(stub.isText());
+        Assert.assertTrue(stub.isNumbers());
+        Assert.assertFalse(stub.isDateTimes());
+    }
+
+    @Test
+    public void testSetDateTime() {
+        stub.setIntegers(Arrays.asList(1, 2, 3, 4));
+        Assert.assertFalse(stub.isEmpty());
+        Assert.assertFalse(stub.isText());
+        Assert.assertTrue(stub.isNumbers());
+        Assert.assertFalse(stub.isDateTimes());
+
+        stub.setDateTimes(true);
+        Assert.assertTrue(stub.isEmpty());
+        Assert.assertFalse(stub.isText());
+        Assert.assertFalse(stub.isNumbers());
+        Assert.assertTrue(stub.isDateTimes());
+    }
+
+    @Test
+    public void testSetText()  {
+        stub.setDateTimes(Collections.singletonList(DateTime.now()));
+        Assert.assertFalse(stub.isEmpty());
+        Assert.assertFalse(stub.isText());
+        Assert.assertFalse(stub.isNumbers());
+        Assert.assertTrue(stub.isDateTimes());
+
+        stub.setText();
+        Assert.assertTrue(stub.isEmpty());
+        Assert.assertTrue(stub.isText());
+        Assert.assertFalse(stub.isNumbers());
+        Assert.assertFalse(stub.isDateTimes());
+    }
+
+    @Test
+    public void testClear() throws Exception {
+        stub.setStrings(Arrays.asList("Bonan matenon", "Bonan tagon", "Bonan vesperon"));
+        Assert.assertFalse(stub.isEmpty());
+
+        stub.clear();
+        Assert.assertTrue(stub.isEmpty());
+        Assert.assertEquals(Collections.emptyList(), stub.getStrings());
     }
 }

@@ -147,6 +147,10 @@ class ItemStub(val name: String = "ItemName") : BaseStub<ItemImpl> {
     val isText: Boolean
         get() = type == Item.TEXT
 
+    fun setText() {
+        isNumbers = false
+        isDateTimes = false
+    }
 
     init {
         if (!"^\\$?\\w+$".toRegex().matches(name))
