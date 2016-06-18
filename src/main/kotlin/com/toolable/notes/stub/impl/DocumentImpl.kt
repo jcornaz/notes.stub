@@ -37,7 +37,7 @@ class DocumentImpl(stub: DocumentStub) : BaseImpl<DocumentStub>(stub), Document 
     @Throws(RecycledObjectException::class)
     override fun getFirstItem(name: String): ItemImpl? {
         assertNotRecycled()
-        return stub.items[name]?.implementation
+        return stub[name]?.implementation
     }
 
     @Throws(RecycledObjectException::class)
@@ -59,24 +59,27 @@ class DocumentImpl(stub: DocumentStub) : BaseImpl<DocumentStub>(stub), Document 
     }
 
     @Throws(RecycledObjectException::class)
-    override fun getItemValueString(name: String): String {
+    override fun getItemValueString(name: String): String? {
         assertNotRecycled()
-        return stub[name].toString()
+        return stub[name].asString()
     }
 
     @Throws(RecycledObjectException::class)
     override fun getItemValue(name: String): Vector<*> {
         assertNotRecycled()
-        return Vector(stub[name]?.values.orEmpty())
+
+        return Vector(stub[name]?.let { item ->
+            if (item.type == Item.DATETIMES) item.dateTimeStubs.map { it.implementation }
+            else item.values
+        }.orEmpty())
     }
 
     @Throws(RecycledObjectException::class)
     override fun replaceItemValue(name: String, value: Any): ItemImpl {
         assertNotRecycled()
 
-        val item = ItemStub()
+        val item = stub[name] ?: ItemStub(stub, name)
         item.values = if (value is Vector<*>) value else listOf(value)
-        item.document = stub
 
         return item.implementation
     }
