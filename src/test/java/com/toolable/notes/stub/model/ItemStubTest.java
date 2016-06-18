@@ -3,7 +3,9 @@ package com.toolable.notes.stub.model;
 import com.toolable.notes.stub.TestUtils;
 import com.toolable.notes.stub.exception.RecycledObjectException;
 import com.toolable.notes.stub.impl.DateTimeImpl;
+import com.toolable.notes.stub.impl.DocumentImpl;
 import com.toolable.notes.stub.impl.ItemImpl;
+import lotus.domino.Document;
 import lotus.domino.Item;
 import org.joda.time.DateTime;
 import org.junit.Assert;
@@ -71,6 +73,36 @@ public class ItemStubTest {
         Assert.assertEquals("ItemName", itemStub.getName());
         Assert.assertSame(docStub, itemStub.getDocument());
         Assert.assertSame(itemStub, docStub.get("ItemName"));
+    }
+
+    @Test
+    public void testDefaultName() throws Exception {
+        String name = impl.getName();
+        Assert.assertNotNull(name);
+        Assert.assertFalse(name.isEmpty());
+    }
+
+    @Test
+    public void testName() throws Exception {
+        stub = new ItemStub("FieldName");
+        impl = stub.getImplementation();
+
+        Assert.assertEquals("FieldName", impl.getName());
+    }
+
+    @Test
+    public void testDefaultParent() throws Exception {
+        Assert.assertNotNull(impl.getParent());
+    }
+
+    @Test
+    public void testParent() throws Exception {
+        DocumentStub docStub = new DocumentStub();
+        stub.setDocument(docStub);
+        Document docImpl = impl.getParent();
+        Assert.assertNotNull(docImpl);
+        Assert.assertTrue(docImpl instanceof DocumentImpl);
+        Assert.assertSame(docStub, ((DocumentImpl) docImpl).getStub());
     }
 
     @Test
