@@ -1,5 +1,6 @@
 package com.toolable.notes.stub.impl
 
+import com.toolable.notes.stub.exception.RecycledObjectException
 import com.toolable.notes.stub.model.DateTimeStub
 import com.toolable.notes.stub.model.SessionStub
 import lotus.domino.*
@@ -10,19 +11,41 @@ import java.util.*
  */
 class SessionImpl(stub: SessionStub) : BaseImpl<SessionStub>(stub), Session {
 
-    override fun createDateTime(p0: Date?): DateTime? {
-        stub.assertNotRecycled()
-        return DateTimeStub(stub, org.joda.time.DateTime(p0)).implementation
+    /**
+     * Create a new [DateTime]
+     *
+     * @param value Value of the date-time
+     * @return The created [DateTime]
+     * @throws RecycledObjectException The session is recycled
+     */
+    @Throws(RecycledObjectException::class)
+    override fun createDateTime(value: Date?): DateTime? {
+        assertNotRecycled()
+        return DateTimeStub(stub, org.joda.time.DateTime(value)).implementation
     }
 
-    override fun createDateTime(p0: Calendar): DateTime {
-        stub.assertNotRecycled()
-        return DateTimeStub(stub, org.joda.time.DateTime(p0)).implementation
+    /**
+     * Create a new [DateTime]
+     *
+     * @param value Value of the date-time
+     * @return The created [DateTime]
+     * @throws RecycledObjectException The session is recycled
+     */
+    override fun createDateTime(value: Calendar): DateTime {
+        assertNotRecycled()
+        return DateTimeStub(stub, org.joda.time.DateTime(value)).implementation
     }
 
-    override fun createDateTime(p0: String): DateTime {
-        stub.assertNotRecycled()
-        return DateTimeStub(stub, org.joda.time.DateTime.parse(p0)).implementation
+    /**
+     * Create a new [DateTime]
+     *
+     * @param value Value of the date-time
+     * @return The created [DateTime]
+     * @throws RecycledObjectException The session is recycled
+     */
+    override fun createDateTime(value: String): DateTime {
+        assertNotRecycled()
+        return DateTimeStub(stub, org.joda.time.DateTime.parse(value)).implementation
     }
 
     /**
