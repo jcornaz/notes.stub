@@ -5,8 +5,6 @@ import lotus.domino.Base
 
 /**
  * Base class of Lotus Notes stubs
- *
- * @author jonathan
  */
 interface BaseStub<ImplType : Base> {
 

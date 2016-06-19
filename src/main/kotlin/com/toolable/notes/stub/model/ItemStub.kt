@@ -7,7 +7,7 @@ import lotus.domino.Item
 import org.joda.time.DateTime
 
 /**
- * Stub for [Item]
+ * Stub for [lotus.domino.Item]
  *
  * @author jonathan
  */

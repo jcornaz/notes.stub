@@ -6,8 +6,6 @@ import com.toolable.notes.stub.utils.lazyParent
 
 /**
  * Stub for [lotus.domino.Database]
- *
- * @author jonathan
  */
 class DatabaseStub : BaseStub<DatabaseImpl> {
     override val implementation = DatabaseImpl(this)
@@ -31,7 +29,7 @@ class DatabaseStub : BaseStub<DatabaseImpl> {
         internal set
 
     /**
-     * Collections that is linked to this database
+     * Collections that are linked to this database
      *
      * Change the database of a collection with [DocumentCollectionStub.database]
      */

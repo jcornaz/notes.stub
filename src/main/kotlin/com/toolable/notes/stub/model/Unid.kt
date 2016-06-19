@@ -5,7 +5,9 @@ import com.toolable.notes.stub.utils.toHexa
 import com.toolable.notes.stub.utils.toLongFromHexa
 import java.util.*
 
-
+/**
+ * Universal ID
+ */
 data class Unid private constructor(private val leftPart: Long, private val rightPart: Long) {
 
     override fun toString() = (leftPart.toHexa() + rightPart.toHexa()).toUpperCase()

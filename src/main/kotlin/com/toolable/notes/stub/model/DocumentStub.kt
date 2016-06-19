@@ -7,8 +7,6 @@ import org.joda.time.DateTime
 
 /**
  * Stub for [lotus.domino.Document]
- *
- * @author jonathan
  */
 class DocumentStub() : BaseStub<DocumentImpl> {
     override val implementation = DocumentImpl(this)

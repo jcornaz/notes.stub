@@ -9,7 +9,6 @@ import org.joda.time.DateTime
  *
  * @constructor Construct a new instance for an arbitrary date
  * @param value Value (now by default)
- * @author jonathan
  */
 data class DateTimeStub(var value: DateTime = DateTime.now()) : BaseStub<DateTimeImpl> {
 
