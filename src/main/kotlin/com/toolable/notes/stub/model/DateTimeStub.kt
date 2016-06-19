@@ -15,6 +15,9 @@ data class DateTimeStub(var value: DateTime = DateTime.now()) : BaseStub<DateTim
     override val implementation = DateTimeImpl(this)
     override var isRecycled = false
 
+    /**
+     * Parent session
+     */
     var session by lazyParent({ SessionStub() }, { dates -= this@DateTimeStub }, { dates += this@DateTimeStub })
 
     /**
@@ -46,14 +49,20 @@ data class DateTimeStub(var value: DateTime = DateTime.now()) : BaseStub<DateTim
      */
     constructor(millis: Long) : this(org.joda.time.DateTime(millis))
 
-
-    constructor(session: SessionStub, value: DateTime) : this(value) {
+    /**
+     * Construct a new instance for a session and a date
+     *
+     * @param session Session
+     * @param value Value (now by default)
+     */
+    constructor(session: SessionStub, value: DateTime = DateTime.now()) : this(value) {
         this.session = session
     }
 
     /**
      * Construct a new instance for date defined by field values
      *
+     * @param session Session
      * @param year Year
      * @param monthOfYear Month of year
      * @param dayOfMonth Day of month
@@ -79,6 +88,7 @@ data class DateTimeStub(var value: DateTime = DateTime.now()) : BaseStub<DateTim
     /**
      * Construct a new instance for a session and a date defined by milliseconds
      *
+     * @param session Session
      * @param millis Number of milliseconds from the 01.01.1970 at 00:00:00
      */
     constructor(session: SessionStub, millis: Long) : this(millis) {
