@@ -1,10 +1,8 @@
 package com.toolable.notes.stub.model
 
+import com.google.common.base.Preconditions
 import com.toolable.notes.stub.impl.DocumentImpl
-import com.toolable.notes.stub.utils.MutableLazyDelegate
-import com.toolable.notes.stub.utils.cascadeRecyclingState
-import com.toolable.notes.stub.utils.lazyParent
-import com.toolable.notes.stub.utils.minus
+import com.toolable.notes.stub.utils.*
 import org.joda.time.DateTime
 
 /**
@@ -32,6 +30,7 @@ class DocumentStub() : BaseStub<DocumentImpl> {
         internal set
 
     var unid: Unid by MutableLazyDelegate({ Unid.generate() }, { old, new ->
+        Preconditions.checkArgument(new !in database, "There is already a document with this unid it the document database")
         old?.let { database.documents -= it }
         database.documents += new to this
     })

@@ -20,7 +20,7 @@ data class Unid private constructor(private val leftPart: Long, private val righ
         @JvmStatic
         @Throws(IllegalArgumentException::class)
         fun parse(value: String): Unid {
-            Preconditions.checkArgument(REGEX.matches(value))
+            Preconditions.checkArgument(REGEX.matches(value), "Invalid universal id : \"$value\"")
             val leftPart = value.substring(0..15).toLowerCase().toLongFromHexa()
             val rightPart = value.substring(16..31).toLowerCase().toLongFromHexa()
             val unid = Unid(leftPart, rightPart)

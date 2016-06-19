@@ -26,4 +26,6 @@ class DatabaseStub : BaseStub<DatabaseImpl> {
         internal set
 
     operator fun get(unid: Unid) = documents[unid]
+
+    operator fun contains(unid: Unid) = unid in documents
 }

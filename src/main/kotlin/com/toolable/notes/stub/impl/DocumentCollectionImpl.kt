@@ -4,7 +4,9 @@ import com.toolable.notes.stub.exception.RecycledObjectException
 import com.toolable.notes.stub.model.DocumentCollectionStub
 import lotus.domino.*
 
-
+/**
+ * Implementation of [DocumentCollection] with a stub
+ */
 class DocumentCollectionImpl(stub: DocumentCollectionStub) : BaseImpl<DocumentCollectionStub>(stub), DocumentCollection {
 
     /**
