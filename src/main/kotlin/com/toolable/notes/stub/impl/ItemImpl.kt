@@ -216,116 +216,231 @@ class ItemImpl(stub: ItemStub) : BaseImpl<ItemStub>(stub), Item {
     }
     //endregion
 
+    /**
+     * Unsupported operation
+     *
+     * @throws UnsupportedOperationException This operation is not supported yet
+     */
     @Throws(UnsupportedOperationException::class)
     override fun getText(): String? {
         throw UnsupportedOperationException()
     }
 
+    /**
+     * Unsupported operation
+     *
+     * @throws UnsupportedOperationException This operation is not supported yet
+     */
     @Throws(UnsupportedOperationException::class)
     override fun appendToTextList(p0: Vector<*>?) {
         throw UnsupportedOperationException()
     }
 
+    /**
+     * Unsupported operation
+     *
+     * @throws UnsupportedOperationException This operation is not supported yet
+     */
     @Throws(UnsupportedOperationException::class)
     override fun appendToTextList(p0: String?) {
         throw UnsupportedOperationException()
     }
 
+    /**
+     * Unsupported operation
+     *
+     * @throws UnsupportedOperationException This operation is not supported yet
+     */
     @Throws(UnsupportedOperationException::class)
     override fun getText(p0: Int): String? {
         throw UnsupportedOperationException()
     }
 
+    /**
+     * Unsupported operation
+     *
+     * @throws UnsupportedOperationException This operation is not supported yet
+     */
     @Throws(UnsupportedOperationException::class)
     override fun getValueLength(): Int {
         throw UnsupportedOperationException()
     }
 
+    /**
+     * Unsupported operation
+     *
+     * @throws UnsupportedOperationException This operation is not supported yet
+     */
     @Throws(UnsupportedOperationException::class)
     override fun parseXML(p0: Boolean): org.w3c.dom.Document? {
         throw UnsupportedOperationException()
     }
 
+    /**
+     * Unsupported operation
+     *
+     * @throws UnsupportedOperationException This operation is not supported yet
+     */
     @Throws(UnsupportedOperationException::class)
     override fun getInputSource(): InputSource? {
         throw UnsupportedOperationException()
     }
 
+    /**
+     * Unsupported operation
+     *
+     * @throws UnsupportedOperationException This operation is not supported yet
+     */
     @Throws(UnsupportedOperationException::class)
     override fun abstractText(p0: Int, p1: Boolean, p2: Boolean): String? {
         throw UnsupportedOperationException()
     }
 
+    /**
+     * Unsupported operation
+     *
+     * @throws UnsupportedOperationException This operation is not supported yet
+     */
     @Throws(UnsupportedOperationException::class)
     override fun getLastModified(): DateTime? {
         throw UnsupportedOperationException()
     }
 
+    /**
+     * Unsupported operation
+     *
+     * @throws UnsupportedOperationException This operation is not supported yet
+     */
     @Throws(UnsupportedOperationException::class)
     override fun containsValue(p0: Any?): Boolean {
         throw UnsupportedOperationException()
     }
 
+    /**
+     * Unsupported operation
+     *
+     * @throws UnsupportedOperationException This operation is not supported yet
+     */
     @Throws(UnsupportedOperationException::class)
     override fun getValueCustomDataBytes(p0: String?): ByteArray? {
         throw UnsupportedOperationException()
     }
 
+    /**
+     * Unsupported operation
+     *
+     * @throws UnsupportedOperationException This operation is not supported yet
+     */
     @Throws(UnsupportedOperationException::class)
     override fun isSaveToDisk(): Boolean {
         throw UnsupportedOperationException()
     }
 
+    /**
+     * Unsupported operation
+     *
+     * @throws UnsupportedOperationException This operation is not supported yet
+     */
     @Throws(UnsupportedOperationException::class)
     override fun getReader(): Reader? {
         throw UnsupportedOperationException()
     }
 
+    /**
+     * Unsupported operation
+     *
+     * @throws UnsupportedOperationException This operation is not supported yet
+     */
     @Throws(UnsupportedOperationException::class)
     override fun getMIMEEntity(): MIMEEntity? {
         throw UnsupportedOperationException()
     }
 
+    /**
+     * Unsupported operation
+     *
+     * @throws UnsupportedOperationException This operation is not supported yet
+     */
     @Throws(UnsupportedOperationException::class)
     override fun getValueCustomData(p0: String?): Any? {
         throw UnsupportedOperationException()
     }
 
+    /**
+     * Unsupported operation
+     *
+     * @throws UnsupportedOperationException This operation is not supported yet
+     */
     @Throws(UnsupportedOperationException::class)
     override fun getValueCustomData(): Any? {
         throw UnsupportedOperationException()
     }
 
+    /**
+     * Unsupported operation
+     *
+     * @throws UnsupportedOperationException This operation is not supported yet
+     */
     @Throws(UnsupportedOperationException::class)
     override fun setValueCustomData(p0: String?, p1: Any?) {
         throw UnsupportedOperationException()
     }
 
+    /**
+     * Unsupported operation
+     *
+     * @throws UnsupportedOperationException This operation is not supported yet
+     */
     @Throws(UnsupportedOperationException::class)
     override fun setValueCustomData(p0: Any?) {
         throw UnsupportedOperationException()
     }
 
+    /**
+     * Unsupported operation
+     *
+     * @throws UnsupportedOperationException This operation is not supported yet
+     */
     @Throws(UnsupportedOperationException::class)
     override fun setSaveToDisk(p0: Boolean) {
         throw UnsupportedOperationException()
     }
 
+    /**
+     * Unsupported operation
+     *
+     * @throws UnsupportedOperationException This operation is not supported yet
+     */
     @Throws(UnsupportedOperationException::class)
     override fun getInputStream(): InputStream? {
         throw UnsupportedOperationException()
     }
 
+    /**
+     * Unsupported operation
+     *
+     * @throws UnsupportedOperationException This operation is not supported yet
+     */
     @Throws(UnsupportedOperationException::class)
     override fun remove() {
         throw UnsupportedOperationException()
     }
 
+    /**
+     * Unsupported operation
+     *
+     * @throws UnsupportedOperationException This operation is not supported yet
+     */
     @Throws(UnsupportedOperationException::class)
     override fun setValueCustomDataBytes(p0: String?, p1: ByteArray?) {
         throw UnsupportedOperationException()
     }
 
+    /**
+     * Unsupported operation
+     *
+     * @throws UnsupportedOperationException This operation is not supported yet
+     */
     @Throws(UnsupportedOperationException::class)
     override fun transformXML(p0: Any?, p1: XSLTResultTarget?) {
         throw UnsupportedOperationException()
