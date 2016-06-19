@@ -9,6 +9,9 @@ import java.util.*
 
 /**
  * Implementation of [Database] with a stub
+ *
+ * @constructor Create a new implementation
+ * @param stub Stub holding data for this implementation
  */
 class DatabaseImpl(stub: DatabaseStub) : BaseImpl<DatabaseStub>(stub), Database {
 

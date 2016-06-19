@@ -4,11 +4,20 @@ import com.toolable.notes.stub.exception.RecycledObjectException
 import lotus.domino.Base
 
 /**
- * Base class of Lotus Notes stubs
+ * Base interface for all Lotus Notes stubs
  */
 interface BaseStub<ImplType : Base> {
 
+    /**
+     * Notes implementation instance
+     */
     val implementation: ImplType
+
+    /**
+     * True if this object should be considered as recycled by the implementation
+     *
+     * If true, all methods of the implementations will throw [RecycledObjectException]
+     */
     var isRecycled: Boolean
 
     /**

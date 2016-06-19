@@ -12,6 +12,9 @@ import java.util.*
 
 /**
  * Implementation of [Item] with a stub
+ *
+ * @constructor Create a new implementation
+ * @param stub Stub holding data for this implementation
  */
 class ItemImpl(stub: ItemStub) : BaseImpl<ItemStub>(stub), Item {
 

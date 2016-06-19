@@ -6,6 +6,9 @@ import lotus.domino.*
 
 /**
  * Implementation of [DocumentCollection] with a stub
+ *
+ * @constructor Create a new implementation
+ * @param stub Stub holding data for this implementation
  */
 class DocumentCollectionImpl(stub: DocumentCollectionStub) : BaseImpl<DocumentCollectionStub>(stub), DocumentCollection {
 

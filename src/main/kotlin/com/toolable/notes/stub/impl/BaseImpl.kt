@@ -7,8 +7,10 @@ import java.util.*
 
 /**
  * Base implementation for Lotus Notes objects
+ *
+ * @property stub Stub holding data for this instance
  */
-open class BaseImpl<StubType : BaseStub<*>>(val stub: StubType) : Base {
+abstract class BaseImpl<StubType : BaseStub<*>>(val stub: StubType) : Base {
 
     /**
      * Throw a [RecycledObjectException] if the object is recycled.

@@ -9,6 +9,9 @@ import java.util.*
 
 /**
  * Implementation of [DateTime] with a stub
+ *
+ * @constructor Create a new implementation
+ * @param stub Stub holding data for this implementation
  */
 class DateTimeImpl(stub: DateTimeStub) : BaseImpl<DateTimeStub>(stub), DateTime {
 

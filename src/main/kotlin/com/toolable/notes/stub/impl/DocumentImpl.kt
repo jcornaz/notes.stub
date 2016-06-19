@@ -11,6 +11,9 @@ import java.util.*
 
 /**
  * Implementation of [Document] with a stub
+ *
+ * @constructor Create a new implementation
+ * @param stub Stub holding data for this implementation
  */
 class DocumentImpl(stub: DocumentStub) : BaseImpl<DocumentStub>(stub), Document {
 

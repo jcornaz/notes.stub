@@ -8,6 +8,9 @@ import java.util.*
 
 /**
  * Implementation of [Session] with a stub
+ *
+ * @constructor Create a new implementation
+ * @param stub Stub holding data for this implementation
  */
 class SessionImpl(stub: SessionStub) : BaseImpl<SessionStub>(stub), Session {
 
