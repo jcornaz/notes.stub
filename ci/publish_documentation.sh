@@ -17,7 +17,7 @@ if [ "$TRAVIS_JDK_VERSION" == "oraclejdk8" ] && [ "$TRAVIS_PULL_REQUEST" == "fal
 
   echo "Copying doc..."
   rm -rf gh-pages/doc/*-SNAPSHOT
-  mkdir gh-pages/doc/$version
+  mkdir -p gh-pages/doc/$version
   cp -r ./build/dokka/$app_name/* gh-pages/doc/$version
 
   echo "Pushing a new version of gh-pages..."
