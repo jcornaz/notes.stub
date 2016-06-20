@@ -1,7 +1,7 @@
 #!/bin/bash
 
 app_name='com.toolable.notesstub'
-version='0.1-SNAPSHOT'
+version='0.1'
 
 if [ "$TRAVIS_JDK_VERSION" == "oraclejdk8" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
 
@@ -18,12 +18,12 @@ if [ "$TRAVIS_JDK_VERSION" == "oraclejdk8" ] && [ "$TRAVIS_PULL_REQUEST" == "fal
   echo "Copying doc..."
   rm -rf gh-pages/doc/*-SNAPSHOT
   mkdir -p gh-pages/doc/$version
-  cp -r ./build/dokka/$app_name/* gh-pages/doc/$version
+  cp -r ./build/dokka/notesstub/* gh-pages/doc/$version
 
   echo "Pushing a new version of gh-pages..."
   cd gh-pages
   git add -A
-  git commit -m "[CI] Update document after successful build $TRAVIS_BUILD_NUMBER"
+  git commit -m "[CI] Update documentation after successful build $TRAVIS_BUILD_NUMBER"
   git push origin gh-pages &> /dev/null
 
   echo "Documentation Published."
