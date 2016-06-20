@@ -12,9 +12,15 @@ class SessionStub : BaseStub<SessionImpl> {
     override val implementation = SessionImpl(this)
     override var isRecycled by cascadeRecyclingState { databases + dates }
 
+    /**
+     * Databases opened by this session
+     */
     var databases = emptyList<DatabaseStub>()
         internal set
 
+    /**
+     * Date-times linked to this session
+     */
     var dates = emptyList<DateTimeStub>()
         internal set
 }

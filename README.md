@@ -3,7 +3,7 @@ A minimalistic Lotus Notes behaviors reproduction in java for unit testing purpo
 
 [![License](https://img.shields.io/badge/license-GPLv2-blue.svg)](https://github.com/toolable/notes.stub/blob/develop/LICENSE)
 
-![Version](https://img.shields.io/badge/version-0.1--develop-lightgray.svg)
+![Version](https://img.shields.io/badge/version-0.1--SNAPSHOT-lightgray.svg)
 [![Build status](https://travis-ci.org/toolable/notes.stub.svg?branch=develop)](https://travis-ci.org/toolable/notes.stub/branches)
 [![Code coverage](https://img.shields.io/codecov/c/github/toolable/notes.stub/develop.svg)](https://codecov.io/github/toolable/notes.stub/?branch=develop)
 

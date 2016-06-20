@@ -20,7 +20,7 @@ apply plugin: 'jacoco'
 apply plugin: 'org.jetbrains.dokka'
 
 project.group = 'com.toolable'
-project.version = '1.0-develop'
+project.version = '0.1-SNAPSHOT'
 
 sourceCompatibility = 1.6
 targetCompatibility = 1.6

@@ -41,9 +41,11 @@ public class DatabaseStubTest {
 
     /**
      * Test to get a document by UNID
+     *
+     * @throws NonExistantDocumentException Unexpected exception
      */
     @Test
-    public void testGetDocumentByUNID() {
+    public void testGetDocumentByUNID() throws NonExistantDocumentException {
         DocumentStub docStub = new DocumentStub(stub);
         docStub.setUnid(Unid.parse("DEADBEEFDEADBEEFDEADBEEFDEADBEEF"));
 
@@ -55,9 +57,11 @@ public class DatabaseStubTest {
 
     /**
      * Test to get a document by UNID that does not exist
+     *
+     * @throws NonExistantDocumentException Expected exception
      */
     @Test(expected = NonExistantDocumentException.class)
-    public void testGetNonExistantDocumentByUNID() {
+    public void testGetNonExistantDocumentByUNID() throws NonExistantDocumentException {
         impl.getDocumentByUNID("DEADBEEFDEADBEEFDEADBEEFDEADBEEF");
     }
 }

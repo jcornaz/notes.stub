@@ -158,7 +158,7 @@ public class DocumentStubTest {
         ItemStub itemStub = stub.get("MyFieldName");
         Assert.assertNotNull(itemStub);
         Assert.assertSame(itemStub, stub.get("MYFIELDNAME"));
-        Assert.assertEquals("MyString", itemStub.get(0));
+        Assert.assertEquals("MyString", itemStub.getString());
     }
 
     /**
@@ -170,7 +170,7 @@ public class DocumentStubTest {
         ItemStub itemStub = stub.get("MyFieldName");
         Assert.assertNotNull(itemStub);
         Assert.assertSame(itemStub, stub.get("MYFIELDNAME"));
-        Assert.assertEquals(3.1415, itemStub.get(0));
+        Assert.assertEquals(3.1415, itemStub.getDouble(), 1e-10);
     }
 
     /**
@@ -182,7 +182,7 @@ public class DocumentStubTest {
         ItemStub itemStub = stub.get("MyFieldName");
         Assert.assertNotNull(itemStub);
         Assert.assertSame(itemStub, stub.get("MYFIELDNAME"));
-        Assert.assertEquals(42.0, itemStub.get(0));
+        Assert.assertEquals(42, itemStub.getInteger());
     }
 
     /**
@@ -195,7 +195,7 @@ public class DocumentStubTest {
         ItemStub itemStub = stub.get("MyFieldName");
         Assert.assertNotNull(itemStub);
         Assert.assertSame(itemStub, stub.get("MYFIELDNAME"));
-        Assert.assertEquals(now, itemStub.get(0));
+        Assert.assertEquals(now, itemStub.getDateTime());
     }
 
     /**

@@ -22,6 +22,14 @@ fun <ChildType, ParentType> lazyParent(
             newValue.addChild()
         }
 
+/**
+ * Create a delegate for a property that have to cascade it's value to other elements
+ *
+ * @param initialValue Initial value of the property
+ * @param shouldCascade Predicate to determinate if the modification has to cascade
+ * @param children Collection of elements that should be updated when cascading
+ * @param cascade How a child should update itself
+ */
 fun <PropertyType, ChildType> cascade(
         initialValue: PropertyType,
         shouldCascade: (old: PropertyType, new: PropertyType) -> Boolean = { old, new -> true },
@@ -32,5 +40,10 @@ fun <PropertyType, ChildType> cascade(
         children().forEach { it.cascade(new) }
 }
 
+/**
+ * Create a delegate for a [BaseStub.isRecycled] property that have to cascade it value to all of it children
+ *
+ * @param children Compute and return the list of children
+ */
 fun cascadeRecyclingState(children: () -> Collection<BaseStub<*>>) =
         cascade(false, { old, new -> !old && new }, children, { isRecycled = it })
