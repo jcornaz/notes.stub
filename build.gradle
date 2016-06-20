@@ -78,5 +78,4 @@ task kotlinCoverageReport(dependsOn: 'jacocoTestReport') << {
     println("open $output.path")
 }
 
-check.dependsOn dokka
 check.dependsOn kotlinCoverageReport
