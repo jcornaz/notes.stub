@@ -23,7 +23,7 @@ if [ "$TRAVIS_JDK_VERSION" == "oraclejdk8" ] && [ "$TRAVIS_PULL_REQUEST" == "fal
   echo "Pushing a new version of gh-pages..."
   cd gh-pages
   git add -A
-  git commit -m "[CI] Update document after successful build $TRAVIS_BUILD_NUMBER"
+  git commit -m "[CI] Update documentation after successful build $TRAVIS_BUILD_NUMBER"
   git push origin gh-pages &> /dev/null
 
   echo "Documentation Published."
