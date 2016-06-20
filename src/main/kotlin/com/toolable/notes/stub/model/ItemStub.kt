@@ -2,30 +2,118 @@ package com.toolable.notes.stub.model
 
 import com.toolable.notes.stub.impl.DateTimeImpl
 import com.toolable.notes.stub.impl.ItemImpl
-import com.toolable.notes.stub.utils.*
+import com.toolable.notes.stub.utils.lazyParent
+import com.toolable.notes.stub.utils.minus
+import com.toolable.notes.stub.utils.orZero
+import com.toolable.notes.stub.utils.toJodaTime
 import lotus.domino.Item
 import org.joda.time.DateTime
 
 /**
  * Stub for [lotus.domino.Item]
  *
- * @author jonathan
+ * @constructor Create a new item
+ * @property name Item name
+ * @throws IllegalArgumentException The name is invalid
  */
-class ItemStub(val name: String = "ItemName") : BaseStub<ItemImpl> {
+class ItemStub(val name: String = DEFAULT_NAME) : BaseStub<ItemImpl> {
 
-    var document by lazyParent({ DocumentStub() }, { items -= name }, { items += name.toLowerCase() to this@ItemStub })
+    companion object {
+
+        /**
+         * Default name for new item when not specified
+         */
+        @JvmStatic
+        val DEFAULT_NAME = "ItemName"
+    }
+
+    init {
+        if (!"^\\$?\\w+$".toRegex().matches(name))
+            throw IllegalArgumentException("Invalid item name : \"$name\"")
+    }
+
+    /**
+     * Create a new item
+     *
+     * @param document Parent document or null to have a new empty parent
+     * @param name Item name
+     */
+    constructor(document: DocumentStub? = null, name: String = DEFAULT_NAME) : this(name) {
+        if (document != null)
+            this.document = document
+    }
+
+    /**
+     * Create a new item with values
+     *
+     * @param document Parent document or null to have a new empty parent
+     * @param name Item name
+     * @param values String values
+     */
+    constructor(document: DocumentStub? = null, name: String = DEFAULT_NAME, vararg values: String) : this(document, name) {
+        strings = values.asList()
+    }
+
+
+    /**
+     * Create a new item with values
+     *
+     * @param document Parent document or null to have a new empty parent
+     * @param name Item name
+     * @param values Numeric values
+     */
+    constructor(document: DocumentStub? = null, name: String = DEFAULT_NAME, vararg values: Number) : this(document, name) {
+        doubles = values.map { it.toDouble() }
+    }
+
+    /**
+     * Create a new item with values
+     *
+     * @param document Parent document or null to have a new empty parent
+     * @param name Item name
+     * @param values Date-times values
+     */
+    constructor(document: DocumentStub? = null, name: String = DEFAULT_NAME, vararg values: DateTime) : this(document, name) {
+        dateTimes = values.asList()
+    }
 
     override val implementation = ItemImpl(this)
     override var isRecycled = false
 
+    /**
+     * Parent document
+     */
+    var document by lazyParent({ DocumentStub() }, { items -= name }, { items += name.toLowerCase() to this@ItemStub })
+
+    /**
+     * Parent session
+     */
     val session: SessionStub
         get() = document.database.session
 
+    /**
+     * If the item is summary
+     */
     var isSummary = true
+
+    /**
+     * If the item is encrypted
+     */
     var isEncrypted = false
+
+    /**
+     * If the item is signed
+     */
     var isSigned = false
+
+    /**
+     * If the item is protected
+     */
     var isProtected = false
 
+    /**
+     * Values type
+     */
     var type = Item.TEXT
         set(value) {
             field = value
@@ -38,6 +126,9 @@ class ItemStub(val name: String = "ItemName") : BaseStub<ItemImpl> {
                 dateTimes = emptyList()
         }
 
+    /**
+     * String values. Empty list if the item type is not String.
+     */
     var strings = emptyList<String>()
         set(values) {
             field = values
@@ -45,12 +136,18 @@ class ItemStub(val name: String = "ItemName") : BaseStub<ItemImpl> {
                 type = Item.TEXT
         }
 
+    /**
+     * First string value. Null for no value or if the item is not text.
+     */
     var string: String?
         get() = strings.firstOrNull()
         set(value) {
             strings = value?.let { listOf(it) } ?: emptyList()
         }
 
+    /**
+     * Doubles values. Empty list if the item is not numeric
+     */
     var doubles = emptyList<Double>()
         set(values) {
             field = values
@@ -58,24 +155,36 @@ class ItemStub(val name: String = "ItemName") : BaseStub<ItemImpl> {
                 type = Item.NUMBERS
         }
 
+    /**
+     * First double value. Null for no value or if the item is not numeric
+     */
     var double: Double
         get() = doubles.firstOrNull().orZero()
         set(value) {
             doubles = listOf(value)
         }
 
+    /**
+     * Integer values. Empty list if the item is not numeric
+     */
     var integers: List<Int>
         get() = doubles.map { it.toInt() }
         set(values) {
             doubles = values.map { it.toDouble() }
         }
 
+    /**
+     * First integer value. Null for no value or if the item is not numeric
+     */
     var integer: Int
         get() = integers.firstOrNull().orZero()
         set(value) {
             integers = listOf(value)
         }
 
+    /**
+     * Date-times values. Empty list if the item is not date-time
+     */
     var dateTimes = emptyList<DateTime>()
         set(values) {
             field = values
@@ -83,18 +192,18 @@ class ItemStub(val name: String = "ItemName") : BaseStub<ItemImpl> {
                 type = Item.DATETIMES
         }
 
+    /**
+     * First date-time value. Null for no value or if the item is not date-time
+     */
     var dateTime: DateTime?
         get() = dateTimes.firstOrNull()
         set(value) {
             dateTimes = value?.let { listOf(it) } ?: emptyList()
         }
 
-    var dateTimeStubs: List<DateTimeStub>
-        get() = dateTimes.map { it.toStub(session) }
-        set(values) {
-            dateTimes = values.map { it.value }
-        }
-
+    /**
+     * Values. The value type will be [String], [Double] or [DateTime] depending on the item type
+     */
     var values: List<Any>
         get() = if (type == Item.NUMBERS) doubles else if (type == Item.DATETIMES) dateTimes else strings
         set(values) {
@@ -114,15 +223,27 @@ class ItemStub(val name: String = "ItemName") : BaseStub<ItemImpl> {
                 }
         }
 
+    /**
+     * Number of values
+     */
     val size: Int
         get() = if (type == Item.DATETIMES) dateTimes.size else if (type == Item.NUMBERS) doubles.size else strings.size
 
+    /**
+     * True if, and only if, there is no value
+     */
     val isEmpty: Boolean
         get() = size == 0
 
+    /**
+     * inverse of [isEmpty]
+     */
     val isNotEmpty: Boolean
         get() = !isEmpty
 
+    /**
+     * If the item is authors
+     */
     var isAuthors: Boolean
         get() = type == Item.AUTHORS
         set(value) {
@@ -132,6 +253,9 @@ class ItemStub(val name: String = "ItemName") : BaseStub<ItemImpl> {
                 type = Item.TEXT
         }
 
+    /**
+     * If the item is readers
+     */
     var isReaders: Boolean
         get() = type == Item.READERS
         set(value) {
@@ -141,6 +265,9 @@ class ItemStub(val name: String = "ItemName") : BaseStub<ItemImpl> {
                 type = Item.TEXT
         }
 
+    /**
+     * If the item is names
+     */
     var isNames: Boolean
         get() = type == Item.NAMES
         set(value) {
@@ -150,6 +277,9 @@ class ItemStub(val name: String = "ItemName") : BaseStub<ItemImpl> {
                 type = Item.TEXT
         }
 
+    /**
+     * If the item data type is date-time
+     */
     var isDateTime: Boolean
         get() = type == Item.DATETIMES
         set(value) {
@@ -159,6 +289,9 @@ class ItemStub(val name: String = "ItemName") : BaseStub<ItemImpl> {
                 type = Item.TEXT
         }
 
+    /**
+     * If the item data type is numeric
+     */
     var isNumeric: Boolean
         get() = type == Item.NUMBERS
         set(value) {
@@ -168,50 +301,37 @@ class ItemStub(val name: String = "ItemName") : BaseStub<ItemImpl> {
                 type = Item.TEXT
         }
 
+    /**
+     * If the item data type is text
+     */
     val isText: Boolean
         get() = type == Item.TEXT
 
-    init {
-        if (!"^\\$?\\w+$".toRegex().matches(name))
-            throw IllegalArgumentException("Invalid item name : \"$name\"")
-    }
-
-    constructor(document: DocumentStub?, name: String) : this(name) {
-        if (document != null)
-            this.document = document
-    }
-
-    constructor(document: DocumentStub? = null, name: String, vararg values: String) : this(document, name) {
-        strings = values.asList()
-    }
-
-    constructor(document: DocumentStub? = null, name: String, vararg values: Number) : this(document, name) {
-        doubles = values.map { it.toDouble() }
-    }
-
-    constructor(document: DocumentStub? = null, name: String, vararg values: DateTime) : this(document, name) {
-        dateTimes = values.asList()
-    }
-
+    /**
+     * Set the item data type to text
+     */
     fun setText() {
         isNumeric = false
         isDateTime = false
     }
 
+    /**
+     * Remove all values
+     */
     fun clear() {
         strings = emptyList()
         doubles = emptyList()
         dateTimes = emptyList()
     }
 
+    /**
+     * Copy the item
+     *
+     * @param document Destination document
+     * @param name Name for the copied item
+     * @return The created item
+     * @throws IllegalArgumentException The name is invalid
+     */
+    @Throws(IllegalArgumentException::class)
     fun copy(document: DocumentStub, name: String = this.name) = ItemStub(document, name)
-
-    operator fun get(index: Int): Any? {
-
-        val list = if (type == Item.DATETIMES) dateTimes
-        else if (type == Item.NUMBERS) doubles
-        else strings
-
-        return if (list.isEmpty() && index == 0) null else list[index]
-    }
 }

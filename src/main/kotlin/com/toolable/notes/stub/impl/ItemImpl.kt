@@ -296,7 +296,7 @@ class ItemImpl(stub: ItemStub) : BaseImpl<ItemStub>(stub), Item {
     @Throws(RecycledObjectException::class)
     override fun getValueDateTimeArray(): Vector<*> {
         assertNotRecycled()
-        return Vector(stub.dateTimeStubs.map { it.implementation })
+        return Vector(stub.dateTimes.map { it.toStub(stub.session).implementation })
     }
 
     /**
@@ -356,7 +356,7 @@ class ItemImpl(stub: ItemStub) : BaseImpl<ItemStub>(stub), Item {
     @Throws(RecycledObjectException::class)
     override fun getValues(): Vector<*> {
         assertNotRecycled()
-        return Vector(if (stub.type == Item.DATETIMES) stub.dateTimeStubs.map { it.implementation } else stub.values)
+        return Vector(if (stub.type == Item.DATETIMES) stub.dateTimes.map { it.toStub(stub.session).implementation } else stub.values)
     }
 
     /**
