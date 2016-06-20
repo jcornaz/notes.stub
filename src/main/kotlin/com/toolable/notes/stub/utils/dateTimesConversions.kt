@@ -3,15 +3,19 @@ package com.toolable.notes.stub.utils
 import com.toolable.notes.stub.model.DateTimeStub
 import com.toolable.notes.stub.model.SessionStub
 import org.joda.time.DateTime
-import java.util.*
 
-fun DateTime.toStub() = DateTimeStub(this)
+/**
+ * Return a stub for this date
+ *
+ * @param session Session for the date-time stub
+ * @return A new [DateTimeStub]
+ */
 fun DateTime.toStub(session: SessionStub) = DateTimeStub(session, this)
 
-fun Date.toJodaTime() = DateTime(this)
-fun String.toJodaTime() = try { DateTime.parse(this) } catch (e: IllegalArgumentException) { null }
-
+/**
+ * Return [DateTime] representation of this instance
+ *
+ * @return The [DateTime] represented by thie instance
+ */
 fun lotus.domino.DateTime.toJodaTime() = DateTime(this.toJavaDate())
 
-fun Date.toStub() = toJodaTime().toStub()
-fun Date.toStub(session: SessionStub) = toJodaTime().toStub(session)
