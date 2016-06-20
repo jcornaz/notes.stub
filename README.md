@@ -6,14 +6,14 @@ This is a *minimalistic* Lotus Notes behaviors reproduction for unit testing pur
 The goal is to let you create fake documents, collections, databases that will behave like Lotus Notes would. Then you can do real unit tests of your Lotus Notes application, without network or disk access and with better reproducibility.
 
 ### Latest release
-[![Version](https://img.shields.io/badge/version-0.1.0-yellow.svg)](http://toolable.github.io/notes.stub/doc/0.1)
+[![Version](https://img.shields.io/badge/version-0.1.0-yellow.svg)](https://github.com/toolable/notes.stub/releases/tag/v0.1.0)
 [![Build status](https://travis-ci.org/toolable/notes.stub.svg?branch=master)](https://travis-ci.org/toolable/notes.stub/branches)
 [![Code coverage](https://img.shields.io/codecov/c/github/toolable/notes.stub/master.svg)](https://codecov.io/github/toolable/notes.stub/?branch=master)
 
-`git checkout v0.1.0`
+`git checkout v0.1.1`
 
 ### Nightly build (develop branch)
-[![Version](https://img.shields.io/badge/version-0.2--SNAPSHOT-orange.svg)](http://toolable.github.io/notes.stub/doc/0.2-SNAPSHOT)
+[![Version](https://img.shields.io/badge/version-0.2--SNAPSHOT-orange.svg)](https://github.com/toolable/notes.stub/tree/develop)
 [![Build status](https://travis-ci.org/toolable/notes.stub.svg?branch=develop)](https://travis-ci.org/toolable/notes.stub/branches)
 [![Code coverage](https://img.shields.io/codecov/c/github/toolable/notes.stub/develop.svg)](https://codecov.io/github/toolable/notes.stub/?branch=develop)
 
