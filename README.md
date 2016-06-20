@@ -1,9 +1,9 @@
 [![License](https://img.shields.io/badge/license-GPLv2-blue.svg)](https://github.com/toolable/notes.stub/blob/develop/LICENSE)
 
 # Notes Stub
-This is a *minimalistic* Lotus Notes behaviors reproduction for unit testing purpose. It's written in kotlin an designed to be used from kotlin an java.
+This is a *minimalistic* Lotus Notes behaviors reproduction for unit testing purpose. It's written in kotlin an designed to be used from kotlin or java.
 
-The goal is to let you create fake documents, collections, databases that will behave like Lotus Notes would.
+The goal is to let you create fake documents, collections, databases that will behave like Lotus Notes would. Then you can do real unit tests of your Lotus Notes application, without network or disk access and with better reproducibility.
 
 ### Latest release
 [![Version](https://img.shields.io/badge/version-0.1.0-yellow.svg)](http://toolable.github.io/notes.stub/doc/0.1)
