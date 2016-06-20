@@ -56,6 +56,10 @@ jacocoTestReport.reports {
         html.enabled = true
 }
 
+dokka {
+    moduleName = "notesstub"
+}
+
 task kotlinCoverageReport(dependsOn: 'jacocoTestReport') << {
     def reports = new File(project.buildDir, '/reports/jacoco/test/html')
     def index = new File(reports, 'index.html').getText('UTF-8')
