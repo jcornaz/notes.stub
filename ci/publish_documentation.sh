@@ -1,7 +1,7 @@
 #!/bin/bash
 
 app_name='com.toolable.notesstub'
-version='0.1-SNAPSHOT'
+version='0.1'
 
 if [ "$TRAVIS_JDK_VERSION" == "oraclejdk8" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
 
