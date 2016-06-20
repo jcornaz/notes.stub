@@ -1,7 +1,7 @@
 [![License](https://img.shields.io/badge/license-GPLv2-blue.svg)](https://github.com/toolable/notes.stub/blob/develop/LICENSE)
 ![Version](https://img.shields.io/badge/version-0.1-yellow.svg)
-[![Build status](https://travis-ci.org/toolable/notes.stub.svg?branch=develop)](https://travis-ci.org/toolable/notes.stub/branches)
-[![Code coverage](https://img.shields.io/codecov/c/github/toolable/notes.stub/develop.svg)](https://codecov.io/github/toolable/notes.stub/?branch=develop)
+[![Build status](https://travis-ci.org/toolable/notes.stub.svg?branch=master)](https://travis-ci.org/toolable/notes.stub/branches)
+[![Code coverage](https://img.shields.io/codecov/c/github/toolable/notes.stub/master.svg)](https://codecov.io/github/toolable/notes.stub/?branch=master)
 
 # Notes Stub
 This is a *minimalistic* Lotus Notes behaviors reproduction for unit testing purpose. It's written in kotlin an designed to be used from kotlin an java.
@@ -32,5 +32,7 @@ Document doc = stub.getImplementation();
 System.out.println(doc.getItemValueString("MyStringField"));    // Print : "Hello"
 ```
 
+No all lotus methods interface methods are supported. Be aware of the supported methods.
+[Documentation](http://toolable.github.io/notes.stub/doc/0.1/com.toolable.notes.stub.impl) will tell you which operation is supported or not.
 ## Documentation
-See complete reference in KDoc here : (http://toolable.github.io/notes.stub/doc/0.1)
+See complete reference here : http://toolable.github.io/notes.stub/doc/0.1
