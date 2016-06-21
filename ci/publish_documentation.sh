@@ -1,10 +1,13 @@
 #!/bin/bash
 
-app_name='com.toolable.notesstub'
-version='0.1'
-
 if [ "$TRAVIS_JDK_VERSION" == "oraclejdk8" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
 
+  if [ "$TRAVIS_BRANCH" == "develop" ]; then
+    version='develop'
+  else
+    version='0.1'
+  fi
+  
   echo $(pwd)
 
   echo "Cloning gh-pages..."
@@ -16,7 +19,7 @@ if [ "$TRAVIS_JDK_VERSION" == "oraclejdk8" ] && [ "$TRAVIS_PULL_REQUEST" == "fal
   ./gradlew dokka
 
   echo "Copying doc..."
-  rm -rf gh-pages/doc/*-SNAPSHOT
+  rm -rf gh-pages/doc/$version
   mkdir -p gh-pages/doc/$version
   cp -r ./build/dokka/notesstub/* gh-pages/doc/$version
 
