@@ -5,7 +5,7 @@ if [ "$TRAVIS_JDK_VERSION" == "oraclejdk8" ] && [ "$TRAVIS_PULL_REQUEST" == "fal
   if [ "$TRAVIS_BRANCH" == "develop" ]; then
     version='develop'
   else
-    version='0.1'
+    version='0.2'
   fi
   
   echo $(pwd)
