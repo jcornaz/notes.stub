@@ -1,5 +1,5 @@
 buildscript {
-    ext.api_version = '0.1'
+    ext.api_version = '0.2'
 
     ext.kotlin_version = '1.0.2'
     ext.dokka_version = '0.9.8'
@@ -24,7 +24,7 @@ apply plugin: 'org.jetbrains.dokka'
 apply plugin: 'org.ajoberstar.github-pages'
 
 project.group = 'com.toolable'
-project.version = '0.1.2'
+project.version = '0.2-SNAPSHOT'
 
 sourceCompatibility = 1.6
 targetCompatibility = 1.6
