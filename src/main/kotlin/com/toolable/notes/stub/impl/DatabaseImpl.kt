@@ -43,13 +43,39 @@ class DatabaseImpl(stub: DatabaseStub) : BaseImpl<DatabaseStub>(stub), Database 
     }
 
     /**
-     * Unsupported operation
+     * Return the server name
      *
-     * @throws UnsupportedOperationException This operation is not supported yet
+     * @return Server name
+     * @throws RecycledObjectException
      */
-    @Throws(UnsupportedOperationException::class)
-    override fun getView(p0: String?): View? {
-        throw UnsupportedOperationException()
+    @Throws(RecycledObjectException::class)
+    override fun getServer(): String {
+        assertNotRecycled()
+        return stub.server
+    }
+
+    /**
+     * Return the database file name
+     *
+     * @return Database file name
+     * @throws RecycledObjectException
+     */
+    @Throws(RecycledObjectException::class)
+    override fun getFileName(): String {
+        assertNotRecycled()
+        return stub.fileName
+    }
+
+    /**
+     * Return the database file path
+     *
+     * @return Database file path
+     * @throws RecycledObjectException
+     */
+    @Throws(RecycledObjectException::class)
+    override fun getFilePath(): String {
+        assertNotRecycled()
+        return stub.filePath
     }
 
     /**
@@ -58,7 +84,7 @@ class DatabaseImpl(stub: DatabaseStub) : BaseImpl<DatabaseStub>(stub), Database 
      * @throws UnsupportedOperationException This operation is not supported yet
      */
     @Throws(UnsupportedOperationException::class)
-    override fun getFileName(): String? {
+    override fun getView(p0: String?): View? {
         throw UnsupportedOperationException()
     }
 
@@ -1028,16 +1054,6 @@ class DatabaseImpl(stub: DatabaseStub) : BaseImpl<DatabaseStub>(stub), Database 
      * @throws UnsupportedOperationException This operation is not supported yet
      */
     @Throws(UnsupportedOperationException::class)
-    override fun getFilePath(): String? {
-        throw UnsupportedOperationException()
-    }
-
-    /**
-     * Unsupported operation
-     *
-     * @throws UnsupportedOperationException This operation is not supported yet
-     */
-    @Throws(UnsupportedOperationException::class)
     override fun getLastModified(): DateTime? {
         throw UnsupportedOperationException()
     }
@@ -1459,16 +1475,6 @@ class DatabaseImpl(stub: DatabaseStub) : BaseImpl<DatabaseStub>(stub), Database 
      */
     @Throws(UnsupportedOperationException::class)
     override fun createOutline(p0: String?, p1: Boolean): Outline? {
-        throw UnsupportedOperationException()
-    }
-
-    /**
-     * Unsupported operation
-     *
-     * @throws UnsupportedOperationException This operation is not supported yet
-     */
-    @Throws(UnsupportedOperationException::class)
-    override fun getServer(): String? {
         throw UnsupportedOperationException()
     }
 

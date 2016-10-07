@@ -37,6 +37,26 @@ class DatabaseStub : BaseStub<DatabaseImpl> {
         internal set
 
     /**
+     * Server name
+     */
+    var server: String = "DEFAULT_SERVER"
+
+    /**
+     * File name
+     */
+    var fileName: String = "default_database.nsf"
+
+    /**
+     * File path (include the file name)
+     */
+    var filePath: String = ""
+        get() = field + (if (field.isNotEmpty()) "/" else "") + fileName
+        set(value) {
+            fileName = value.substringAfterLast("/")
+            field = value.substringBeforeLast("/")
+        }
+
+    /**
      * Return the document with the specified UNID
      *
      * @param unid ID of the desired document
