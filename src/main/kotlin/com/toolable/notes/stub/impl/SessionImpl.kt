@@ -740,4 +740,34 @@ class SessionImpl(stub: SessionStub) : BaseImpl<SessionStub>(stub), Session {
     override fun getUserNameList(): Vector<*>? {
         throw UnsupportedOperationException()
     }
+
+    /**
+     * Unsupported operation
+     *
+     * @throws UnsupportedOperationException This operation is not supported yet
+     */
+    @Throws(UnsupportedOperationException::class)
+    override fun getCalendar(p0: Database?): NotesCalendar {
+        throw UnsupportedOperationException()
+    }
+
+    /**
+     * Unsupported operation
+     *
+     * @throws UnsupportedOperationException This operation is not supported yet
+     */
+    @Throws(UnsupportedOperationException::class)
+    override fun freeResourceSearch(p0: DateTime?, p1: DateTime?, p2: String?, p3: Int, p4: Int): Vector<*> {
+        throw UnsupportedOperationException()
+    }
+
+    /**
+     * Unsupported operation
+     *
+     * @throws UnsupportedOperationException This operation is not supported yet
+     */
+    @Throws(UnsupportedOperationException::class)
+    override fun freeResourceSearch(p0: DateTime?, p1: DateTime?, p2: String?, p3: Int, p4: Int, p5: String?, p6: Int, p7: String?, p8: String?, p9: Int): Vector<*> {
+        throw UnsupportedOperationException()
+    }
 }
