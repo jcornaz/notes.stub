@@ -1,5 +1,5 @@
 # Notes Stub
-[![License](https://img.shields.io/badge/license-GPLv2-blue.svg)](https://github.com/slimaku/notes.stub/blob/develop/LICENSE)
+[![License](https://img.shields.io/badge/license-LGPLv3-blue.svg)](https://github.com/slimaku/notes.stub/blob/develop/LICENSE)
 ![Version](https://img.shields.io/badge/version-0.1.1-yellow.svg)
 [![Build status](https://travis-ci.org/slimaku/notes.stub.svg?branch=master)](https://travis-ci.org/slimaku/notes.stub)
 [![Code coverage](https://codecov.io/gh/slimaku/notes.stub/branch/master/graph/badge.svg)](https://codecov.io/gh/slimaku/notes.stub)
