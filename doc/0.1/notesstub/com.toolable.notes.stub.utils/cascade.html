@@ -1,0 +1,28 @@
+<HTML>
+<HEAD>
+<title>cascade - notesstub</title>
+<link rel="stylesheet" href="..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">notesstub</a>&nbsp;/&nbsp;<a href="index.html">com.toolable.notes.stub.utils</a>&nbsp;/&nbsp;<a href=".">cascade</a><br/>
+<br/>
+<h1>cascade</h1>
+<a name="com.toolable.notes.stub.utils$cascade(com.toolable.notes.stub.utils.cascade.PropertyType, kotlin.Function2((com.toolable.notes.stub.utils.cascade.PropertyType, , kotlin.Boolean)), kotlin.Function0((kotlin.collections.Collection((com.toolable.notes.stub.utils.cascade.ChildType)))), kotlin.Function2((com.toolable.notes.stub.utils.cascade.ChildType, com.toolable.notes.stub.utils.cascade.PropertyType, kotlin.Unit)))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">PropertyType</span><span class="symbol">, </span><span class="identifier">ChildType</span><span class="symbol">&gt;</span> <span class="identifier">cascade</span><span class="symbol">(</span><span class="identifier" id="com.toolable.notes.stub.utils$cascade(com.toolable.notes.stub.utils.cascade.PropertyType, kotlin.Function2((com.toolable.notes.stub.utils.cascade.PropertyType, , kotlin.Boolean)), kotlin.Function0((kotlin.collections.Collection((com.toolable.notes.stub.utils.cascade.ChildType)))), kotlin.Function2((com.toolable.notes.stub.utils.cascade.ChildType, com.toolable.notes.stub.utils.cascade.PropertyType, kotlin.Unit)))/initialValue">initialValue</span><span class="symbol">:</span>&nbsp;<span class="identifier">PropertyType</span><span class="symbol">, </span><span class="identifier" id="com.toolable.notes.stub.utils$cascade(com.toolable.notes.stub.utils.cascade.PropertyType, kotlin.Function2((com.toolable.notes.stub.utils.cascade.PropertyType, , kotlin.Boolean)), kotlin.Function0((kotlin.collections.Collection((com.toolable.notes.stub.utils.cascade.ChildType)))), kotlin.Function2((com.toolable.notes.stub.utils.cascade.ChildType, com.toolable.notes.stub.utils.cascade.PropertyType, kotlin.Unit)))/shouldCascade">shouldCascade</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="identifier">PropertyType</span><span class="symbol">,</span>&nbsp;<span class="identifier">PropertyType</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Boolean</span>&nbsp;<span class="symbol">=</span>&nbsp;{ old, new -&gt; true }<span class="symbol">, </span><span class="identifier" id="com.toolable.notes.stub.utils$cascade(com.toolable.notes.stub.utils.cascade.PropertyType, kotlin.Function2((com.toolable.notes.stub.utils.cascade.PropertyType, , kotlin.Boolean)), kotlin.Function0((kotlin.collections.Collection((com.toolable.notes.stub.utils.cascade.ChildType)))), kotlin.Function2((com.toolable.notes.stub.utils.cascade.ChildType, com.toolable.notes.stub.utils.cascade.PropertyType, kotlin.Unit)))/children">children</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Collection</span><span class="symbol">&lt;</span><span class="identifier">ChildType</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="com.toolable.notes.stub.utils$cascade(com.toolable.notes.stub.utils.cascade.PropertyType, kotlin.Function2((com.toolable.notes.stub.utils.cascade.PropertyType, , kotlin.Boolean)), kotlin.Function0((kotlin.collections.Collection((com.toolable.notes.stub.utils.cascade.ChildType)))), kotlin.Function2((com.toolable.notes.stub.utils.cascade.ChildType, com.toolable.notes.stub.utils.cascade.PropertyType, kotlin.Unit)))/cascade">cascade</span><span class="symbol">:</span>&nbsp;<span class="identifier">ChildType</span><span class="symbol">.</span><span class="symbol">(</span><span class="identifier">PropertyType</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Unit</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ReadWriteProperty</span><span class="symbol">&lt;</span><span class="identifier">Any</span><span class="symbol">?</span><span class="symbol">,</span>&nbsp;<span class="identifier">PropertyType</span><span class="symbol">&gt;</span></code><br/>
+<p>Create a delegate for a property that have to cascade its value to other elements</p>
+<h3>Parameters</h3>
+<a name="initialValue"></a>
+<code>initialValue</code> - Initial value of the property<br/>
+<br/>
+<a name="shouldCascade"></a>
+<code>shouldCascade</code> - Predicate to determinate if the modification has to cascade<br/>
+<br/>
+<a name="children"></a>
+<code>children</code> - Collection of elements that should be updated when cascading<br/>
+<br/>
+<a name="cascade"></a>
+<code>cascade</code> - How a child should update itself<br/>
+<br/>
+<br/>
+</BODY>
+</HTML>

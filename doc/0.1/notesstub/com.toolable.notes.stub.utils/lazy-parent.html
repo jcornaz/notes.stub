@@ -1,0 +1,27 @@
+<HTML>
+<HEAD>
+<title>lazyParent - notesstub</title>
+<link rel="stylesheet" href="..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">notesstub</a>&nbsp;/&nbsp;<a href="index.html">com.toolable.notes.stub.utils</a>&nbsp;/&nbsp;<a href=".">lazyParent</a><br/>
+<br/>
+<h1>lazyParent</h1>
+<a name="com.toolable.notes.stub.utils$lazyParent(kotlin.Function0((com.toolable.notes.stub.utils.lazyParent.ParentType)), kotlin.Function1((com.toolable.notes.stub.utils.lazyParent.ParentType, kotlin.Unit)), kotlin.Function1((com.toolable.notes.stub.utils.lazyParent.ParentType, kotlin.Unit)))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">ChildType</span><span class="symbol">, </span><span class="identifier">ParentType</span><span class="symbol">&gt;</span> <span class="identifier">lazyParent</span><span class="symbol">(</span><span class="identifier" id="com.toolable.notes.stub.utils$lazyParent(kotlin.Function0((com.toolable.notes.stub.utils.lazyParent.ParentType)), kotlin.Function1((com.toolable.notes.stub.utils.lazyParent.ParentType, kotlin.Unit)), kotlin.Function1((com.toolable.notes.stub.utils.lazyParent.ParentType, kotlin.Unit)))/init">init</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">ParentType</span><span class="symbol">, </span><span class="identifier" id="com.toolable.notes.stub.utils$lazyParent(kotlin.Function0((com.toolable.notes.stub.utils.lazyParent.ParentType)), kotlin.Function1((com.toolable.notes.stub.utils.lazyParent.ParentType, kotlin.Unit)), kotlin.Function1((com.toolable.notes.stub.utils.lazyParent.ParentType, kotlin.Unit)))/removeChild">removeChild</span><span class="symbol">:</span>&nbsp;<span class="identifier">ParentType</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Unit</span><span class="symbol">, </span><span class="identifier" id="com.toolable.notes.stub.utils$lazyParent(kotlin.Function0((com.toolable.notes.stub.utils.lazyParent.ParentType)), kotlin.Function1((com.toolable.notes.stub.utils.lazyParent.ParentType, kotlin.Unit)), kotlin.Function1((com.toolable.notes.stub.utils.lazyParent.ParentType, kotlin.Unit)))/addChild">addChild</span><span class="symbol">:</span>&nbsp;<span class="identifier">ParentType</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Unit</span><span class="symbol">)</span><span class="symbol">: </span><a href="-mutable-lazy-delegate/index.html"><span class="identifier">MutableLazyDelegate</span></a><span class="symbol">&lt;</span><span class="identifier">ChildType</span><span class="symbol">,</span>&nbsp;<span class="identifier">ParentType</span><span class="symbol">&gt;</span></code><br/>
+<p>Create a delegate for a property parent of the owner class
+The parent will be created if needed only
+The parent children list will always be up-to-date</p>
+<h3>Parameters</h3>
+<a name="init"></a>
+<code>init</code> - Will be invoked to create a new instance of the parent if needed<br/>
+<br/>
+<a name="removeChild"></a>
+<code>removeChild</code> - Will be invoked if the owner has to be removed from a parent<br/>
+<br/>
+<a name="addChild"></a>
+<code>addChild</code> - Will be invoked if the owner has to be added to a parent<br/>
+<br/>
+<br/>
+</BODY>
+</HTML>
