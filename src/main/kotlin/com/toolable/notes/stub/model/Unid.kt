@@ -1,16 +1,18 @@
 package com.toolable.notes.stub.model
 
-import com.google.common.base.Preconditions
-import com.toolable.notes.stub.utils.toHexa
-import com.toolable.notes.stub.utils.toLongFromHexa
+import java.math.BigInteger
 import java.util.*
 
 /**
  * Universal ID
  */
-data class Unid private constructor(private val leftPart: Long, private val rightPart: Long) {
+data class Unid private constructor(private val value: BigInteger) {
 
-    override fun toString() = (leftPart.toHexa() + rightPart.toHexa()).toUpperCase()
+    constructor(string: String) : this(BigInteger(string, 16).apply {
+        if (bitLength() > 128) throw IllegalArgumentException("Invalid Universal ID")
+    })
+
+    override fun toString() = String.format("%032X", value)
 
     companion object {
 
@@ -22,7 +24,7 @@ data class Unid private constructor(private val leftPart: Long, private val righ
         /**
          * Random generator
          */
-        var random = Random()
+        var randomGenerator = Random()
 
         /**
          * List of known unids
@@ -34,24 +36,17 @@ data class Unid private constructor(private val leftPart: Long, private val righ
          */
         @JvmStatic
         @Throws(IllegalArgumentException::class)
-        fun parse(value: String): Unid {
-            Preconditions.checkArgument(REGEX.matches(value), "Invalid universal id : \"$value\"")
-            val leftPart = value.substring(0..15).toLowerCase().toLongFromHexa()
-            val rightPart = value.substring(16..31).toLowerCase().toLongFromHexa()
-            val unid = Unid(leftPart, rightPart)
-            register(unid)
-            return unid
-        }
+        fun parse(value: String): Unid = Unid(value)
 
         /**
          * Create a new random unique [Unid]
          */
         @JvmStatic
         fun generate(): Unid {
-            var result = Unid(random.nextLong(), random.nextLong())
+            var result = Unid(BigInteger(128, randomGenerator))
 
             while (!register(result))
-                result = Unid(random.nextLong(), random.nextLong())
+                result = Unid(BigInteger(128, randomGenerator))
 
             return result
         }
