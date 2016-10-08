@@ -3,6 +3,8 @@ package com.toolable.notes.stub.impl
 import com.toolable.notes.stub.exception.NonExistantDocumentException
 import com.toolable.notes.stub.exception.RecycledObjectException
 import com.toolable.notes.stub.model.DatabaseStub
+import com.toolable.notes.stub.model.DocumentCollectionStub
+import com.toolable.notes.stub.model.DocumentStub
 import com.toolable.notes.stub.utils.toUnid
 import lotus.domino.*
 import java.util.*
@@ -76,6 +78,30 @@ class DatabaseImpl(stub: DatabaseStub) : BaseImpl<DatabaseStub>(stub), Database 
     override fun getFilePath(): String {
         assertNotRecycled()
         return stub.filePath
+    }
+
+    /**
+     * Create a new document in this database
+     *
+     * @return Created document
+     * @throws RecycledObjectException
+     */
+    @Throws(RecycledObjectException::class)
+    override fun createDocument(): Document {
+        assertNotRecycled()
+        return DocumentStub(stub).implementation
+    }
+
+    /**
+     * Create a new document collection in this database
+     *
+     * @return Created document collection
+     * @throws RecycledObjectException
+     */
+    @Throws(RecycledObjectException::class)
+    override fun createDocumentCollection(): DocumentCollection {
+        assertNotRecycled()
+        return DocumentCollectionStub().apply { database = stub }.implementation
     }
 
     /**
@@ -254,16 +280,6 @@ class DatabaseImpl(stub: DatabaseStub) : BaseImpl<DatabaseStub>(stub), Database 
      * @throws UnsupportedOperationException This operation is not supported yet
      */
     @Throws(UnsupportedOperationException::class)
-    override fun createDocumentCollection(): DocumentCollection? {
-        throw UnsupportedOperationException()
-    }
-
-    /**
-     * Unsupported operation
-     *
-     * @throws UnsupportedOperationException This operation is not supported yet
-     */
-    @Throws(UnsupportedOperationException::class)
     override fun getFileFormat(): Int {
         throw UnsupportedOperationException()
     }
@@ -345,16 +361,6 @@ class DatabaseImpl(stub: DatabaseStub) : BaseImpl<DatabaseStub>(stub), Database 
      */
     @Throws(UnsupportedOperationException::class)
     override fun createReplica(p0: String?, p1: String?): Database? {
-        throw UnsupportedOperationException()
-    }
-
-    /**
-     * Unsupported operation
-     *
-     * @throws UnsupportedOperationException This operation is not supported yet
-     */
-    @Throws(UnsupportedOperationException::class)
-    override fun createDocument(): Document? {
         throw UnsupportedOperationException()
     }
 

@@ -6,6 +6,7 @@ import com.toolable.notes.stub.exception.RecycledObjectException;
 import com.toolable.notes.stub.impl.DatabaseImpl;
 import com.toolable.notes.stub.impl.DocumentImpl;
 import lotus.domino.Document;
+import lotus.domino.NotesException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -63,5 +64,12 @@ public class DatabaseStubTest {
     @Test(expected = NonExistantDocumentException.class)
     public void testGetNonExistantDocumentByUNID() throws NonExistantDocumentException {
         impl.getDocumentByUNID("DEADBEEFDEADBEEFDEADBEEFDEADBEEF");
+    }
+
+    @Test
+    public void testCreateDocument() throws NotesException {
+        Document doc = impl.createDocument();
+        Assert.assertNotNull(doc);
+        Assert.assertSame(impl, doc.getParentDatabase());
     }
 }

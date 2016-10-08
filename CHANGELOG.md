@@ -1,4 +1,9 @@
-# 0.2-SNAPHSOT
-## Added
+# Change log
+## 0.2-SNAPHSOT
+### Notes interface methods implemented
 * `Database.getServer()`
-* `DocumentStub.contains(String)`
+* `Database.createDocument()`
+* `Database.createDocumentCollection()`
+
+### Stub facilities added
+* Add `DocumentStub.contains(String)`
