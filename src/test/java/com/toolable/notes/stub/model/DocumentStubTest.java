@@ -287,4 +287,12 @@ public class DocumentStubTest {
         impl.save();
         Assert.assertTrue(stub.isSaved());
     }
+
+    @Test
+    public void testContainsItem() {
+        stub.set("Hello", "World");
+
+        Assert.assertTrue(stub.contains("heLLo"));
+        Assert.assertFalse(stub.contains("good bye"));
+    }
 }

@@ -116,4 +116,12 @@ class DocumentStub() : BaseStub<DocumentImpl> {
     operator fun set(itemName: String, value: DateTime) {
         (this[itemName] ?: ItemStub(this, itemName)).dateTimes = listOf(value)
     }
+
+    /**
+     * Check if the document contains a given item name
+     *
+     * @param itemName Name of the item
+     * @return True if, and only if the documents contains an item with that name
+     */
+    operator fun contains(itemName: String) = itemName.toLowerCase() in items
 }
