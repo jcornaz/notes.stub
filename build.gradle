@@ -1,7 +1,7 @@
 buildscript {
     ext.api_version = '0.2'
 
-    ext.kotlin_version = '1.0.2'
+    ext.kotlin_version = '1.0.4'
     ext.dokka_version = '0.9.8'
 	ext.gradle_git_version = '1.5.1'
 
@@ -40,6 +40,7 @@ jar {
 
 repositories {
     mavenCentral()
+    maven { url "https://jitpack.io" }
 }
 
 dependencies {
@@ -50,6 +51,7 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile 'com.google.guava:guava:19.0'
     compile 'joda-time:joda-time:2.9.4'
+    compile 'com.github.slimaku:kable:11135395cf'
 
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-all:1.10.19'

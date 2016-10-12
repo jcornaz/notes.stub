@@ -1,18 +1,35 @@
 package com.toolable.notes.stub.model
 
-import java.math.BigInteger
+import kable.encoding.decodeFromHexadecimal
+import kable.encoding.encodeToHexadecimal
+import java.security.SecureRandom
 import java.util.*
 
 /**
  * Universal ID
  */
-data class Unid private constructor(private val value: BigInteger) {
+class Unid private constructor(val bytes: ByteArray) {
 
-    constructor(string: String) : this(BigInteger(string, 16).apply {
-        if (bitLength() > 128) throw IllegalArgumentException("Invalid Universal ID")
-    })
+    /**
+     * Hash code of the instance
+     */
+    val hash = Arrays.hashCode(bytes)
 
-    override fun toString() = String.format("%032X", value)
+    /**
+     * Construct an unid with an existing string
+     */
+    constructor(string: String) : this(string.decodeFromHexadecimal())
+
+    override fun hashCode() = hash
+
+    override fun equals(other: Any?): Boolean =
+            other === this || (
+                    other is Unid
+                            && this.hash == other.hash
+                            && Arrays.equals(this.bytes, other.bytes)
+                    )
+
+    override fun toString() = bytes.encodeToHexadecimal().toUpperCase()
 
     companion object {
 
@@ -24,7 +41,7 @@ data class Unid private constructor(private val value: BigInteger) {
         /**
          * Random generator
          */
-        var randomGenerator = Random()
+        var randomGenerator = SecureRandom()
 
         /**
          * List of known unids
@@ -43,10 +60,10 @@ data class Unid private constructor(private val value: BigInteger) {
          */
         @JvmStatic
         fun generate(): Unid {
-            var result = Unid(BigInteger(128, randomGenerator))
+            var result = Unid(ByteArray(16).apply { randomGenerator.nextBytes(this) })
 
             while (!register(result))
-                result = Unid(BigInteger(128, randomGenerator))
+                result = Unid(ByteArray(16).apply { randomGenerator.nextBytes(this) })
 
             return result
         }
