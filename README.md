@@ -8,6 +8,11 @@
 
 The goal is to be able to create fake documents, collections, databases that will behave like Lotus Notes would need of a real notes database access. Whith it you can do real unit tests of your Lotus Notes java application, without network or disk access and with better reproducibility.
 
+## Project status
+This project stay here for consultation purpose, but wont be maintened.
+
+Everyone is free to fork and create derivated tools.
+
 ## Use exemple
 ### With java
 ```java
@@ -43,11 +48,6 @@ val doc = stub.implementation
 println(doc.getItemValueString("MyStringField"));    // Print : "Hello"
 ```
 
-**IMPORTNANT** : Not all lotus interface methods are supported. Be aware of the supported methods.
-The [documentation](https://slimaku.github.io/notes.stub/doc/0.1/notesstub/com.toolable.notes.stub.impl/index.html) will tell you which operation is supported or not.
-
-Feel free to implements more methods and to propose pull-requests.
-
 ## Setup
 Please note, this project need a `Notes.jar` archive, that is property of IBM and cannot be distributed. Therefore, you need a licensed installation of Lotus Notes.
 
@@ -56,7 +56,3 @@ Please note, this project need a `Notes.jar` archive, that is property of IBM an
 3. Test it : `./gradlew check`
 
 From here you can work in it or add it in your project with your favorite method.
-
-## API Reference
-* [Complete KDoc](https://slimaku.github.io/notes.stub/doc/0.1/notesstub/index.html)
-* [Supported lotus notes methods](https://slimaku.github.io/notes.stub/doc/0.1/notesstub/com.toolable.notes.stub.impl/index.html)
