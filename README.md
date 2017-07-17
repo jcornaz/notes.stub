@@ -1,8 +1,6 @@
 # Notes Stub
 [![License](https://img.shields.io/badge/license-LGPLv3-blue.svg)](https://github.com/slimaku/notes.stub/blob/develop/LICENSE)
 ![Version](https://img.shields.io/badge/version-0.1.1-yellow.svg)
-[![Build status](https://travis-ci.org/slimaku/notes.stub.svg?branch=master)](https://travis-ci.org/slimaku/notes.stub)
-[![Code coverage](https://codecov.io/gh/slimaku/notes.stub/branch/master/graph/badge.svg)](https://codecov.io/gh/slimaku/notes.stub)
 
 *Minimalistic* Lotus Notes behaviors reproduction for unit testing purpose. Written in kotlin an designed to be used from kotlin or java.
 
